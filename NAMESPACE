@@ -1,0 +1,66 @@
+#####################################
+##               Export            ##
+#####################################
+
+export(addpoints,
+       cluster.graph,
+       cluster.id,
+       components.graph,
+       convert.graph,
+       create.parameter.df,
+       edge.graph,
+       extract.graph,
+       import.shape,
+       iterate.graph,
+       MetaLandSim.GUI,
+       list.stats,
+       manage.simulations,
+       matrix.graph,
+       merge.with.order,
+       metrics.graph,
+       min_distance,
+       parameter.estimate,
+       plotL.graph,
+       plot_expansion,
+       plot_graph,
+       removepoints,
+       remove.species,
+       range_raster,
+       range_expansion,
+       rland.graph,
+       simulate_graph,
+       span.graph,
+       species.graph,
+       spom,
+       summary_landscape,
+       summary_metapopulation
+       )
+
+#####################################
+##              Imports            ##
+#####################################       
+       
+import("tcltk")
+
+importFrom("spatstat", as.ppp, nndist, npoints, owin, rSSI, pairdist, coords)
+importFrom("Biobase",openPDF)
+importFrom("raster", raster, contour, as.matrix)
+importFrom("e1071", allShortestPaths, extractPath)
+importFrom("graphics", symbols, segments)
+importFrom("googleVis", gvisLineChart, gvisMerge)
+importFrom("maptools", readShapePoly)
+importFrom("rgeos", gCentroid)
+importFrom("sp", select.spatial, SpatialPoints)
+importFrom("spgrass6", execGRASS, readRAST6)
+importFrom("stats", cutree, hclust, dist, sd, nls)
+importFrom("fgui", guiGetValue, guiv, guiSet, setListElements)
+importFrom("grDevices", rainbow, dev.new)
+
+
+################################
+##          Classes           ##
+################################
+exportClasses("metapopulation",
+              "landscape",
+              "expansion")           
+

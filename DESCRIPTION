@@ -1,0 +1,21 @@
+Package: MetaLandSim
+Type: Package
+Title: Metapopulation and Landscape Simulation
+Version: 0.1
+Date: 2014-10-08
+Depends: R (>= 2.10), tcltk, spatstat, stats, sp
+Imports: Biobase, e1071, fgui, grDevices, graphics, googleVis,
+        maptools, rgeos, spgrass6, raster
+Suggests: rasterVis
+Author: Frederico Mestre, Fernando Canovas, Ricardo Pita, Antonio Mira, Pedro
+    Beja.
+Maintainer: Frederico Mestre <mestre.frederico@gmail.com>
+Description: Tools to generate random landscape graphs, evaluate species
+    occurrence in dynamic landscapes, simulate future landscape occupation and
+    evaluate range expansion when new empty patches are available (e.g. as a
+    result of climate change).
+License: GPL (>= 2)
+Repository: CRAN
+Packaged: 2014-11-09 00:19:18 UTC; Frederico
+NeedsCompilation: no
+Date/Publication: 2014-11-09 09:35:48

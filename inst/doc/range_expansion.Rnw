@@ -1,0 +1,96 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{Sweave}
+\usepackage{float}
+
+\title{Range Expansion Simulation}
+\author{F. Mestre, F. Canovas, R. Pita, A. Mira, P. Beja}
+\date{\today}
+
+%\VignetteIndexEntry{Range Expansion Simulation}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+Modelling approaches for estimating species ability to track environmental change over large scales may rely on different assumptions regarding the role of dispersal (Barbet-Massin  et al. 2012; Engler et al. 2012; Bateman et al. 2013; Zhou and Kot, 2013): i) The species cannot disperse, thus considering null dispersal ability (which would, in most cases, underestimate the potential future area); ii) Infinite dispersal ability, which means that the species will be able to cope with the shifts of its ecological niche by fully occupying all newly available areas (in most cases, maybe with the exception of exceptionally mobile species, the is an unrealistic assumption which will produce optimistic results); iii) A mean dispersal distance per decade (p.ex.) is defined, considering the ability of the species to disperse (this approach can be a bit arbitrary, if not carefully considered); iv) a dispersal kernel is developed based on a set of species traits (this is a more realistic approach which represents a good compromise between the full dispersal and no-dispersal approaches).
+It is known however that the species ability to disperse depends not only on its own traits but also on the landscape configuration and composition (Nathan et al. 2012).  This package allows a simplified approach to derive a dispersal model from the simulation of range expansion in landscapes with different characteristics, using the function range.expansion. Similar approaches require parameters about the demographic rates of the species, or other data that, in most cases, are difficult to obtain. This approach might be considered simpler, once it requires data that can be obtained from capture-recapture, telemetry or bibliography (such as dispersal ability) and the information on basic landscape structure, which can be obtained using GIS.
+
+\section{Work-flow}
+\subsection{Parameterization}
+This is crucial, and can be achieved using the function parameter.estimate. A vignette is available, detailing the process, which must be carefully implemented, as this is the process that allows the characterization of the study species and its relation with the landscape.
+
+\subsection{Simulation of range expansion}
+This is done using the function range.expansion, which will simulate the range expansion into new, empty, landscape mosaics a given (user defined) number of times (defined by parameter iter). This simulation will be carried out for a given time period (defined by the parameter tsteps). The output of this function is a list of four data frames with the result of the occupation of sequences of landscapes in the four cardinal directions.
+
+<<fig=true>>=
+library(MetaLandSim)
+
+#Create starting landscape (the simulation will assume that 
+#all subsequent landscapes are built with the same parameter combination).
+
+rl1 <- rland.graph(mapsize=10000, dist_m=10, areaM=0.05, areaSD=0.02, 
+Npatch=250, disp=800, plotG=TRUE)
+
+#Create range expansion model. Here run only with two repetitions (iter=2). 
+#Ideally it should be run with more repetitions to provide more robust results.
+
+#Not run
+#rg_exp1 <- range_expansion(rl=rl1, percI=50, amin=0, param=param1,
+#b=1, tsteps=100, iter=2)
+#End (Not run)
+@
+
+The previous range expansion simulation produces a graphic output (which opens in a html page):
+
+\begin{figure}[H]
+ \centering
+ \includegraphics{rg1}
+\end{figure}
+
+This represents the probability of occupation (in the four cardinal directions) of landscape mosaics at a given distance from the closer current species occurrence.
+
+\subsection{Conversion of the output to a spatial model}
+The dispersal simulation generated for each time step in the previous section should be converted into a model of species occurrence based only in the dispersal. This is done using the function range.to.raster. The output will be a raster file with the dispersal-only occupancy model after a given time period.
+This dispersal model can be, subsequently, combined with the output of an ecological niche model. This will allow the projection of potential occupancy considering three important factors: the species ecological niche, the species dispersal ability and the landscape characteristics.  
+
+<<>>=
+data(rg_exp)
+presences <- paste(system.file(package="MetaLandSim"),
+ "/examples/presences.asc", sep="")
+landmask <- paste(system.file(package="MetaLandSim"), 
+"/examples/landmask.asc", sep="")
+
+#First, start GRASS from R: 
+#initGRASS(gisBase = "grass folder", home = tempdir(), 
+#gisDbase = "mapset location",override = TRUE)
+#Create raster, using the sample dataset 
+#rg_exp (generated with 100 repetitions)
+#range_raster(presences.map = presences, re.out=rg_exp, 
+#mask.map=landmask, plot.directions=FALSE)
+@
+
+This application of the expansion model to the current species occurrences (B) provides a future occurrence model based only on dispersal ability and landscape configuration, such as:
+
+\begin{figure}[H]
+ \centering
+ \includegraphics{rg2}
+\end{figure}
+
+The four sub-models (A), considering each of the cardinal directions, are combined in a final dispersal model (C).
+
+\section{References}
+
+\begin{enumerate}
+\item Barbet-Massin, M., Thuiller, W., and Jiguet, F. (2012). The fate of European breeding birds under climate, land-use and dispersal scenarios. Global Change Biology, 18(3), 881-890.
+
+\item Bateman, B. L., Murphy, H. T., Reside, A. E., Mokany, K., and VanDerWal, J. (2013). Appropriateness of full-, partial-and no-dispersal scenarios in climate change impact modelling. Diversity and Distributions, 19(10), 1224-1234.
+
+\item Engler, R., Hordijk, W., and Guisan, A. (2012). The MIGCLIM R package–seamless integration of dispersal constraints into projections of species distribution models. Ecography, 35(10), 872-878.
+
+\item Nathan R, Klein E, Robledo-Arnuncio JJ and Revilla E (2012). Dispersal Kernels: review. In Colbert J, Baguette M, Benton TG and Bullock JM (Eds.). Dispersal Ecology and Evolution. Oxford University Press. Oxford. pp: 187-210.
+
+\item Zhou, Y., and Kot, M. (2013). Life on the Move: Modeling the effects of Climate-Driven Range Shifts with Integrodifference Equations. In: Lewis MA, Maini PK and Petrvoski S. (Eds.). Dispersal, Individual Movement and Spatial Ecology. A Mathematical Perspective. Lecture Notes in Mathematics 2071. Springer-Verlag. Berlin. pp: 263-292. 
+\end{enumerate}
+\end{document}
