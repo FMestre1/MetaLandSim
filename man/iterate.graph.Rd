@@ -151,10 +151,10 @@ data(param1)
 
 it1 <- iterate.graph(iter = 2, mapsize =10000, dist_m = 10, areaM = 0.05, 
 			areaSD = 0.02, Npatch = 250, disp = 800, span = 100, 
-			par1 = 'hab', par2 = 2, par3 = 0.0001, par4 = NULL, 
-			par5 = NULL, method = 'percentage', parm = 50, 
-			nsew = 'none', a_min = 0, param_df = param1, 
-			kern = 'op1', conn = 'op1', colnz = 'op1', ext = 'op1', 
+			par1 = "hab", par2 = 2, par3 = 0.0001, par4 = NULL, 
+			par5 = NULL, method = "percentage", parm = 50, 
+			nsew = "none", a_min = 0, param_df = param1, 
+			kern = "op1", conn = "op1", colnz = "op1", ext = "op1", 
 			beta1 = NULL, b = 1, c1 = NULL, c2 = NULL, z = NULL, 
 			R = NULL, graph =TRUE)
 }

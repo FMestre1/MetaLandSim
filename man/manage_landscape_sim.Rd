@@ -1,13 +1,13 @@
-\name{manage.simulations}
-\alias{manage.simulations}
+\name{manage_landscape_sim}
+\alias{manage_landscape_sim}
 \title{
-Batch simulation
+Batch landscape simulation
 }
 \description{
 Runs a series of simulations, using \code{\link{iterate.graph}}, allows changing the simulations parameters in several sequential simulations.
 }
 \usage{
-manage.simulations(par_df, parameters_spom)
+manage_landscape_sim(par_df, parameters_spom)
 }
 \arguments{
   \item{par_df}{
@@ -60,8 +60,9 @@ Frederico Mestre and Fernando Canovas
 Depending on computing capacity, this function can take from several hours to several days to run.
 }
 \seealso{
-\code{\link{rland.graph}}, \code{\link{span.graph}}, \code{\link{species.graph}}, \code{\link{spom}}, \code{\link{manage.simulations}}
+\code{\link{rland.graph}}, \code{\link{span.graph}}, \code{\link{species.graph}}, \code{\link{spom}}
 }
+
 \examples{
 
 #Setup the parameters for each simulation:
@@ -111,6 +112,6 @@ rm('PAR1_SPAN2','PAR2_SPAN2','PAR3_SPAN2','PAR4_SPAN2','PAR5_SPAN2','A_MIN_SPECI
 \dontrun{
 data(param1)
 
-ms2 <- manage.simulations(par_df=simulation,parameters_spom=param1)
+ms2 <- manage_landscape_sim(par_df=simulation,parameters_spom=param1)
 }
 }

@@ -1,4 +1,4 @@
-manage.simulations <-
+manage_landscape_sim <-
 function(par_df,parameters_spom)
   {
     
