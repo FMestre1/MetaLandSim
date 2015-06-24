@@ -1,5 +1,5 @@
 \name{MetaLandSim-internal}
-\alias{merge.with.order}
+\alias{merge_order}
 \title{
 Internal functions for the MetaLandSim package.
 }

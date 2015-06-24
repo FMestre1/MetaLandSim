@@ -39,7 +39,7 @@ data(param1)
 #(output of span.graph):
 
 sim1 <- simulate_graph(	rl=rland, rlist=landscape_change, simulate.start=TRUE, 
-			method='percentage', parm=50, nsew='none', a_min=0, 
+			method='percentage', parm=50, nsew='none', 
 			param_df=param1, kern='op1',  conn='op1', colnz='op1', 
 			ext='op1', beta1=NULL, b=1, c1=NULL, c2=NULL, z=NULL, R=NULL)
 

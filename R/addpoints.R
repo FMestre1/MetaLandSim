@@ -42,7 +42,7 @@ if (class(rl)!="landscape")
         col1 <- rainbow(max(rl[, 5]))
         col2 <- as.data.frame(col1)
         col2[, 2] <- seq(1:max(rl[, 5]))
-        col3 <- merge.with.order(rl, col2, by.x = "cluster",
+        col3 <- merge_order(rl, col2, by.x = "cluster",
                                  by.y = "V2", sort=FALSE,
                                  keep_order=TRUE)[, 9]
         rl[, "colour"] <- col3

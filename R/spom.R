@@ -1,8 +1,8 @@
 spom <-
-function(sp,a_min,kern,conn,colnz,ext,param_df,beta1=NULL,b=1,c1=NULL,c2=NULL,z=NULL,R=NULL)
+function(sp,kern,conn,colnz,ext,param_df,beta1=NULL,b=1,c1=NULL,c2=NULL,z=NULL,R=NULL)
   {
-edge.graph
-if (class(sp)!="metapopulation") 
+
+  if (class(sp)!="metapopulation") 
   {
   stop(paste(sp, " should be an object of class class 'metapopulation'.", sep=""), call. = FALSE)
   }
@@ -22,7 +22,7 @@ if (class(sp)!="metapopulation")
       }
     if(kern == "op2")
       {
-        kern_m <- as.matrix(1/(1+alpha*(dist1)^beta1))
+        kern_m <- as.matrix(1/(1+alpha*(dist1^beta1)))
         diag(kern_m) <- 0
         kern_m <- as.data.frame(kern_m)
       }
@@ -35,7 +35,7 @@ if (class(sp)!="metapopulation")
       {
         Si <- sweep(kern_m, 2, A^b, "*")
         S <- as.vector(rowSums(Si[, p > 0, drop=FALSE]))
-        S <- A^c1*S
+        S <- (A^c1)*S
       }
     if(colnz == "op1")
       {
@@ -47,23 +47,24 @@ if (class(sp)!="metapopulation")
       }
     if(colnz == "op3")
       {
-        C <- S^z/((S^z+1)/c2)
+        C <- S^z/(S^z+(1/c2))
       }
     if(ext == "op1")
       {
-        E <- e/A^x
+        E <- e/(A^x)
         E <- ifelse(E>1, 1, E)
       }
     if(ext == "op2")
       {
-        E <- 1-exp(((-e)/(A^x)))
+        E <- 1-((-e)/(A^x))
       }
     if(ext == "op3")
       {
         E <- (e/A^x)*(1-C)^R
         E <- ifelse(E>1, 1, E)
       }
-    cond <- ifelse(p, (1-C)*E, C)
+    
+	cond <- ifelse(p, (1-C)*E, C)
     species2 <- ifelse(runif(length(p)) < cond, !p, p)
     turn <- ifelse (dfsp$species!=species2, 1, 0)
     nr_turn <- sum(turn)

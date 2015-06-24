@@ -20,7 +20,7 @@ function(dframe,mapsize,dispersal)
     col1 <- rainbow(max(rg2[, "clusters"]))
     col2 <- as.data.frame(col1)
     col2[, 2] <- seq(1:max(rg2[, 6]))
-    col3 <- merge.with.order(rg2, col2, by.x = "clusters", by.y = "V2", sort=FALSE,
+    col3 <- merge_order(rg2, col2, by.x = "clusters", by.y = "V2", sort=FALSE,
                                                  keep_order=TRUE)
     col5 <- nndist (col3[, 3:4])
     species_data <- col3[,6:(ncol(col3)-1)]

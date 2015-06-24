@@ -2,7 +2,7 @@ iterate.graph <-
 function (iter, mapsize, dist_m, areaM, areaSD, Npatch,
                            disp, span, par1="none", par2=NULL, par3=NULL, 
 						   par4=NULL, par5=NULL, method="percentage",
-                           parm, nsew="none", a_min, param_df, kern, conn,
+                           parm, nsew="none", param_df, kern, conn,
                            colnz, ext, beta1=NULL, b=1, c1=NULL, c2=NULL,
 						   z=NULL, R=NULL, graph=TRUE)
   {
@@ -18,7 +18,7 @@ function (iter, mapsize, dist_m, areaM, areaSD, Npatch,
         span1 <- span.graph(rland1, span, par1, par2, par3, par4, par5)
         span2 <- length(span1)
         sim <- simulate_graph(rland1, span1, simulate.start=TRUE, method, parm,
-                              nsew, a_min, param_df, kern, conn, colnz, ext, beta1,
+                              nsew, param_df, kern, conn, colnz, ext, beta1,
                               b, c1, c2, z, R)
         marea <- list.stats(sim, "mean_area", plotG=FALSE)
         ma[1:length(marea), i] <- marea

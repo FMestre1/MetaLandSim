@@ -13,7 +13,6 @@ manage_landscape_sim(par_df, parameters_spom)
   \item{par_df}{
 Arguments data frame to be used by iterate.graph (each row of this data frame is a set of Arguments). The data frame has to have the following columns in this order (the name of the column is not relevant):
 \itemize{
- \item A_MIN - Minimum patch area for persistence (in hectares).
  \item MDST - Minimum inter-patch distance (in meters). 
  \item NPATCH - Number of patches in the landscape.
  \item AREA_M - Mean area of the patches (in hectares).
@@ -71,7 +70,6 @@ PAR2_SPAN2 <- rep(seq(from=0,to=80,by=2), each=20)#parameter 2 for the span func
 PAR3_SPAN2 <- rep(seq(from=0,to=80,by=2),20)#parameter 3 for the span function 
 PAR4_SPAN2 <- rep(2,820)#parameter 4 for the span function 
 PAR5_SPAN2 <- rep(2,820)#parameter 5 for the span function 
-A_MIN_SPECIES2 <- rep(0,820)#minimum area to be considered occupied 
 NSEW_SPECIES2 <- rep('none',820)#where to start populating the landscape 
 PARM_SPECIES2 <- rep(5,820)#parameter for the species function 
 METHOD_SPECIES2 <- rep('percentage',820)#method for populating the landscape 
@@ -96,14 +94,14 @@ DISPERSAL2 <- rep(800,820)#mean dispersal ability of the species
 
 
 #Build parameter data frame (keep the order of the parameters):
-simulation <- data.frame(A_MIN_SPECIES2,MDST2,NPATCH2,AREA_M2,AREA_SD2,
+simulation <- data.frame(MDST2,NPATCH2,AREA_M2,AREA_SD2,
 MAPSIZE2,SPAN2,ITER2,PAR1_SPAN2,PAR2_SPAN2,PAR3_SPAN2,PAR4_SPAN2,PAR5_SPAN2,
 NSEW_SPECIES2,PARM_SPECIES2,METHOD_SPECIES2,KERN,CONN,COLNZ,EXT,BETA1,B,C1,C2,Z,R2,
 DISPERSAL2)
 
 
 #Delete vectors used for data frame creation:
-rm('PAR1_SPAN2','PAR2_SPAN2','PAR3_SPAN2','PAR4_SPAN2','PAR5_SPAN2','A_MIN_SPECIES2',
+rm('PAR1_SPAN2','PAR2_SPAN2','PAR3_SPAN2','PAR4_SPAN2','PAR5_SPAN2',
 'NSEW_SPECIES2','PARM_SPECIES2','METHOD_SPECIES2','MAPSIZE2','SPAN2','ITER2',
 'NPATCH2','AREA_M2','AREA_SD2','MDST2','KERN','CONN','COLNZ','EXT',
 'BETA1','B','C1','C2','Z','R2','DISPERSAL2')

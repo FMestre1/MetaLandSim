@@ -1,5 +1,5 @@
 species.graph <-
-function(rl, method="percentage", parm, nsew="none", a_min, plotG=TRUE)
+function(rl, method="percentage", parm, nsew="none", plotG=TRUE)
   {
     if (class(rl)!="landscape") 
   {
@@ -18,8 +18,7 @@ function(rl, method="percentage", parm, nsew="none", a_min, plotG=TRUE)
       }
     if(method == "percentage")
       {
-        d2_selectable <- d2[d2$areas>a_min,]
-        vector_sel <- c(as.numeric(rownames(d2_selectable)))
+        vector_sel <- c(as.numeric(rownames(d2)))
         size_vecsel <- length(vector_sel)
     if(nsew == "none")
       {
@@ -28,45 +27,44 @@ function(rl, method="percentage", parm, nsew="none", a_min, plotG=TRUE)
       }
     if(nsew == "N")
       {
-        d5 <- rev(sort(d2_selectable[, 2]))
+        d5 <- rev(sort(d2[, 2]))
         ny <- round((size_vecsel*parm)/100)
         py <- d5[1:ny]
-        mN <- match (d2_selectable[, 2], py)
-        dfN <- cbind (d2_selectable, mN)
+        mN <- match (d2[, 2], py)
+        dfN <- cbind (d2, mN)
         select <- as.numeric(rownames(na.omit(dfN[])))
       }
     if(nsew == "S")
       {
-        d5 <- sort(d2_selectable[, 2])      
+        d5 <- sort(d2[, 2])      
         ny <- round((size_vecsel*parm)/100) 
         py <- d5[1:ny] 
-        mN <- match (d2_selectable[, 2], py)
-        dfN <- cbind (d2_selectable, mN) 
+        mN <- match (d2[, 2], py)
+        dfN <- cbind (d2, mN) 
         select <- as.numeric(rownames(na.omit(dfN[]))) 
       }
     if(nsew == "E")
       {
-        d5 <- rev(sort(d2_selectable[, 1])) 
+        d5 <- rev(sort(d2[, 1])) 
         nx <- round((size_vecsel*parm)/100) 
         px <- d5[1:nx] 
-        mN <- match (d2_selectable[, 1], px)
-        dfN <- cbind (d2_selectable, mN) 
+        mN <- match (d2[, 1], px)
+        dfN <- cbind (d2, mN) 
         select <- as.numeric(rownames(na.omit(dfN[]))) 
       }
     if(nsew == "W")
       {
-        d5 <- sort(d2_selectable[, 1])      
+        d5 <- sort(d2[, 1])      
         nx <- round((size_vecsel*parm)/100) 
         px <- d5[1:nx] 
-        mN <- match (d2_selectable[, 1], px)
-        dfN <- cbind (d2_selectable, mN) 
+        mN <- match (d2[, 1], px)
+        dfN <- cbind (d2, mN) 
         select <- as.numeric(rownames(na.omit(dfN[]))) 
       }
     }
   if(method == "number")
     {
-      d2_selectable <- d2[d2$areas>a_min,]
-      vector_sel <- c(as.numeric(rownames(d2_selectable))) 
+      vector_sel <- c(as.numeric(rownames(d2))) 
       size_vecsel <- length(vector_sel)
       if(nsew == "none")
         {
@@ -74,38 +72,38 @@ function(rl, method="percentage", parm, nsew="none", a_min, plotG=TRUE)
         }
       if(nsew == "N")
         {
-          d5 <- rev(sort(d2_selectable[, 2])) 
+          d5 <- rev(sort(d2[, 2])) 
           ny <- parm 
           py <- d5[1:ny] 
-          mN <- match (d2_selectable[, 2], py)
-          dfN <- cbind (d2_selectable, mN) 
+          mN <- match (d2[, 2], py)
+          dfN <- cbind (d2, mN) 
           select <- as.numeric(rownames(na.omit(dfN[]))) 
         }
       if(nsew == "S")
         {
-          d5 <- sort(d2_selectable[, 2]) 
+          d5 <- sort(d2[, 2]) 
           ny <- parm 
           py <- d5[1:ny] 
-          mN <- match (d2_selectable[, 2], py)
-          dfN <- cbind (d2_selectable, mN) 
+          mN <- match (d2[, 2], py)
+          dfN <- cbind (d2, mN) 
           select <- as.numeric(rownames(na.omit(dfN[]))) 
         }
       if(nsew == "E")
         {
-          d5 <- rev(sort(d2_selectable[, 1])) 
+          d5 <- rev(sort(d2[, 1])) 
           nx <- parm 
           px <- d5[1:nx] 
-          mN <- match (d2_selectable[, 1], px)
-          dfN <- cbind (d2_selectable, mN) 
+          mN <- match (d2[, 1], px)
+          dfN <- cbind (d2, mN) 
           select <- as.numeric(rownames(na.omit(dfN[]))) 
         }
       if(nsew == "W")
         {
-          d5 <- sort(d2_selectable[, 1]) 
+          d5 <- sort(d2[, 1]) 
           nx <- parm 
           px <- d5[1:nx] 
-          mN <- match (d2_selectable[, 1], px)
-          dfN <- cbind (d2_selectable, mN) 
+          mN <- match (d2[, 1], px)
+          dfN <- cbind (d2, mN) 
           select <- as.numeric(rownames(na.omit(dfN[]))) 
         }
     }

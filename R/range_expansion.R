@@ -126,7 +126,7 @@ function(rl, percI, amin, param, b=1, tsteps, iter)
                   areaM = occ_landscape$mean.area, areaSD = occ_landscape$SD.area, 
                   Npatch = npatch, disp = occ_landscape$dispersal, plotG = FALSE)
                 occ_landscape <- suppressWarnings(species.graph(rl = rl1, method = "percentage", 
-                  parm = 0, a_min = 0, plotG = FALSE))
+                  parm = 0, plotG = FALSE))
                 occ_landscape$nodes.characteristics[nrow_land + 2, ] <- NA
                 occ_landscape$nodes.characteristics$ID[(nrow_land + 1):(nrow_land + 
                   2)] <- (ID_land + 1):(ID_land + 2)
@@ -167,7 +167,7 @@ function(rl, percI, amin, param, b=1, tsteps, iter)
                 occ_landscape$distance.to.neighbours <- dist_nodos
             }
             class(occ_landscape) <- "metapopulation"
-			occ_landscape_new <- spom(sp = occ_landscape, a_min = amin, kern = "op1", 
+			occ_landscape_new <- spom(sp = occ_landscape, kern = "op1", 
                 conn = "op1", colnz = "op1", ext = "op1", param_df = param, b = b, 
                 c1 = NULL, c2 = NULL, z = NULL, R = NULL)
             if (occ_landscape_new$nodes.characteristics$species2[nrow_land + 1] == 
@@ -232,7 +232,7 @@ function(rl, percI, amin, param, b=1, tsteps, iter)
     outputW <- distance
     for (i in 1:iter) {
         sp1 <- species.graph(rl = rl, method = "percentage", parm = percI, nsew = "none", 
-            a_min = amin, plotG = FALSE)
+            plotG = FALSE)
         nodeN <- node.expansion(occ_landscape = sp1, amin, param, b, node = "North", 
             tsteps)
         outputN <- suppressWarnings(cbind(outputN, c(nodeN[, 2], rep(NA, length(outputN) - 

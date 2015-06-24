@@ -23,7 +23,7 @@ function (rl)
     col1 <- rainbow(max(new_2[,6]))
     col2 <- as.data.frame(col1)      
     col2[,2] <- seq(1:nrow(col2))   
-    col3 <- merge.with.order(new_2, col2, by.x="clusters",
+    col3 <- merge_order(new_2, col2, by.x="clusters",
                              by.y="V2", sort=FALSE, keep_order=TRUE) 
     col5 <- nndist (rl3[,1:2])      
     col4 <- data.frame(col3$x, col3$y, col3$areas, col3$radius, 

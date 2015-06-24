@@ -31,7 +31,7 @@ Then, it computes and fits single sigmoidal functions for every direction on the
 This function uses internally a connection to \href{http://grass.osgeo.org/}{GRASS GIS software} through the package \code{\link{spgrass6-package}}, in order to increase the performance for geographical calculations.
 }
 \value{
-an object of class \code{RasterLayer} (see \code{\link{Raster-class}} package for further description), which includes the probability of occupancy, at a given time step, considering only dispersal ability and landscape configuration.
+an object of class \code{RasterLayer} (see \code{\link{Raster-class}} package for further description), which includes the probability of occupancy, at a given time step, considering only dispersal ability and landscape configuration. MetaLandSim uses GRASS, version 6 through the package \href{http://cran.r-project.org/package=spgrass6}{spgrass6}.
 }
 \references{
 The same as range_expansion.
@@ -40,16 +40,16 @@ The same as range_expansion.
 Frederico Mestre and Fernando Canovas
 }
 \note{
-This function depends on \code{\link{spgrass6-package}}.
+This function depends on \href{http://cran.r-project.org/package=spgrass6}{spgrass6}.
 }
 \seealso{
-\code{\link{range_expansion}}, \code{\link{Raster-class}}, \code{\link{spgrass6-package}}, \code{\link{initGRASS}}
+\code{\link{range_expansion}}, \code{\link{Raster-class}}, \href{http://cran.r-project.org/package=spgrass6}{spgrass6}, \code{\link{initGRASS}}
 }
 \examples{
 
 \dontrun{
 
-data(re.out)
+data(rg_exp)
 
 presences <- system.file("examples/presences.asc", package="MetaLandSim")
 mask <- system.file("examples/landmask.asc", package="MetaLandSim")

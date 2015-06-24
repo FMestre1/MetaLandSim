@@ -354,9 +354,9 @@ MetaLandSim.GUI <- function() {
         tkconfigure(dfnr.label, text = as.character(vnr[numi]))
         tkdestroy(tf)
     }
-    species.graph.out <- function(data1, data2, data3, data4, data5, data6, outfile) {
+    species.graph.out <- function(data1, data2, data3, data4, data6, outfile) {
         exp.eval <- paste(outfile, "<<- species.graph(rl = ", data1, ", method = data2, parm = ", 
-            data3, ", nsew = data4, a_min = ", data5, ", plotG = ", data6, ")", sep = "")
+            data3, ", nsew = data4, plotG = ", data6, ")", sep = "")
         eval(parse(text = exp.eval))
     }
     species.graph.gui <- function() {
@@ -383,10 +383,6 @@ MetaLandSim.GUI <- function() {
         point.entry <- tkentry(IFrame, textvariable = pointvar)
         tkgrid(tklabel(IFrame, text = "Point of entrance for the species. Default 'none'"), 
             point.entry, sticky = "w")
-        minavar <- tclVar()
-        mina.entry <- tkentry(IFrame, textvariable = minavar)
-        tkgrid(tklabel(IFrame, text = "Minimum area of the patches to be occupied (hectares)"), 
-            mina.entry, sticky = "w")
         tkgrid(IFrame)
         LFrame <- tkframe(sg, relief = "groove", borderwidth = 2)
         tkgrid(tklabel(LFrame, text = "Do plot"))
@@ -417,12 +413,11 @@ MetaLandSim.GUI <- function() {
                 point <- tclvalue(pointvar)
             }
             else point <- "none"
-            mina <- tclvalue(minavar)
             available <- c(TRUE, FALSE)
             plotting <- available[as.numeric(tclvalue(loadvar))]
             outname <- tclvalue(outvar)
             substitute(species.graph.out(data1 = df1, data2 = method, data3 = param, 
-                data4 = point, data5 = mina, data6 = plotting, outfile = outname))
+                data4 = point, data6 = plotting, outfile = outname))
         }
         "reset" <- function() {
             tclvalue(dfvar) <- ""
@@ -451,10 +446,10 @@ MetaLandSim.GUI <- function() {
     }
     tkadd(simM, "command", label = "Generate species occupation", command = function() species.graph.gui())
     iterate.graph.gui <- function(iter, mapsize, dist_m, areaM, areaSD, Npatch, disp, 
-        span, par1, par2, par3, par4, par5, method, parm, nsew, a_min, param_df, 
+        span, par1, par2, par3, par4, par5, method, parm, nsew, param_df, 
         kern, conn, colnz, ext, beta1, b, c1, c2, z, R, graph, outname) {
         result1 <- iterate.graph(iter, mapsize, dist_m, areaM, areaSD, Npatch, disp, 
-            span, par1, par2, par3, par4, par5, method, parm, nsew, a_min, param_df, 
+            span, par1, par2, par3, par4, par5, method, parm, nsew, param_df, 
             kern, conn, colnz, ext, beta1, b, c1, c2, z, R, graph)
         exp.eval <- paste(outname, "<<- result1", sep = "")
         eval(parse(text = exp.eval))
@@ -530,7 +525,6 @@ MetaLandSim.GUI <- function() {
         var14 <- tclVar(init = "percentage")
         var15 <- tclVar()
         var16 <- tclVar(init = "none")
-        var17 <- tclVar()
         var18 <- tclVar()
         var19 <- tclVar(init = "op1")
         var20 <- tclVar(init = "op1")
@@ -558,7 +552,6 @@ MetaLandSim.GUI <- function() {
         it.entry14 <- tkentry(IOFrame, textvariable = var14)
         it.entry15 <- tkentry(IOFrame2, textvariable = var15)
         it.entry16 <- tkentry(IOFrame2, textvariable = var16)
-        it.entry17 <- tkentry(IOFrame2, textvariable = var17)
         df.entry <- tkentry(IOFrame2, textvariable = var18)
         dfnr.label <- tklabel(IOFrame2, width = 5)
         choosevect.but <- tkbutton(IOFrame2, text = "Set", command = function() choose.df(df.entry, 
@@ -621,9 +614,6 @@ MetaLandSim.GUI <- function() {
         but16 <- tkbutton(IOFrame2, text = "?", command = function() tkmessageBox(icon = "info", 
             message = "'N', 'S', 'E', 'W' or none - point of entry of the species in the landscape. By default set to 'none'. To be internally passed to species.graph.", 
             title = "nsew", type = "ok", parent = IOFrame2))
-        but17 <- tkbutton(IOFrame2, text = "?", command = function() tkmessageBox(icon = "info", 
-            message = "Minimum patch area of the patches to be occupied (in hectares). To be internally passed to species.graph.", 
-            title = "a_min", type = "ok", parent = IOFrame2))
         but18 <- tkbutton(IOFrame2, text = "?", command = function() tkmessageBox(icon = "info", 
             message = "Parameter data frame delivered by parameter.estimate.", title = "param_df", 
             type = "ok", parent = IOFrame2))
@@ -689,8 +679,6 @@ MetaLandSim.GUI <- function() {
             it.entry15, but15, sticky = "w")
         tkgrid(tklabel(IOFrame2, text = "Point of entrance for the species. Default 'none'"), 
             it.entry16, but16, sticky = "w")
-        tkgrid(tklabel(IOFrame2, text = "Minimum area of the patches to be occupied (hectares)"), 
-            it.entry17, but17, sticky = "w")
         tkgrid(tklabel(IOFrame2, text = "Parameter data frame delivered by parameter.estimate: "), 
             df.entry, choosevect.but, dfnr.label, but18, sticky = "w")
         tkgrid(tklabel(IOFrame2, text = "Dispersal Kernel"), it.entry19, but19, sticky = "w")
@@ -746,7 +734,6 @@ MetaLandSim.GUI <- function() {
             vect14 <- tclvalue(var14)
             vect15 <- as.numeric(tclvalue(var15))
             vect16 <- tclvalue(var16)
-            vect17 <- as.numeric(tclvalue(var17))
             vect18 <- parse(text = tclvalue(var18))[[1]]
             vect19 <- tclvalue(var19)
             vect20 <- tclvalue(var20)
@@ -848,16 +835,16 @@ MetaLandSim.GUI <- function() {
     }
     tkadd(simM, "command", label = "Batch simulation", command = function() manage.simulations.gui())
     tkadd(topMenu, "cascade", label = "Landscape simulation", menu = simM)
-    range.expansion.out <- function(data1, data2, data3, data4, data5, data6, data7, 
+    range.expansion.out <- function(data1, data2, data4, data5, data6, data7, 
         outfile) {
         exp.eval <- paste(outfile, " <<- range_expansion(rl = ", data1, ", percI = ", 
-            data2, ", amin = ", data3, ", param = ", data4, ", b = ", data5, ", tsteps = ", 
+            data2, ", param = ", data4, ", b = ", data5, ", tsteps = ", 
             data6, ", iter = ", data7, ")", sep = "")
         eval(parse(text = exp.eval))
     }
     range.expansion.gui <- function() {
         sg <- tktoplevel()
-        tkwm.title(sg, "Generate species occupation")
+        tkwm.title(sg, "Generate dispersal model")
         IFrame <- tkframe(sg, relief = "groove", borderwidth = 2)
         tkgrid(tklabel(IFrame, text = "- input -", foreground = "blue"), columnspan = 5)
         dfvar <- tclVar()
@@ -871,10 +858,6 @@ MetaLandSim.GUI <- function() {
         perc.entry <- tkentry(IFrame, textvariable = percvar)
         tkgrid(tklabel(IFrame, text = "Percentage of occupation for starting landscape"), 
             perc.entry, sticky = "w")
-        minavar <- tclVar()
-        mina.entry <- tkentry(IFrame, textvariable = minavar)
-        tkgrid(tklabel(IFrame, text = "Minimum area of species persistence"), mina.entry, 
-            sticky = "w")
         paramvar <- tclVar()
         param.entry <- tkentry(IFrame, textvariable = paramvar)
         param.label <- tklabel(IFrame, width = 5)
@@ -906,20 +889,18 @@ MetaLandSim.GUI <- function() {
         "build" <- function() {
             dfvar <- tclvalue(dfvar)
             perc <- tclvalue(percvar)
-            mina <- tclvalue(minavar)
             param <- tclvalue(paramvar)
             paramb <- tclvalue(parambvar)
             steps <- tclvalue(stepsvar)
             iter <- tclvalue(itervar)
             outname <- tclvalue(outvar)
-            substitute(range.expansion.out(data1 = dfvar, data2 = perc, data3 = mina, 
+            substitute(range.expansion.out(data1 = dfvar, data2 = perc,  
                 data4 = param, data5 = paramb, data6 = steps, data7 = iter, outfile = outname))
         }
         "reset" <- function() {
             tclvalue(dfvar) <- ""
             tkconfigure(dfnr.label, text = "")
             tclvalue(percvar) <- ""
-            tclvalue(minavar) <- ""
             tclvalue(paramvar) <- ""
             tkconfigure(param.label, text = "")
             tclvalue(parambvar) <- ""
@@ -943,14 +924,14 @@ MetaLandSim.GUI <- function() {
         if (tclvalue(done) == "2") 
             return()
     }
-    tkadd(rangeM, "command", label = "Generate species occupation", command = function() range.expansion.gui())
+    tkadd(rangeM, "command", label = "Generate dispersal model", command = function() range.expansion.gui())
     range.to.raster.gui <- function(presences.map, re.out, mask.map, output) {
         result1 <- range_raster(presences.map = presences.map, re.out = re.out, mask.map = mask.map, 
             plot.directions = TRUE)
         exp.eval <- paste(output, "<<- result1", sep = "")
         eval(parse(text = exp.eval))
     }
-    tkadd(rangeM, "command", label = "Estimate raster from dispersal models", command = function() guiv(range.to.raster.gui, 
+    tkadd(rangeM, "command", label = "Compute raster from dispersal models", command = function() guiv(range.to.raster.gui, 
         exec = "Execute", title = "Estimate raster from dispersal models", argFilename = list(presences.map = NULL, 
             mask.map = NULL), argText = c(presences.map = "Raster file with occurrences", 
             re.out = "Object of class 'expansion'", mask.map = "Mask map", output = "Output name"), 

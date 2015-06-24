@@ -1,9 +1,9 @@
-manage_expansion_sim <- function(mapsize, dist_m, areaM, areaSD, Npatch,percI, amin, param, b=1, tsteps, iter, 
+manage_expansion_sim <- function(mapsize, dist_m, areaM, areaSD, Npatch,percI, param, b=1, tsteps, iter, 
 								 variable,var_min,var_max,by)
 	{
 
 range_expansion1 <-
-function(rl, percI, amin, param, b, tsteps, iter)
+function(rl, percI, param, b, tsteps, iter)
   {
     if (class(rl) != "landscape")
     {
@@ -16,7 +16,7 @@ function(rl, percI, amin, param, b, tsteps, iter)
     areaSD <- rl$SD.area
     Npatch <- rl$number.patches
     disp <- rl$dispersal
- node.expansion <- function(occ_landscape, amin, param, b, node, tsteps) {
+ node.expansion <- function(occ_landscape, param, b, node, tsteps) {
         output0 <- as.data.frame(matrix(nrow = tsteps, ncol = 2))  
         output0[, 1] <- 1:nrow(output0)
         npatch <- occ_landscape$number.patches
@@ -130,7 +130,7 @@ function(rl, percI, amin, param, b, tsteps, iter)
                   areaM = occ_landscape$mean.area, areaSD = occ_landscape$SD.area, 
                   Npatch = npatch, disp = occ_landscape$dispersal, plotG = FALSE)
                 occ_landscape <- suppressWarnings(species.graph(rl = rl1, method = "percentage", 
-                  parm = 0, a_min = 0, plotG = FALSE))
+                  parm = 0, plotG = FALSE))
                 occ_landscape$nodes.characteristics[nrow_land + 2, ] <- NA
                 occ_landscape$nodes.characteristics$ID[(nrow_land + 1):(nrow_land + 
                   2)] <- (ID_land + 1):(ID_land + 2)
@@ -171,7 +171,7 @@ function(rl, percI, amin, param, b, tsteps, iter)
                 occ_landscape$distance.to.neighbours <- dist_nodos
             }
             class(occ_landscape) <- "metapopulation"
-			occ_landscape_new <- spom(sp = occ_landscape, a_min = amin, kern = "op1", 
+			occ_landscape_new <- spom(sp = occ_landscape, kern = "op1", 
                 conn = "op1", colnz = "op1", ext = "op1", param_df = param, b = b, 
                 c1 = NULL, c2 = NULL, z = NULL, R = NULL)
             if (occ_landscape_new$nodes.characteristics$species2[nrow_land + 1] == 
@@ -238,20 +238,20 @@ function(rl, percI, amin, param, b, tsteps, iter)
     outputW <- distance
     for (i in 1:iter) {
         sp1 <- species.graph(rl = rl, method = "percentage", parm = percI, nsew = "none", 
-            a_min = amin, plotG = FALSE)
-        nodeN <- node.expansion(occ_landscape = sp1, amin, param, b, node = "North", 
+            plotG = FALSE)
+        nodeN <- node.expansion(occ_landscape = sp1, param, b, node = "North", 
             tsteps)
         outputN <- suppressWarnings(cbind(outputN, c(nodeN[, 2], rep(NA, length(outputN) - 
             length(nodeN[, 2])))))
-        nodeS <- node.expansion(occ_landscape = sp1, amin, param, b, node = "South", 
+        nodeS <- node.expansion(occ_landscape = sp1, param, b, node = "South", 
             tsteps)
         outputS <- suppressWarnings(cbind(outputS, c(nodeS[, 2], rep(NA, length(outputS) - 
             length(nodeS[, 2])))))
-        nodeE <- node.expansion(occ_landscape = sp1, amin, param, b, node = "East", 
+        nodeE <- node.expansion(occ_landscape = sp1, param, b, node = "East", 
             tsteps)
         outputE <- suppressWarnings(cbind(outputE, c(nodeE[, 2], rep(NA, length(outputE) - 
             length(nodeE[, 2])))))
-        nodeW <- node.expansion(occ_landscape = sp1, amin, param, b, node = "West", 
+        nodeW <- node.expansion(occ_landscape = sp1, param, b, node = "West", 
             tsteps)
         outputW <- suppressWarnings(cbind(outputW, c(nodeW[, 2], rep(NA, length(outputW) - 
             length(nodeW[, 2])))))
@@ -319,7 +319,7 @@ if (variable=="sizevar") areaSD <- var1[i]
 
 rl <- rland.graph(mapsize, dist_m, areaM, areaSD, Npatch, disp=0, plotG=FALSE)
 
-rg <- range_expansion1(rl, percI, amin, param, b, tsteps, iter)
+rg <- range_expansion1(rl, percI, param, b, tsteps, iter)
 
 if(clock==1){
 outputN[,clock] <- rg$NORTH$DISTANCE/1000

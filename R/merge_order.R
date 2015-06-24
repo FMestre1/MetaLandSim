@@ -1,4 +1,4 @@
-merge.with.order <-
+merge_order <-
 function(x, y, ..., sort = T, keep_order)
   {
     add.id.column.to.data <- function(DATA)
@@ -16,7 +16,7 @@ function(x, y, ..., sort = T, keep_order)
       {
         if(keep_order == 1) return(order.by.id...and.remove.it(merge(x=add.id.column.to.data(x),y=y,..., sort = FALSE)))
         if(keep_order == 2) return(order.by.id...and.remove.it(merge(x=x,y=add.id.column.to.data(y),..., sort = FALSE)))
-        warning("The function .merge.with.order only accepts NULL/1/2 values for the keep_order variable")
+        warning("The function .merge_order only accepts NULL/1/2 values for the keep_order variable")
       }
     else {return(merge(x=x, y=y, ..., sort = sort))}
   }

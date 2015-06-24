@@ -1,8 +1,8 @@
 Package: MetaLandSim
 Type: Package
-Title: Metapopulation and Landscape Simulation
-Version: 0.2
-Date: 2015-01-18
+Title: A Tool for Landscape and Range Expansion Simulation
+Version: 0.3
+Date: 2015-06-23
 Depends: R (>= 2.10), tcltk, spatstat, stats, sp
 Imports: Biobase, e1071, fgui, grDevices, graphics, googleVis,
         maptools, rgeos, spgrass6, raster
@@ -16,6 +16,6 @@ Description: Tools to generate random landscape graphs, evaluate species
     result of climate change).
 License: GPL (>= 2)
 Repository: CRAN
-Packaged: 2015-02-03 10:35:22 UTC; Frederico
 NeedsCompilation: no
-Date/Publication: 2015-02-03 12:25:05
+Packaged: 2015-06-24 10:56:04 UTC; Frederico
+Date/Publication: 2015-06-24 15:44:35

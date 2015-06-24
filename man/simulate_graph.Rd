@@ -7,7 +7,7 @@ Simulate species occupancy in one dynamic landscape
 Simulates the species' occupation on a landscape sequence, resorting to the \code{\link{spom}} function.
 }
 \usage{
-simulate_graph(rl, rlist, simulate.start, method, parm, nsew, a_min, param_df, 
+simulate_graph(rl, rlist, simulate.start, method, parm, nsew, param_df, 
 		kern, conn, colnz, ext, beta1, b, c1, c2, z, R)
 }
 \arguments{
@@ -31,9 +31,6 @@ Parameter to specify the species occurrence - either percentage of occupied patc
 }
   \item{nsew}{
 'N', 'S', 'E', 'W' or none - point of entry of the species in the landscape. By default set to "none". To be internally passed to \code{\link{species.graph}}.
-}
-  \item{a_min}{
-Minimum patch area of the patches to be occupied (in hectares). To be internally passed to \code{\link{species.graph}}.
 }
   \item{param_df}{
 Parameter data frame delivered by \code{\link{parameter.estimate}}, including:
@@ -97,7 +94,6 @@ sim1 <- simulate_graph(rl=rland,
 			method='percentage', 
 			parm=50, 
 			nsew='none', 
-			a_min=0, 
 			param_df=param1, 
 			kern='op1', 
 			conn='op1', 

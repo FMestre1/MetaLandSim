@@ -7,7 +7,7 @@ Simulate landscape occupation
 Given a set of parameters, this function allows to simulate the occupation of an empty landscape, class "metapopulation".
 }
 \usage{
-species.graph(rl, method = 'percentage', parm, nsew = 'none', a_min, plotG = TRUE)
+species.graph(rl, method = 'percentage', parm, nsew = 'none', plotG = TRUE)
 }
 \arguments{
   \item{rl}{
@@ -24,9 +24,6 @@ species.graph(rl, method = 'percentage', parm, nsew = 'none', a_min, plotG = TRU
 }
   \item{nsew}{
      'N', 'S', 'E', 'W' or none - point of entry of the species in the landscape. By default set to "none".
-}
-  \item{a_min}{
-     Minimum patch area of the patches to be occupied (in hectares).
 }
   \item{plotG}{
      TRUE/FALSE, to show graphic output.
@@ -58,7 +55,7 @@ data(rland)
 
 ##Creating a 50\% occupation in an empty landscape (using the 'landscape' dataset):
 
-sp1 <- species.graph(rl=rland, method='percentage', parm=50, nsew='none', a_min=0, plotG=TRUE)
+sp1 <- species.graph(rl=rland, method='percentage', parm=50, nsew='none', plotG=TRUE)
 }
 
 

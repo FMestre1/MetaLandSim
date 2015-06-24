@@ -66,7 +66,7 @@ function (rl, span=100, par1="none", par2=NULL, par3=NULL, par4=NULL, par5=NULL)
           df6_3 <- df6_2[, -7]
           names(df6_3)[names(df6_3) == "df6_1"] <- "nneighbour" 
           match1 <- rl[, c(1, 8)]
-          df7 <- merge.with.order(df6_3, match1, by.x="x", by.y="x",
+          df7 <- merge_order(df6_3, match1, by.x="x", by.y="x",
                                   sort=FALSE, keep_order=TRUE)
           rland.list[[i]] <- df7
         }
@@ -136,7 +136,7 @@ function (rl, span=100, par1="none", par2=NULL, par3=NULL, par4=NULL, par5=NULL)
               col1 <- rainbow(max(rl[,5]))
               col2 <- as.data.frame(col1)
               col2[,2] <- seq(1:max(rl[,5]))
-              col3 <- merge.with.order(rl, col2, by.x = "cluster", 
+              col3 <- merge_order(rl, col2, by.x = "cluster", 
                       by.y = "V2",sort=FALSE,keep_order=TRUE)[,9]
               rl[,"colour"] <- col3
               col4 <- nndist (rl[,1:2])
@@ -270,7 +270,7 @@ function (rl, span=100, par1="none", par2=NULL, par3=NULL, par4=NULL, par5=NULL)
               col1 <- rainbow(max(rl[,5]))
               col2 <- as.data.frame(col1)
               col2[,2] <- seq(1:max(rl[,5]))
-              col3 <- merge.with.order(rl, col2, by.x = "cluster", 
+              col3 <- merge_order(rl, col2, by.x = "cluster", 
                               by.y = "V2",sort=FALSE,keep_order=TRUE)[,9]
               rl[,"colour"] <- col3
               col4 <- nndist (rl[,1:2])

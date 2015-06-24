@@ -8,7 +8,7 @@ This function produces dispersal scenarios, considering different habitat networ
 dispersal speed and dispersal maximum distance (of range expansion).
 }
 \usage{
-manage_expansion_sim(mapsize, dist_m, areaM, areaSD, Npatch,percI, amin, 
+manage_expansion_sim(mapsize, dist_m, areaM, areaSD, Npatch,percI, 
                     param, b=1, tsteps, iter, variable,var_min,var_max,by)
 }
 \arguments{
@@ -29,9 +29,6 @@ Number of patches. To be internally passed to \code{\link{rland.graph}}
 }
   \item{percI}{
 Pecentage of patch occupancy in the starting landscape. To be internally passed to  \code{\link{range_expansion}}
-}
-  \item{amin}{
-Minimum area for species persistence. To be internally passed to  \code{\link{range_expansion}}
 }
   \item{param}{
 Parameter data frame delivered by \code{\link{parameter.estimate}}. To be internally passed to  \code{\link{range_expansion}}  It includes:
@@ -94,11 +91,11 @@ Frederico Mestre and Fernando Canovas
 
 \dontrun{
 
-data(param2)
+data(param1)
 
 
 sim_range <- manage_expansion_sim(mapsize=1000, dist_m=0, areaM, areaSD=0.001, 
-                                  Npatch=300,percI=50, amin=0, param=param2, b=1, 
+                                  patch=300,percI=50, amin=0, param=param1, b=1, 
                                   tsteps=100, iter=100,variable="area",var_min=0.01,
                                   var_max=0.6,by=0.1)
 }

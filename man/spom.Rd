@@ -7,15 +7,12 @@ Stochastic Patch Occupancy Model
 This function predicts the occupancy status of each patch in a landscape in the time step t+1, based on the occupancy information on time step t.
 }
 \usage{
-spom(sp, a_min, kern, conn, colnz, ext, param_df, 
+spom(sp, kern, conn, colnz, ext, param_df, 
      beta1 = NULL, b = 1, c1 = NULL, c2 = NULL, z = NULL, R = NULL)
 }
 \arguments{
   \item{sp}{
 Landscape with species occupancy, object of class 'metapopulation'. 
-}
-  \item{a_min}{
-Minimum patch area for the species occurrence (in hectares).
 }
   \item{kern}{
 'op1' or 'op2'. Dispersal kernel. See details.
@@ -197,7 +194,6 @@ data(param1)
 #Simulating the occupation in the next time step:
 
 landscape2 <- spom(sp=occ.landscape,
-			a_min=0,
 			kern='op1',
 			conn='op1',
 			colnz='op1',

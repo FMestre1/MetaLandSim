@@ -1,6 +1,6 @@
 simulate_graph <-
 function (rl, rlist, simulate.start, method, parm,
-                            nsew="none", a_min, param_df,kern, conn, 
+                            nsew="none", param_df,kern, conn, 
 							colnz, ext,beta1,b, c1, c2, z, R)
   {
     span <- length(rlist)
@@ -8,7 +8,7 @@ function (rl, rlist, simulate.start, method, parm,
     turnover.list <- as.list(rep("", span))
     if(simulate.start==TRUE)
       {
-        sp_0 <- species.graph(rl,method=method,parm=parm,nsew=nsew,a_min=a_min,plotG=FALSE)
+        sp_0 <- species.graph(rl,method=method,parm=parm,nsew=nsew,plotG=FALSE)
       }
     if (simulate.start==FALSE)
       {
@@ -35,13 +35,13 @@ function (rl, rlist, simulate.start, method, parm,
                           number.patches=number.patches,dispersal=dispersal,
                           distance.to.neighbours=neigh,nodes.characteristics=prec.sp)
 		class(prec.sp_1) <- "metapopulation"
-        out_0 <- spom(prec.sp_1, a_min, kern, conn, colnz, ext, param_df, beta1,
+        out_0 <- spom(prec.sp_1, kern, conn, colnz, ext, param_df, beta1,
                       b, c1, c2, z, R)
         turnover.list[[i]] <- ((out_0$turnover*100)/nrow(out_0$nodes.characteristics))
         out_1 <- out_0$nodes.characteristics[, -c(9,11)]
         names(out_1)[names(out_1)=="species2"] <- "species"
         lands_i <- rlist[[i]]
-        out_2 <- merge.with.order(lands_i, out_1, by.x = "ID", by.y = "ID",sort=FALSE,keep_order=TRUE,all.x=TRUE,all.y=TRUE)
+        out_2 <- merge_order(lands_i, out_1, by.x = "ID", by.y = "ID",sort=FALSE,keep_order=TRUE,all.x=TRUE,all.y=TRUE)
         if(any(is.na(out_2[, 2:8]))==TRUE)
           {
             out_3 <- out_2[, c(1:8,16)]
@@ -67,16 +67,7 @@ function (rl, rlist, simulate.start, method, parm,
         names(out_4)[names(out_4)=="out_3.nneighbour.x"] <- "nneighbour"
         names(out_4)[names(out_4)=="out_3.ID"] <- "ID"
         names(out_4)[names(out_4)=="out_3.species"] <- "species"
-        if(a_min > 0)
-          {
-            nr_row <- nrow(rlist[[i]])
-            species_vec <- vector(length=nr_row)
-            for(b in 1:nr_row)
-              {
-                species_vec[b] <- ifelse(out_4$areas[b] < a_min, 0, out_4$species[b])
-              }
-            out_4$species <- species_vec 
-          }
+    
         metpop.list[[i]] <- out_4
       }
     turnover <-as.numeric(turnover.list)
