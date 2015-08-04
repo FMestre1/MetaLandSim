@@ -1,9 +1,9 @@
 citHeader("To cite MetaLandSim in a publication, please use:")
 
 citEntry(entry="Article",
-	title = "MetaLandSim: Tools for simulating metapopulation persistence and range expansion under environmental change",
+	title = "An R Package for simulating metapopulation persistence and range expansion under environmental change",
         author = personList(as.person("F. Mestre"),as.person("F. Canovas"),as.person("R Pita"),as.person("A. Mira"),as.person("P. Beja")),
-	journal = "Ecography",
+	journal = "Environmental Modelling and Software",
   	year = "in review",
 #	volume = "xx",
 #	pages = "x-y",
@@ -11,9 +11,8 @@ citEntry(entry="Article",
         textVersion = 
         paste("Mestre, F., Canovas, F., Pita, R., Mira, A. and Beja, R. ",
 	       "(in review): ", 
-               "MetaLandSim: Tools for simulating metapopulation persistence and range expansion under environmental 
-               change. ",
-               "Ecography. ",
+               "An R Package for simulating metapopulation persistence and range expansion under environmental change.",
+               "Environmental Modelling and Software",
                "(in review).",
                sep="")
          )

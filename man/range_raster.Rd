@@ -28,10 +28,10 @@ The function automatically reads the raster input files (\code{presences.map} an
 
 Then, it computes and fits single sigmoidal functions for every direction on the expansion movements, as previously calculated in \code{\link{range_expansion}} and provided here. Four different raster maps are generated, every one of them estimating the probability of expansion for north, south, east and west directions. The four maps are finally summarized into a single range expansion map, which is returned to the user as an object of class \code{RasterLayer}.
 
-This function uses internally a connection to \href{http://grass.osgeo.org/}{GRASS GIS software} through the package \code{\link{spgrass6-package}}, in order to increase the performance for geographical calculations.
+This function uses internally a connection to \href{http://grass.osgeo.org/}{GRASS GIS software} through the package \code{rgrass7-package}, in order to increase the performance for geographical calculations.
 }
 \value{
-an object of class \code{RasterLayer} (see \code{\link{Raster-class}} package for further description), which includes the probability of occupancy, at a given time step, considering only dispersal ability and landscape configuration. MetaLandSim uses GRASS, version 6 through the package \href{http://cran.r-project.org/package=spgrass6}{spgrass6}.
+an object of class \code{RasterLayer} (see \code{\link{Raster-class}} package for further description), which includes the probability of occupancy, at a given time step, considering only dispersal ability and landscape configuration. This version of MetaLandSim uses GRASS, version 7 through the package \href{http://cran.r-project.org/package=rgrass7}{rgrass7}.
 }
 \references{
 The same as range_expansion.
@@ -40,10 +40,10 @@ The same as range_expansion.
 Frederico Mestre and Fernando Canovas
 }
 \note{
-This function depends on \href{http://cran.r-project.org/package=spgrass6}{spgrass6}.
+This function depends on \href{http://cran.r-project.org/package=rgrass7}{rgrass7}.
 }
 \seealso{
-\code{\link{range_expansion}}, \code{\link{Raster-class}}, \href{http://cran.r-project.org/package=spgrass6}{spgrass6}, \code{\link{initGRASS}}
+\code{\link{range_expansion}}, \code{\link{Raster-class}}, \href{http://cran.r-project.org/package=rgrass7}{rgrass7}, \code{\link{initGRASS}}
 }
 \examples{
 
@@ -54,7 +54,7 @@ data(rg_exp)
 presences <- system.file("examples/presences.asc", package="MetaLandSim")
 mask <- system.file("examples/landmask.asc", package="MetaLandSim")
 
-require(spgrass6)
+require(rgrass7)
 
 #Initializing a GRASS session in a temporal directory:
 #### Under Linux systems:
@@ -62,7 +62,7 @@ initGRASS("/usr/bin/grass", home=tempdir())
 #### Under Windows systems:
 initGRASS("C:/GRASS", home=tempdir())
 
-range_raster(presences.map=presences, re.out=re.out, mask.map==mask) -> range.map
+range_raster(presences.map=presences, re.out=rg_exp, mask.map=mask) -> range.map
 
 plot(range.map)
 

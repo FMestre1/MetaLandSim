@@ -62,6 +62,8 @@ presences <- paste(system.file(package="MetaLandSim"),
 landmask <- paste(system.file(package="MetaLandSim"), 
 "/examples/landmask.asc", sep="")
 
+#require(rgrass7)
+
 #First, start GRASS from R: 
 #initGRASS(gisBase = "grass folder", home = tempdir(), 
 #gisDbase = "mapset location",override = TRUE)
@@ -79,6 +81,9 @@ This application of the expansion model to the current species occurrences (B) p
 \end{figure}
 
 The four sub-models (A), considering each of the cardinal directions, are combined in a final dispersal model (C).
+
+\section{Note}
+The output of these functions is dependent upon species dispersal ability and current distribution. The mask should be chosen carefully, considering biological realism. 
 
 \section{References}
 

@@ -1450,6 +1450,6 @@ MetaLandSim.GUI <- function() {
             "/doc/landscape_simulation.pdf", sep = "")))
     tkadd(aboutM, "command", label = "Vignette on Range Expansion Simulation", command = function() openPDF(file = paste(system.file(package = "MetaLandSim"), 
         "/doc/range_expansion.pdf", sep = "")))
-	tkadd(aboutM, "command", label = "Reference Paper", command = function() tkmessageBox(title = "Reference Paper", message = "Mestre,F.; Canovas,F.; Pita, R.; Mira, A. and Beja, P. (submitted). 'MetaLandSim: Tools for simulating metapopulation persistence and range expansion under environmental change'. \nEcography.", icon = "info", type = "ok"))
+	tkadd(aboutM, "command", label = "Reference Paper", command = function() tkmessageBox(title = "Reference Paper", message = "Mestre,F.; Canovas,F.; Pita, R.; Mira, A. and Beja, P. (submitted). 'An R Package for simulating metapopulation persistence and range expansion under environmental change'", icon = "info", type = "ok"))
     tkadd(topMenu, "cascade", label = "About", menu = aboutM)
 }
