@@ -22,8 +22,8 @@ At the range scale the metapopulation is allowed to expand to other, empty, land
 \tabular{ll}{
 Package: \tab MetaLandSim\cr
 Type: \tab Package\cr
-Version: \tab 0.4\cr
-Date: \tab 2015-08-03\cr
+Version: \tab 0.4.1\cr
+Date: \tab 2015-09-30\cr
 License: GPL (>=2)\cr
 }
 }

@@ -8,8 +8,7 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
         execGRASS("g.region", raster = "map.mask")
         execGRASS("r.null", map="map.mask", setnull="0")
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o"))
-      }
-    else {
+      } else {
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o", "e"))
         execGRASS("g.region", raster = "presences")
     }

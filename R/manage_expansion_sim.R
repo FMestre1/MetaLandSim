@@ -22,7 +22,7 @@ function(rl, percI, param, b, tsteps, iter)
         npatch <- occ_landscape$number.patches
         mapsize <- occ_landscape$mapsize
         ID_land <- max(occ_landscape$nodes.characteristics$ID)
-        mapsize <- occ_landscape$mapsize  #recuperar o mapsize
+        mapsize <- occ_landscape$mapsize
         nrow_land <- nrow(occ_landscape$nodes.characteristics)
         clock <- 1
         if (node == "North") {
@@ -340,16 +340,6 @@ if (variable=="area") varname <- "MEAN PATCH AREA"
 if (variable=="dist") varname <- "MINIMUM DISTANCE BETWEEN PATCHES"
 if (variable=="npatch") varname <- "NUMBER OF PATCHES"
 if (variable=="sizevar") varname <- "STAND. DEV. OF PATCH SIZE"
-
-#for(i in 1:length(var1))outputN[,i+1] <- outputN[,1]/outputN[,i+1]
-#for(i in 1:length(var1))outputS[,i+1] <- outputS[,1]/outputS[,i+1]
-#for(i in 1:length(var1))outputE[,i+1] <- outputE[,1]/outputE[,i+1]
-#for(i in 1:length(var1))outputW[,i+1] <- outputW[,1]/outputW[,i+1]
-
-#is.na(outputN) <- do.call(cbind,lapply(outputN, is.infinite))
-#is.na(outputS) <- do.call(cbind,lapply(outputS, is.infinite))
-#is.na(outputE) <- do.call(cbind,lapply(outputE, is.infinite))
-#is.na(outputW) <- do.call(cbind,lapply(outputW, is.infinite))
 
 names(outputN) <- c("DISTANCE(km)",as.character(var1))
 names(outputS) <- c("DISTANCE(km)",as.character(var1))
