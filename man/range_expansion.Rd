@@ -7,7 +7,7 @@ Produce a range expansion model
 This function returns the expansion probability, from a landscape with a given set of parameters, into the four cardinal directions. This can subsequently be converted in a dispersal model by the function \code{\link{range_raster}}. The dispersal model can be combined with an ecological niche model.
 }
 \usage{
-range_expansion(rl, percI, amin, param, b, tsteps, iter)
+range_expansion(rl, percI, param, b, tsteps, iter)
 }
 \arguments{
   \item{rl}{
@@ -15,9 +15,6 @@ Object of class 'landscape'. Starting landscape for the expansion procedure.
 }
   \item{percI}{
 Pecentage of patch occupancy in the starting landscape.
-}
-  \item{amin}{
-Minimum area for species persistence.
 }
   \item{param}{
 Parameter data frame delivered by \code{\link{parameter.estimate}}, including:
@@ -65,6 +62,6 @@ Depending on computing power and number of iterations (parameter iter) this func
 data(rland)
 data(param1)
 
-rg_exp1 <- range_expansion(rl=rland, percI=50, amin=0, param=param1, b=1, tsteps=100, iter=100)
+rg_exp1 <- range_expansion(rl=rland, percI=50, param=param1, b=1, tsteps=100, iter=100)
 }
 }

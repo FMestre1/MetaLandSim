@@ -42,21 +42,23 @@ function (rl, rlist, simulate.start, method, parm,
         names(out_1)[names(out_1)=="species2"] <- "species"
         lands_i <- rlist[[i]]
         out_2 <- merge_order(lands_i, out_1, by.x = "ID", by.y = "ID",sort=FALSE,keep_order=TRUE,all.x=TRUE,all.y=TRUE)
-        if(any(is.na(out_2[, 2:8]))==TRUE)
+#        if(any(is.na(out_2[, 2:8]))==TRUE)#Patches remanining
+#          {
+            out_3 <- out_2[, c(1:8,16)]#Those that stay
+            out_3 <- na.omit(out_3)#Remove rows of disapearing and appearing patches
+ #         } else {
+#					out_3 <- out_2[, c(1:8,16)]
+#					out_3 <- na.omit(out_3)
+#				}
+		if(any(is.na(out_2[, 9:16]))==TRUE)#Patches appearing
           {
-            out_3 <- out_2[, c(1:8,16)]
-            out_3 <- na.omit(out_3)
-          }
-		else out_3 <- out_2
-		if(any(is.na(out_2[, 9:16]))==TRUE)
-          {
-		    out_4 <- out_2[is.na(out_2$species),]
+		    out_4 <- out_2[is.na(out_2$species),]#Patches appearing
             out_4 <- out_4[,-c(9:15)]
-		    out_4[,9] <- 0 
+		    out_4[,9] <- 0 #New patche have no presence
 		    out_3 <- rbind(out_3,out_4)
           }
         out_4 <- data.frame(out_3$x.x, out_3$y.x, out_3$areas.x, out_3$radius.x,
-                             out_3$cluster.x, out_3$colour.x, out_3$nneighbour.x,
+                             out_3$cluster.x,out_3$colour.x, out_3$nneighbour.x,
                              out_3$ID, out_3$species)
         names(out_4)[names(out_4)=="out_3.x.x"] <- "x"
         names(out_4)[names(out_4)=="out_3.y.x"] <- "y"

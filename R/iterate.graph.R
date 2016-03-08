@@ -15,14 +15,14 @@ function (iter, mapsize, dist_m, areaM, areaSD, Npatch,
       {
         rland1 <- rland.graph(mapsize, dist_m, areaM, areaSD, Npatch,
                               disp, plotG=FALSE)
-        span1 <- span.graph(rland1, span, par1, par2, par3, par4, par5)
-        span2 <- length(span1)
+        suppressWarnings(span1 <- span.graph(rland1, span, par1, par2, par3, par4, par5))
+#       span2 <- length(span1)
         sim <- simulate_graph(rland1, span1, simulate.start=TRUE, method, parm,
                               nsew, param_df, kern, conn, colnz, ext, beta1,
                               b, c1, c2, z, R)
         marea <- list.stats(sim, "mean_area", plotG=FALSE)
         ma[1:length(marea), i] <- marea
-        mdistance <- list.stats(sim, "mean_distance", plotG=FALSE)
+        mdistance <- list.stats(sim, "mean_nneigh", plotG=FALSE)
         md[1:length(mdistance), i] <- mdistance
         numberpatches <- list.stats(sim, "n_patches", plotG=FALSE)
         np[1:length(numberpatches), i] <- numberpatches
@@ -30,32 +30,30 @@ function (iter, mapsize, dist_m, areaM, areaSD, Npatch,
         occ[1:length(occupation1), i] <- occupation1
         turnover1 <- list.stats(sim, "turnover", plotG=FALSE)
         trn[1:length(turnover1), i] <- turnover1
-		
-		cat("Completed iteration",i," of ",iter,"\n")
-		
-      }
+		message("Completed iteration ",i," of ",iter,"\n")
+	  }
     ma <- as.data.frame (ma)
+	ma[is.na(ma)] <- 0
     ma[, iter+1] <- rowMeans(ma[, 1:iter])
     ma[, iter+2] <- apply(as.matrix(ma[, 1:iter]), 1, sd)
-    ma <- na.omit(ma)
     md <- as.data.frame (md)
+	md[is.na(md)] <- 0
     md[, iter+1] <- rowMeans(md[, 1:iter])
     md[,iter+2] <- apply(as.matrix(md[, 1:iter]), 1, sd)
-    md <- na.omit(md)
     np <- as.data.frame (np)
+	np[is.na(np)] <- 0
     np[, iter+1] <- rowMeans(np[, 1:iter])
     np[,iter+2] <- apply(as.matrix(np[,1:iter]),1, sd)
-    np <- na.omit(np)
     occ <- as.data.frame (occ)
+	occ[is.na(occ)] <- 0
     occ[, iter+1] <- rowMeans(occ[, 1:iter])
     occ[, iter+2] <- apply(as.matrix(occ[, 1:iter]), 1, sd)
-    occ <- na.omit(occ)
     trn <- as.data.frame (trn)
+	trn[is.na(trn)] <- 0
     trn[, iter+1] <- rowMeans(trn[, 1:iter])
     trn[, iter+2] <- apply(as.matrix(trn[, 1:iter]), 1, sd)
-    trn <- na.omit(trn)
     if(graph == TRUE)
-      {
+	{
         time_vector <- 1:span
         g_area <- gvisLineChart(data.frame(time_step=time_vector, mean_area=ma[, iter+1]),
                                 xvar="time_step", yvar="mean_area",
@@ -66,7 +64,7 @@ function (iter, mapsize, dist_m, areaM, areaSD, Npatch,
                                 series="[{color: '#006400'}]", backgroundColor="#D1EEEE")) 
         g_dist <- gvisLineChart(data.frame(time_step=time_vector, mean_distance=md[, iter+1]),
                                 xvar="time_step", yvar="mean_distance",
-                                options=list(title="Mean distance (m)", width=600, height=300,
+                                options=list(title="Mean distance to nearest habitat patch (m)", width=600, height=300,
                                 curveType="function", legend="none",
                                 titleTextStyle="{colour:'black', fontName:'Courier', fontSize:16}",
                                 vAxis="{title: 'meters'}", hAxis="{title: 'time steps'}",
@@ -96,7 +94,7 @@ function (iter, mapsize, dist_m, areaM, areaSD, Npatch,
         ln2 <- gvisMerge(g_npatches, g_occ, horizontal=TRUE)
         ln.final <- gvisMerge(gvisMerge(ln1, ln2, horizontal=FALSE), g_trn, horizontal=FALSE)
         paste("<div><span>Metapopulation persistence in a dynamic landscape (parameter 1 = ", par1,"; see help for further description)</span><br />", sep="") -> ln.final$html$caption
-        "\n<!-- htmlFooter -->\n<span> \n  R version 3.0.1 (2013-05-16) &#8226; <a href=\"http://code.google.com/p/google-motion-charts-with-r/\">googleVis-0.4.7</a>\n  &#8226; MetaLandSim-0.1.0\n  &#8226; <a href=\"https://developers.google.com/terms/\">Google Terms of Use</a> &#8226; <a href=\"https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart.html#Data_Policy\">Data Policy</a>\n</span></div>\n</body>\n</html>\n" -> ln.final$html$footer
+        paste("\n<!-- htmlFooter -->\n<span> \n  R version",R.Version()$version.string,"&#8226; <a href=\"http://code.google.com/p/google-motion-charts-with-r/\">googleVis-",packageVersion("googleVis"),"</a>\n  &#8226; MetaLandSim-",packageVersion("MetaLandSim"),"\n  &#8226; <a href=\"https://developers.google.com/terms/\">Google Terms of Use</a> &#8226; <a href=\"https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart.html#Data_Policy\">Data Policy</a>\n</span></div>\n</body>\n</html>\n") -> ln.final$html$footer
         plot(ln.final)
       }
     iter_vector <- rep("iter",length=iter)

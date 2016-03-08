@@ -255,7 +255,8 @@ function(rl, percI, param, b, tsteps, iter)
             tsteps)
         outputW <- suppressWarnings(cbind(outputW, c(nodeW[, 2], rep(NA, length(outputW) - 
             length(nodeW[, 2])))))
-    }
+    
+	}
     outputN[is.na(outputN)] <- 0
     outputS[is.na(outputS)] <- 0
     outputE[is.na(outputE)] <- 0
@@ -441,7 +442,7 @@ names(outputW) <- c("DISTANCE(km)",as.character(var1))
 		
     ln.final$html$caption <- paste("<div><span> MetaLandSim range expansion simulation - Expansion scenarios produced 
 	considering variation in ",varname,". </span><br />", sep = "")
-    ln.final$html$footer <- "\n<!-- htmlFooter -->\n<span> \n  R version 3.0.1 (2013-05-16) &#8226; <a href=\"http://code.google.com/p/google-motion-charts-with-r/\">googleVis-0.4.7</a>\n  &#8226; MetaLandSim-0.1.0\n  &#8226; <a href=\"https://developers.google.com/terms/\">Google Terms of Use</a> &#8226; <a href=\"https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart.html#Data_Policy\">Data Policy</a>\n</span></div>\n</body>\n</html>\n"
+    ln.final$html$footer <- paste("\n<!-- htmlFooter -->\n<span> \n  ",R.Version()$version.string,"&#8226; <a href=\"http://code.google.com/p/google-motion-charts-with-r/\">googleVis-", packageVersion("googleVis"),"</a>\n  &#8226; MetaLandSim-",packageVersion("MetaLandSim"),"\n  &#8226; <a href=\"https://developers.google.com/terms/\">Google Terms of Use</a> &#8226; <a href=\"https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart.html#Data_Policy\">Data Policy</a>\n</span></div>\n</body>\n</html>\n", sep="")
     
 	output <- list(NORTH = outN, SOUTH = outS, EAST = outE, WEST = outW, SimN = outputN, SimS = outputS, SimE = outputE, SimW = outputW)
 	
@@ -449,3 +450,4 @@ names(outputW) <- c("DISTANCE(km)",as.character(var1))
 	
     return(output)
 	}
+	

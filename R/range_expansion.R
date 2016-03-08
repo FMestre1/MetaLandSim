@@ -1,5 +1,5 @@
 range_expansion <-
-function(rl, percI, amin, param, b=1, tsteps, iter)
+function(rl, percI, param, b=1, tsteps, iter)
   {
     if (class(rl) != "landscape")
     {
@@ -12,7 +12,7 @@ function(rl, percI, amin, param, b=1, tsteps, iter)
     areaSD <- rl$SD.area
     Npatch <- rl$number.patches
     disp <- rl$dispersal
-    node.expansion <- function(occ_landscape, amin, param, b, node, tsteps) {
+    node.expansion <- function(occ_landscape, param, b, node, tsteps) {
         output0 <- as.data.frame(matrix(nrow = tsteps, ncol = 2))  
         output0[, 1] <- 1:nrow(output0)
         npatch <- occ_landscape$number.patches
@@ -233,19 +233,19 @@ function(rl, percI, amin, param, b=1, tsteps, iter)
     for (i in 1:iter) {
         sp1 <- species.graph(rl = rl, method = "percentage", parm = percI, nsew = "none", 
             plotG = FALSE)
-        nodeN <- node.expansion(occ_landscape = sp1, amin, param, b, node = "North", 
+        nodeN <- node.expansion(occ_landscape = sp1, param, b, node = "North", 
             tsteps)
         outputN <- suppressWarnings(cbind(outputN, c(nodeN[, 2], rep(NA, length(outputN) - 
             length(nodeN[, 2])))))
-        nodeS <- node.expansion(occ_landscape = sp1, amin, param, b, node = "South", 
+        nodeS <- node.expansion(occ_landscape = sp1, param, b, node = "South", 
             tsteps)
         outputS <- suppressWarnings(cbind(outputS, c(nodeS[, 2], rep(NA, length(outputS) - 
             length(nodeS[, 2])))))
-        nodeE <- node.expansion(occ_landscape = sp1, amin, param, b, node = "East", 
+        nodeE <- node.expansion(occ_landscape = sp1, param, b, node = "East", 
             tsteps)
         outputE <- suppressWarnings(cbind(outputE, c(nodeE[, 2], rep(NA, length(outputE) - 
             length(nodeE[, 2])))))
-        nodeW <- node.expansion(occ_landscape = sp1, amin, param, b, node = "West", 
+        nodeW <- node.expansion(occ_landscape = sp1, param, b, node = "West", 
             tsteps)
         outputW <- suppressWarnings(cbind(outputW, c(nodeW[, 2], rep(NA, length(outputW) - 
             length(nodeW[, 2])))))
@@ -302,7 +302,7 @@ function(rl, percI, amin, param, b=1, tsteps, iter)
     ln.final$html$caption <- paste("<div><span>Range expansion in the four cardinal directions, considering that ", 
         percI, "% of the patches are occupied in the first landscape mosaic.</span><br />", 
         sep = "")
-    ln.final$html$footer <- "\n<!-- htmlFooter -->\n<span> \n  R version 3.0.1 (2013-05-16) &#8226; <a href=\"http://code.google.com/p/google-motion-charts-with-r/\">googleVis-0.4.7</a>\n  &#8226; MetaLandSim-0.1.0\n  &#8226; <a href=\"https://developers.google.com/terms/\">Google Terms of Use</a> &#8226; <a href=\"https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart.html#Data_Policy\">Data Policy</a>\n</span></div>\n</body>\n</html>\n"
+    ln.final$html$footer <- paste("\n<!-- htmlFooter -->\n<span> \n  ",R.Version()$version.string,"&#8226; <a href=\"http://code.google.com/p/google-motion-charts-with-r/\">googleVis-", packageVersion("googleVis"),"</a>\n  &#8226; MetaLandSim-",packageVersion("MetaLandSim"),"\n  &#8226; <a href=\"https://developers.google.com/terms/\">Google Terms of Use</a> &#8226; <a href=\"https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart.html#Data_Policy\">Data Policy</a>\n</span></div>\n</body>\n</html>\n", sep="")
     output <- list(NORTH = outputN, SOUTH = outputS, EAST = outputE, WEST = outputW)
     plot(ln.final)
     class(output) <- "expansion"

@@ -251,3 +251,5 @@ function(rl, metric)
       }
     return(round(result,3))
   }
+
+  #Nada?

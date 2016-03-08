@@ -1,11 +1,12 @@
 Package: MetaLandSim
 Type: Package
-Title: A Tool for Landscape and Range Expansion Simulation
-Version: 0.4.1
-Date: 2015-09-30
-Depends: R (>= 2.10), tcltk, spatstat, stats, sp
+Title: Landscape and Range Expansion Simulation
+Version: 0.4.2
+Date: 2016-03-07
+Depends: R (>= 2.10), tcltk
 Imports: Biobase, e1071, fgui, grDevices, graphics, googleVis,
-        maptools, rgeos, rgrass7, raster
+        maptools, rgeos, rgrass7, raster, spatstat, stats, sp,
+        minpack.lm
 Suggests: rasterVis
 Author: Frederico Mestre, Fernando Canovas, Ricardo Pita, Antonio Mira, Pedro
     Beja.
@@ -17,5 +18,5 @@ Description: Tools to generate random landscape graphs, evaluate species
 License: GPL (>= 2)
 Repository: CRAN
 NeedsCompilation: no
-Packaged: 2015-09-30 20:36:22 UTC; Frederico
-Date/Publication: 2015-10-01 11:13:28
+Packaged: 2016-03-08 00:12:05 UTC; Frederico
+Date/Publication: 2016-03-08 06:22:30

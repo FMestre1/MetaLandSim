@@ -1,5 +1,5 @@
 ### R code from vignette source 'range_expansion.Rnw'
-### Encoding: UTF-8
+### Encoding: ISO8859-1
 
 ###################################################
 ### code chunk number 1: range_expansion.Rnw:27-42
@@ -22,13 +22,15 @@ Npatch=250, disp=800, plotG=TRUE)
 
 
 ###################################################
-### code chunk number 2: range_expansion.Rnw:58-71
+### code chunk number 2: range_expansion.Rnw:58-73
 ###################################################
 data(rg_exp)
 presences <- paste(system.file(package="MetaLandSim"),
  "/examples/presences.asc", sep="")
 landmask <- paste(system.file(package="MetaLandSim"), 
 "/examples/landmask.asc", sep="")
+
+#require(rgrass7)
 
 #First, start GRASS from R: 
 #initGRASS(gisBase = "grass folder", home = tempdir(), 

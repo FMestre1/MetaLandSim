@@ -28,7 +28,7 @@ SD of the area of patches, in order to give variability to the patches area. To 
 Number of patches. To be internally passed to \code{\link{rland.graph}}
 }
   \item{percI}{
-Pecentage of patch occupancy in the starting landscape. To be internally passed to  \code{\link{range_expansion}}
+Percentage of patch occupancy in the starting landscape. To be internally passed to  \code{\link{range_expansion}}
 }
   \item{param}{
 Parameter data frame delivered by \code{\link{parameter.estimate}}. To be internally passed to  \code{\link{range_expansion}}  It includes:
@@ -95,7 +95,7 @@ data(param1)
 
 
 sim_range <- manage_expansion_sim(mapsize=1000, dist_m=0, areaM, areaSD=0.001, 
-                                  patch=300,percI=50, amin=0, param=param1, b=1, 
+                                  patch=300,percI=50, param=param1, b=1, 
                                   tsteps=100, iter=100,variable="area",var_min=0.01,
                                   var_max=0.6,by=0.1)
 }

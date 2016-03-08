@@ -156,7 +156,7 @@ parameter.estimate (occ.landscape2, method='norescue')
 
 \item Moilanen, A. (1999). Patch occupancy models of metapopulation dynamics: efficient parameter estimation using implicit statistical inference. Ecology, 80(3): 1031-1043. 
 
-\item Oksanen, J. (2004). Incidence Function Model in R. url.:. http://cc.oulu.fi/~jarioksa/opetus/openmeta/metafit.pdf.
+\item Oksanen, J. (2004). Incidence Function Model in R. url:\url{http://cc.oulu.fi/~jarioksa/opetus/openmeta/metafit.pdf}.
 
 \item Ter Braak, C. J., and Etienne, R. S. (2003). Improved Bayesian analysis of metapopulation data with an application to a tree frog metapopulation. Ecology, 84(1): 231-241. 
 \end{enumerate}

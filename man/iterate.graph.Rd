@@ -122,20 +122,13 @@ TRUE/FALSE, to show graphic output.
 }
 }
 \value{
-Returns a list of data frames with the dispersal probability to the north, south, east and west:
-\item{NORTH }{Data frame with the following columns: DISTANCE (computed using mapsize*number of the landscape mosaic), OCCUPATION (number of repetitions this landscape mosaic is occupied) and PROPORTION (proportion of repetitions at which this landscape mosaic is occupied)}
-\item{SOUTH }{Same as NORTH.}
-\item{EAST }{Same as NORTH.}
-\item{WEST }{Same as NORTH.}
+Returns a list of five data frames with information regarding the values of mean area, mean inter-patch distance, number of patches occupancy and patch occupancy turnover in each of the iterations, as well as the mean values and SD.     
 }
 \references{
 References in the \code{\link{spom}} function.
 }
 \author{
 Frederico Mestre and Fernando Canovas
-}
-\note{
-Depending on computing capacity, this function can take from several hours to several days to run.
 }
 \seealso{
 \code{\link{rland.graph}}, \code{\link{span.graph}}, \code{\link{species.graph}}, \code{\link{simulate_graph}}, \code{\link{spom}}
@@ -148,7 +141,7 @@ data(param1)
 
 it1 <- iterate.graph(iter = 2, mapsize =10000, dist_m = 10, areaM = 0.05, 
 			areaSD = 0.02, Npatch = 250, disp = 800, span = 100, 
-			par1 = "hab", par2 = 2, par3 = 0.0001, par4 = NULL, 
+			par1 = "hab", par2 = 2, par3 = NULL, par4 = NULL, 
 			par5 = NULL, method = "percentage", parm = 50, 
 			nsew = "none", param_df = param1,kern = "op1", 
 			conn = "op1", colnz = "op1", ext = "op1", 

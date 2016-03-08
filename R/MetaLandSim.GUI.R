@@ -16,6 +16,15 @@ MetaLandSim.GUI <- function() {
     rangeM <- tkmenu(topMenu, tearoff = FALSE)
     viewM <- tkmenu(topMenu, tearoff = FALSE)
     aboutM <- tkmenu(topMenu, tearoff = FALSE)
+Newsession<- function(gisBase, override=TRUE) {
+  initGRASS(gisBase = gisBase, home=tempdir(), override=override)
+}
+tkadd(rangeM, "command", label = "Start GRASS session",
+  command = function() guiv(Newsession, exec = "Execute",
+  argFilename = list(gisBase = NULL),
+  argText = c(gisBase = "Path to GRASS binaries and libraries:",
+  override = "override GRASS session (TRUE or FALSE):"),
+  helpsFunc = "initGRASS"))
     choose.df <- function(df.entry, dfnr.label) {
         tf <- tktoplevel()
         tkwm.title(tf, "Choose:")
@@ -1450,6 +1459,6 @@ MetaLandSim.GUI <- function() {
             "/doc/landscape_simulation.pdf", sep = "")))
     tkadd(aboutM, "command", label = "Vignette on Range Expansion Simulation", command = function() openPDF(file = paste(system.file(package = "MetaLandSim"), 
         "/doc/range_expansion.pdf", sep = "")))
-	tkadd(aboutM, "command", label = "Reference Paper", command = function() tkmessageBox(title = "Reference Paper", message = "Mestre,F.; Canovas,F.; Pita, R.; Mira, A. and Beja, P. (submitted). 'An R Package for simulating metapopulation persistence and range expansion under environmental change'", icon = "info", type = "ok"))
+	tkadd(aboutM, "command", label = "Reference Paper", command = function() tkmessageBox(title = "Reference Paper", message = "Mestre,F.; Canovas,F.; Pita, R.; Mira, A. and Beja, P. (in press). 'An R Package for simulating metapopulation dynamics and range expansion under environmental change', Environmental Modelling and Software.", icon = "info", type = "ok"))
     tkadd(topMenu, "cascade", label = "About", menu = aboutM)
 }

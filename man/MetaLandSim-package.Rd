@@ -3,7 +3,7 @@
 \alias{MetaLandSim}
 \docType{package}
 \title{
-A Tool For Landscape And Range Expansion Simulation
+Landscape And Range Expansion Simulation
 }
 \description{
 The package MetaLandSim is a simulation environment, allowing the generation of random landscapes, represented as graphs, the simulation of landscape dynamics, metapopulation dynamics and range expansion.\cr
@@ -22,8 +22,8 @@ At the range scale the metapopulation is allowed to expand to other, empty, land
 \tabular{ll}{
 Package: \tab MetaLandSim\cr
 Type: \tab Package\cr
-Version: \tab 0.4.1\cr
-Date: \tab 2015-09-30\cr
+Version: \tab 0.4.2\cr
+Date: \tab 2016-03-07\cr
 License: GPL (>=2)\cr
 }
 }

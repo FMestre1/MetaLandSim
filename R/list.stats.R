@@ -19,7 +19,8 @@ function (sim_list, stat, plotG)
           {
             df_nodes <- sim_list1[[i]]
             sd_area <- as.numeric(sd(df_nodes[, "areas"]))
-            stat.list[[i]] <- sd_area
+            if(nrow(df_nodes)!=1)stat.list[[i]] <- sd_area
+			if(nrow(df_nodes)==1)stat.list[[i]] <- 0
           }
       }
     if(stat == "mean_distance")
@@ -38,7 +39,8 @@ function (sim_list, stat, plotG)
             xy_dist <- replace(xy_dist, xy_dist<0, 0)
 			xy_dist2 <- xy_dist[upper.tri(xy_dist)]
             mean_distance <- mean(xy_dist2)
-            stat.list[[i]] <- mean_distance
+            if(nrow(xy)!=1)stat.list[[i]] <- mean_distance
+			if(nrow(xy)==1)stat.list[[i]] <- 0
           }
       }
     if(stat == "n_patches")
@@ -61,10 +63,23 @@ function (sim_list, stat, plotG)
       {
         stat.list <- as.vector(sim_list[[2]])
       }
+	if(stat == "mean_nneigh")
+      {
+		for(i in 1:n){
+        df_nodes <- sim_list1[[i]]
+        stat.list[[i]] <- mean(df_nodes$nneighbour)
+		sum(df_nodes$nneighbour)/nrow(df_nodes)
+		
+		}
+	  
+    
+      }
     stat.list2 <- as.numeric(stat.list)
-    if (plotG == TRUE)
+	if (plotG == TRUE)
       {
         plot(stat.list2, type="l", col="darkgreen", xlab="time", ylab=stat)
       }
     return(stat.list2)
   }
+  
+  #Acrescentei "mean_nneigh".

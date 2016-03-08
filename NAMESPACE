@@ -47,17 +47,18 @@ importFrom("spatstat", as.ppp, nndist, npoints, owin, rSSI, pairdist, coords)
 importFrom("Biobase",openPDF)
 importFrom("raster", raster, contour, as.matrix, image)
 importFrom("e1071", allShortestPaths, extractPath)
-importFrom("graphics", symbols, segments, par, plot)
+importFrom("graphics", symbols, segments, par, lines, plot)
 importFrom("googleVis", gvisLineChart, gvisMerge)
 importFrom("maptools", readShapePoly)
+importFrom("minpack.lm", nls.lm, nls.lm.control, nlsLM, wfct)
 importFrom("rgeos", gCentroid)
 importFrom("sp", select.spatial, SpatialPoints)
-importFrom("rgrass7", execGRASS, readRAST)
-importFrom("stats", cutree, hclust, dist, sd, nls, binomial, coef, glm, na.omit, rnorm, runif)
+importFrom("stats", rpois)
+importFrom("rgrass7", execGRASS, readRAST, initGRASS)
+importFrom("stats", cutree, hclust, dist, sd, binomial, coef, glm, na.omit, rnorm, runif)
 importFrom("fgui", guiGetValue, guiv, guiSet, setListElements)
 importFrom("grDevices", rainbow, dev.new, dev2bitmap)
-importFrom("utils", combn, write.table)
-
+importFrom("utils", combn, write.table, packageVersion)
 
 ################################
 ##          Classes           ##

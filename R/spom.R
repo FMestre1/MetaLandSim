@@ -6,6 +6,19 @@ function(sp,kern,conn,colnz,ext,param_df,beta1=NULL,b=1,c1=NULL,c2=NULL,z=NULL,R
   {
   stop(paste(sp, " should be an object of class class 'metapopulation'.", sep=""), call. = FALSE)
   }
+  
+    if (nrow(sp$nodes.characteristics)==1) 
+  {
+if (sp$nodes.characteristics$species==0) {
+		sp0 <- sp$nodes.characteristics
+		sp0 <- cbind(sp0,0,0)
+		names(sp0)[10:11] <- c("species2","turn")
+		sp$nodes.characteristics <- sp0
+		sp1 <- c(sp,0)
+		names(sp1)[9] <- "turnover"
+		return(sp1)
+		}
+  }
     alpha <- param_df[1,]
     y <- param_df[3,]
     e <- param_df[4,]

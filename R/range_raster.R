@@ -8,7 +8,8 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
         execGRASS("g.region", raster = "map.mask")
         execGRASS("r.null", map="map.mask", setnull="0")
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o"))
-      } else {
+      }
+    else {
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o", "e"))
         execGRASS("g.region", raster = "presences")
     }
@@ -37,7 +38,7 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
       }
     fit.sigmoid <- function(y, x, start.params = list(a = 1, b = 0.5, c = 50))
       {
-        fitmodel <- nls(y ~ a / (1 + exp(b * (x - c))), start = start.params)
+        fitmodel <- nlsLM(y ~ a / (1 + exp(b * (x - c))), start = start.params)
         return(coef(fitmodel))
       }
     predict.sigmoid <- function(params, x)
@@ -124,28 +125,32 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     output <- raster(readRAST("range"))
     if(plot.directions == TRUE)
       {
-        dev.new()
+         dev.new()
         par(mfrow=c(1,2))
-        plot(re.out$NORTH$DISTANCE, predict.sigmoid(params.n, re.out$NORTH$DISTANCE/nsres),type="l",
-             main="Northern direction", xlab="Distance (m)", ylab="Probability")
+        plot(re.out$NORTH$DISTANCE, re.out$NORTH$PROPORTION,
+             main="Northern direction", xlab="Distance (m)", ylab="Probability")        
+        lines(re.out$NORTH$DISTANCE, predict.sigmoid(params.n, re.out$NORTH$DISTANCE/nsres))
         image(raster(readRAST("Nprobability")),main="Northern probability")
         contour(raster(readRAST("Nprobability")), add=T)
         dev.new()
         par(mfrow=c(1,2))
-        plot(re.out$SOUTH$DISTANCE, predict.sigmoid(params.s, re.out$SOUTH$DISTANCE/nsres),type="l",
-             main="Southern direction", xlab="Distance (m)", ylab="Probability")
+        plot(re.out$SOUTH$DISTANCE, re.out$SOUTH$PROPORTION,
+             main="Southern direction", xlab="Distance (m)", ylab="Probability")        
+        lines(re.out$SOUTH$DISTANCE, predict.sigmoid(params.s, re.out$SOUTH$DISTANCE/nsres))
         image(raster(readRAST("Sprobability")),main="Southern probability")
         contour(raster(readRAST("Sprobability")), add=T)
         dev.new()
         par(mfrow=c(1,2))
-        plot(re.out$EAST$DISTANCE, predict.sigmoid(params.e, re.out$EAST$DISTANCE/ewres),type="l",
-             main="Eastern direction", xlab="Distance (m)", ylab="Probability")
+        plot(re.out$EAST$DISTANCE, re.out$EAST$PROPORTION,
+             main="Eastern direction", xlab="Distance (m)", ylab="Probability")        
+        lines(re.out$EAST$DISTANCE, predict.sigmoid(params.e, re.out$EAST$DISTANCE/ewres))
         image(raster(readRAST("Eprobability")),main="Eastern probability")
         contour(raster(readRAST("Eprobability")), add=T)
         dev.new()
         par(mfrow=c(1,2))
-        plot(re.out$WEST$DISTANCE, predict.sigmoid(params.w, re.out$WEST$DISTANCE/ewres),type="l",
-             main="Western direction", xlab="Distance (m)", ylab="Probability")
+        plot(re.out$WEST$DISTANCE, re.out$WEST$PROPORTION,
+             main="Western direction", xlab="Distance (m)", ylab="Probability")        
+        lines(re.out$WEST$DISTANCE, predict.sigmoid(params.w, re.out$WEST$DISTANCE/ewres))
         image(raster(readRAST("Wprobability")),main="Western probability")
         contour(raster(readRAST("Wprobability")), add=T)
       }

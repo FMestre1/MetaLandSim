@@ -4,7 +4,7 @@
 Returning information on a dynamic landscape list
 }
 \description{
-This function allows the computation of some statistics of the sequence of landscapes obtained from simulate.graph. Namely: mean area of the patches, standard deviation of the area, mean pairwise Euclidean distance, total number of patches, species occupation and turnover. It allows the graphical representation of the evolution of these statistics.
+This function allows the computation of some statistics of the sequence of landscapes obtained from simulate.graph. Namely: mean area of the patches, standard deviation of the area, mean pairwise Euclidean distance, total number of patches, species occupation and turnover and mean distance to nearest habitat patch. It allows the graphical representation of the evolution of these statistics.
 }
 \usage{
 list.stats(sim_list, stat, plotG)
@@ -14,14 +14,14 @@ list.stats(sim_list, stat, plotG)
 list from function \code{\link{simulate_graph}}.
 }
   \item{stat}{
-'mean_area', 'sd_area', 'mean_distance', 'n_patches', 'occupation', 'turnover'.
+'mean_area', 'sd_area', 'mean_distance', 'n_patches', 'occupation', 'turnover' and 'mean_nneigh'.
 }
   \item{plotG}{
 TRUE/FALSE, plot output.
 }
 }
 \value{
-Returns a vector with the specified statistics of the list of occupied landscapes. A graphical output is also possible.
+Returns a vector with the evolution of the specified statistics throughout the list of landscapes representing the changes in a dynamic landscape and its occupation. A graphical output is also possible.It is possible to visualize the evolution of mean patch area, standard deviation of the patch area, mean distance between all pairs of patches, number of patches, species percentage of occupation, patch turnover (change in occupational state) and mean distance to nearest habitat patch.
 }
 \author{
 Frederico Mestre and Fernando Canovas
