@@ -8,7 +8,8 @@ This function predicts the occupancy status of each patch in a landscape in the 
 }
 \usage{
 spom(sp, kern, conn, colnz, ext, param_df, 
-     beta1 = NULL, b = 1, c1 = NULL, c2 = NULL, z = NULL, R = NULL)
+     beta1 = NULL, b = 1, c1 = NULL, c2 = NULL, 
+     z = NULL, R = NULL, succ="none", max_age=1)
 }
 \arguments{
   \item{sp}{
@@ -52,6 +53,12 @@ Parameter giving the strength of the Allee effect (if colnz='op3').
 }
   \item{R}{
 Parameter giving the strength of the Rescue effect (if ext='op3').
+}
+  \item{succ}{
+Set the preference of the species for patch successional stage: 'none', 'early', 'mid' and 'late'.
+}
+  \item{max_age}{
+Default value set to 1. This argument should not be changed by the user. It is used only when the function runs inside others.
 }
 }
 \details{
@@ -194,17 +201,18 @@ data(param1)
 #Simulating the occupation in the next time step:
 
 landscape2 <- spom(sp=occ.landscape,
-			kern='op1',
-			conn='op1',
-			colnz='op1',
-			ext='op1',
+			kern="op1",
+			conn="op1",
+			colnz="op1",
+			ext="op1",
 			param_df=param1,
 			beta1=NULL,
 			b=1,
 			c1=NULL,
 			c2=NULL,
 			z=NULL,
-			R=NULL
+			R=NULL,
+			succ="none"
 			)
 
 #The output has two new columns in the data frame nodes.characteristics: species2 

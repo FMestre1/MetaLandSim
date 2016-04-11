@@ -2,7 +2,7 @@
 ### Encoding: ISO8859-1
 
 ###################################################
-### code chunk number 1: parametrization.Rnw:48-59
+### code chunk number 1: parametrization.Rnw:49-60
 ###################################################
 library(MetaLandSim)
 data(occ.landscape)
@@ -18,7 +18,7 @@ param2
 
 
 ###################################################
-### code chunk number 2: parametrization.Rnw:67-93 (eval = FALSE)
+### code chunk number 2: parametrization.Rnw:68-94 (eval = FALSE)
 ###################################################
 ## library(MetaLandSim)
 ## data(occ.landscape2)
@@ -39,17 +39,17 @@ param2
 ## 
 ## #Or, from R:
 ## 
-## #system('mce.exe inputMCsim.dat inputMCsim')
+## system('mce.exe inputMCsim.dat inputMCsim')
 ## 
 ## 
 ## #After, create a data frame, with create.parameter.df, 
 ## #using the estimated parameters:
-## #param3 <- create.parameter.df(alpha, x, y, e)
+## param3 <- create.parameter.df(alpha, x, y, e)
 ## 
 
 
 ###################################################
-### code chunk number 3: parametrization.Rnw:102-142 (eval = FALSE)
+### code chunk number 3: parametrization.Rnw:103-143 (eval = FALSE)
 ###################################################
 ## library(MetaLandSim)
 ## data(occ.landscape2)
@@ -66,7 +66,7 @@ param2
 ## 
 ## #Or, from R:
 ## 
-## #system('fmetapop_rescue input_rescue')
+## system('fmetapop_rescue input_rescue')
 ## 
 ## #After, create a data frame, with create.parameter.df, 
 ## #using the estimated parameters:
@@ -84,12 +84,12 @@ param2
 ## 
 ## #Or, from R:
 ## 
-## #system('fmetapop_norescue input_norescue')
+## system('fmetapop_norescue input_norescue')
 ## 
 ## #After, create a data frame, with create.parameter.df, 
 ## #using the estimated parameters:
 ## 
-## #param5 <- create.parameter.df(alpha, x, y, e)
+## param5 <- create.parameter.df(alpha, x, y, e)
 ## 
 
 

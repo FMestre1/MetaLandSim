@@ -38,6 +38,6 @@ data(rland)
 
 #Computing matrix of topological distances:
 
-matrix.graph(rl=rland, mat='top_matrix')
+matrix.graph(rl=rland, mat="top_matrix")
 
 }

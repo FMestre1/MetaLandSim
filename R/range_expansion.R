@@ -18,7 +18,7 @@ function(rl, percI, param, b=1, tsteps, iter)
         npatch <- occ_landscape$number.patches
         mapsize <- occ_landscape$mapsize
         ID_land <- max(occ_landscape$nodes.characteristics$ID)
-        mapsize <- occ_landscape$mapsize  #recuperar o mapsize
+        mapsize <- occ_landscape$mapsize
         nrow_land <- nrow(occ_landscape$nodes.characteristics)
         clock <- 1
         if (node == "North") {
@@ -169,7 +169,7 @@ function(rl, percI, param, b=1, tsteps, iter)
             class(occ_landscape) <- "metapopulation"
 			occ_landscape_new <- spom(sp = occ_landscape, kern = "op1", 
                 conn = "op1", colnz = "op1", ext = "op1", param_df = param, b = b, 
-                c1 = NULL, c2 = NULL, z = NULL, R = NULL)
+                c1 = NULL, c2 = NULL, z = NULL, R = NULL, succ="none")
             if (occ_landscape_new$nodes.characteristics$species2[nrow_land + 1] == 
                 0) 
                 ocupp <- "N"
@@ -249,6 +249,8 @@ function(rl, percI, param, b=1, tsteps, iter)
             tsteps)
         outputW <- suppressWarnings(cbind(outputW, c(nodeW[, 2], rep(NA, length(outputW) - 
             length(nodeW[, 2])))))
+			
+		message(paste("Completed iteration ",i,"!",sep=""))
     }
     outputN[is.na(outputN)] <- 0
     outputS[is.na(outputS)] <- 0

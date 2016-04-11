@@ -2,14 +2,15 @@ range_raster <-
 function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
   {
     if(class(re.out) != "expansion") stop(paste(re.out, " should be an object of class class 'expansion'", sep=""), call.=FALSE)
-    if(!is.null(mask.map))
+    
+	if(!is.null(mask.map))
       {
         execGRASS("r.in.gdal", input=mask.map, output="map.mask", flags=c("overwrite", "o"))
         execGRASS("g.region", raster = "map.mask")
         execGRASS("r.null", map="map.mask", setnull="0")
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o"))
-      }
-    else {
+      } 
+	  else {
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o", "e"))
         execGRASS("g.region", raster = "presences")
     }
@@ -162,5 +163,6 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
       }
     execGRASS("g.remove", type="raster", name=rast.list,flags=c("f"))
     execGRASS("g.remove", type="vector", name=vect.list,flags=c("f"))
-    return(output)
+	    
+	return(output)
     }

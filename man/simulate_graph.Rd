@@ -7,8 +7,8 @@ Simulate species occupancy in one dynamic landscape
 Simulates the species' occupation on a landscape sequence, resorting to the \code{\link{spom}} function.
 }
 \usage{
-simulate_graph(rl, rlist, simulate.start, method, parm, nsew, param_df, 
-		kern, conn, colnz, ext, beta1, b, c1, c2, z, R)
+simulate_graph(rl, rlist, simulate.start, method, parm, nsew="none", succ="none", 
+param_df, kern, conn, colnz, ext, beta1, b, c1, c2, z, R)
 }
 \arguments{
   \item{rl}{
@@ -31,6 +31,9 @@ Parameter to specify the species occurrence - either percentage of occupied patc
 }
   \item{nsew}{
 'N', 'S', 'E', 'W' or none - point of entry of the species in the landscape. By default set to "none". To be internally passed to \code{\link{species.graph}}.
+}
+  \item{succ}{
+Set the preference of the species for patch successional stage: 'none', 'early', 'mid' and 'late'.
 }
   \item{param_df}{
 Parameter data frame delivered by \code{\link{parameter.estimate}}, including:
@@ -91,14 +94,15 @@ data(param1)
 sim1 <- simulate_graph(rl=rland, 
 			rlist=landscape_change, 
 			simulate.start=TRUE, 
-			method='percentage', 
+			method="percentage", 
 			parm=50, 
-			nsew='none', 
+			nsew="none",
+			succ = "none", 
 			param_df=param1, 
-			kern='op1', 
-			conn='op1', 
-			colnz='op1', 
-			ext='op1', 
+			kern="op1", 
+			conn="op1", 
+			colnz="op1", 
+			ext="op1", 
 			beta1=NULL, 
 			b=1, 
 			c1=NULL, 

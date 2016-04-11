@@ -65,31 +65,31 @@ Depending on computing capacity, this function can take from several hours to se
 \examples{
 
 #Setup the parameters for each simulation:
-PAR1_SPAN2 <- rep('ncsd',820)#parameter 1 for the span function 
+PAR1_SPAN2 <- rep("ncsd",820)#parameter 1 for the span function 
 PAR2_SPAN2 <- rep(seq(from=0,to=80,by=2), each=20)#parameter 2 for the span function 
 PAR3_SPAN2 <- rep(seq(from=0,to=80,by=2),20)#parameter 3 for the span function 
 PAR4_SPAN2 <- rep(2,820)#parameter 4 for the span function 
 PAR5_SPAN2 <- rep(2,820)#parameter 5 for the span function 
-NSEW_SPECIES2 <- rep('none',820)#where to start populating the landscape 
+NSEW_SPECIES2 <- rep("none",820)#where to start populating the landscape 
 PARM_SPECIES2 <- rep(5,820)#parameter for the species function 
-METHOD_SPECIES2 <- rep('percentage',820)#method for populating the landscape 
+METHOD_SPECIES2 <- rep("percentage",820)#method for populating the landscape 
 MAPSIZE2 <- rep(10000,820)#dimension of the landscape 
 SPAN2 <- rep(100,820)#number of time steps of each simulation 
 ITER2 <- rep(5,820)#number of iterations of each simulation 
 NPATCH2 <- rep(800,820)#number of patches 
 AREA_M2 <- rep(0.45,820)#mean area 
-AREA_SD2 <- rep(1,820)#area sd 
+AREA_SD2 <- rep(0.2,820)#area sd 
 MDST2 <- rep(0,820)#minimum distance between 
-KERN <- rep('op1',820)#kernel
-CONN <- rep('op1',820)#connectivity function 
-COLNZ <- rep('op1',820)#colonization function 
-EXT <- rep('op1',820)#extinction function 
-BETA1 <- rep('NULL',820) 
+KERN <- rep("op1",820)#kernel
+CONN <- rep("op1",820)#connectivity function 
+COLNZ <- rep("op1",820)#colonization function 
+EXT <- rep("op1",820)#extinction function 
+BETA1 <- rep("NULL",820) 
 B <- rep(1,820) 
-C1 <- rep('NULL',820) 
-C2 <- rep('NULL',820) 
-Z <- rep('NULL',820) 
-R2 <- rep('NULL',820) 
+C1 <- rep("NULL",820) 
+C2 <- rep("NULL",820) 
+Z <- rep("NULL",820) 
+R2 <- rep("NULL",820) 
 DISPERSAL2 <- rep(800,820)#mean dispersal ability of the species 
 
 

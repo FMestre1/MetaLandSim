@@ -8,9 +8,9 @@ Repeats the process of simulation by \code{\link{simulate_graph}} as many times 
 }
 \usage{
 iterate.graph(iter, mapsize, dist_m, areaM, areaSD, Npatch, disp, 
-		span, par1 = 'none', par2 = NULL, par3 = NULL, par4 = NULL, 
-		par5 = NULL, method = 'percentage', parm, nsew = 'none', 
-		param_df, kern, conn, colnz, ext, beta1, 
+		span, par1 = "none", par2 = NULL, par3 = NULL, par4 = NULL, 
+		par5 = NULL, method = "percentage", parm, nsew = "none", 
+		succ="none", param_df, kern, conn, colnz, ext, beta1, 
 		b = 1, c1 = NULL, c2 = NULL, z = NULL, R = NULL, graph)
 }
 \arguments{
@@ -76,6 +76,9 @@ parameter to specify the species occurrence - either percentage of occupied patc
 }
   \item{nsew}{
 'N', 'S', 'E', 'W' or none - point of entry of the species in the landscape. By default set to "none". To be internally passed to \code{\link{species.graph}}.
+}
+  \item{succ}{
+Set the preference of the species for patch successional stage: 'none', 'early', 'mid' and 'late'.
 }
   \item{param_df}{
 Parameter data frame delivered by \code{\link{parameter.estimate}}, including:
@@ -143,7 +146,7 @@ it1 <- iterate.graph(iter = 2, mapsize =10000, dist_m = 10, areaM = 0.05,
 			areaSD = 0.02, Npatch = 250, disp = 800, span = 100, 
 			par1 = "hab", par2 = 2, par3 = NULL, par4 = NULL, 
 			par5 = NULL, method = "percentage", parm = 50, 
-			nsew = "none", param_df = param1,kern = "op1", 
+			nsew = "none", succ="none", param_df = param1,kern = "op1", 
 			conn = "op1", colnz = "op1", ext = "op1", 
 			beta1 = NULL, b = 1, c1 = NULL, c2 = NULL, z = NULL, 
 			R = NULL, graph =TRUE)

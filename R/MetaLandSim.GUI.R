@@ -1441,7 +1441,7 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         tcl("image", "create", "photo", "imageID", file = file.about)
         l <- ttklabel(AboutW, image = "imageID", compound = "image")
         tkpack(l)
-        msg <- "MetaLandSim was developed as part of the PhD by Frederico Mestre entitled:\n 'Synergistic effects of climate change and habitat fragmentation on species range shifts and metapopulation persistence'.\n\n This work was funded by FEDER through COMPETE and by national funds through FCT, Fundacao para a Ciencia e a Tecnologia,\n under the project NETPERSIST (PTDC/AAG-MAA/3227/2012) and a PhD Studentship (Ref. SFRH/BD/73768/2010).\n\n It was developed by:\n\n Mestre, F.*; Canovas, F.**; Pita, R.*; Mira, A.* and P. Beja***\n\n *Research Center in Biodiversity and Genetic Resources-Univ. Evora - CIBIO/InBio-UE\n\n **Center of Marine Sciences-Univ. Algarve - CCMAR\n\n ***Research Center in Biodiversity and Genetic Resources-Univ. Porto - CIBIO/InBio-UP\n\n PORTUGAL"
+        msg <- "MetaLandSim was developed as part of a PhD by Frederico Mestre entitled:\n 'Synergistic effects of climate change and habitat fragmentation on species range shifts and metapopulation persistence'.\n\n This work was funded by FEDER through COMPETE and by national funds through FCT, Fundacao para a Ciencia e a Tecnologia,\n under the project NETPERSIST (PTDC/AAG-MAA/3227/2012) and a PhD Fellowship (Ref. SFRH/BD/73768/2010).\n\n It was developed by:\n\n Mestre, F.*; Canovas, F.**; Pita, R.*; Mira, A.* and P. Beja***\n\n *Research Center in Biodiversity and Genetic Resources-Univ. Evora - CIBIO/InBio-UE\n\n **Center of Marine Sciences-Univ. Algarve - CCMAR\n\n ***Research Center in Biodiversity and Genetic Resources-Univ. Porto - CIBIO/InBio-UP\n\n PORTUGAL"
         tkpack(tklabel(AboutW, text = msg))
         Dismiss.but <- tkbutton(AboutW, text = "OK", command = function() tkdestroy(AboutW))
         tkpack(Dismiss.but)
@@ -1459,6 +1459,6 @@ tkadd(rangeM, "command", label = "Start GRASS session",
             "/doc/landscape_simulation.pdf", sep = "")))
     tkadd(aboutM, "command", label = "Vignette on Range Expansion Simulation", command = function() openPDF(file = paste(system.file(package = "MetaLandSim"), 
         "/doc/range_expansion.pdf", sep = "")))
-	tkadd(aboutM, "command", label = "Reference Paper", command = function() tkmessageBox(title = "Reference Paper", message = "Mestre,F.; Canovas,F.; Pita, R.; Mira, A. and Beja, P. (in press). 'An R Package for simulating metapopulation dynamics and range expansion under environmental change', Environmental Modelling and Software.", icon = "info", type = "ok"))
+	tkadd(aboutM, "command", label = "Reference Paper", command = function() tkmessageBox(title = "Reference Paper", message = "Mestre,F.; Canovas,F.; Pita, R.; Mira, A. and Beja, P. (2016). 'An R Package for simulating metapopulation dynamics and range expansion under environmental change', Environmental Modelling and Software, 81:40-44.", icon = "info", type = "ok"))
     tkadd(topMenu, "cascade", label = "About", menu = aboutM)
 }

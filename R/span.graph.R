@@ -5,7 +5,15 @@ span.graph <-
     {
       stop(paste(rl, " should be an object of class class 'landscape'.", sep=""), call. = FALSE)
     }
-    rll_0 <- rl 
+    if(par1=="none" && !all(!is.numeric(par2), !is.numeric(par3), !is.numeric(par4), !is.numeric(par5)))message("If 'par1=none' there's no need to define values for the\n following parameters!")
+    if(par1=="dincr" && !all (is.numeric(par2),!is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=dincr' only 'par2' should have a numeric value \n(see manual)!")
+    if(par1=="hab" && !all (is.numeric(par2),!is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=hab' only 'par2' should have a numeric value \n(see manual)!")
+    if(par1=="darea" && !all (is.numeric(par2),is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=darea' only 'par2' and 'par3' should have a numeric value \n(see manual)!")
+    if(par1=="aggr" && !all (is.numeric(par2),is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=aggr' only 'par2' and 'par3' should have a numeric value \n(see manual)!")
+    if(par1=="stoc" && !all (is.numeric(par2),is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=stoc' only 'par2' and 'par3' should have a nuveric value \n(see manual)!")
+    if(par1=="stoc2" && !all (is.numeric(par2),!is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=stoc2' only 'par2' should have a numeric value \n(see manual)!")
+    if(par1=="ncsd" && !all (is.numeric(par2),is.numeric(par3),is.numeric(par4),is.numeric(par5)))stop("If 'par1=ncsd' all following parameters should have a numeric value \n(see manual)!")
+	rll_0 <- rl 
     mapsize2 <- rl$mapsize
     dist_m2 <- rl$minimum.distance
     areaM2 <- rl$mean.area
@@ -14,32 +22,35 @@ span.graph <-
     disp2 <- rl$dispersal
     rl <- rl$nodes.characteristics
     ID2 <- rl$ID
-    rland.list <- as.list(rep("", span))
+    rland.list <- as.list(rep(NA, span))
     rland.list[[1]] <- rl
     if(par1 == "hab")
     { 
-        for(i in 2:span)
-          { 
-		   
-		    tot <- nrow(rland.list[[i-1]])
-		    destroy <- tot*(par2/100)
-			repeat{
-			p2 <- rpois(1, lambda=destroy)
-            n_select <- (nrow(na.omit(rland.list[[i-1]]))-p2)
-			if(n_select>=0)break
-			}
-            g1 <- na.omit(rland.list[[i-1]][sample(nrow(na.omit(rland.list[[i-1]])), 
-                          n_select, replace=FALSE),])
-            g2 <- g1[sort.list(as.numeric(rownames(g1))),] 
-            if(nrow(g2)!=0) rownames(g2) <- 1:nrow(g2)
-            if (nrow(g2) == 0)
-              {
-                message ("Unable to generate all the landscapes.\nSome landscapes would have no habitat patches.") 
-                  break
-              }
-            rland.list[[i]] <- g2
-          }
-	}
+      vect1 <- c()
+      for(i in 2:span)
+      { 
+        n_select <- (nrow(na.omit(rland.list[[i-1]]))-round((nrow(na.omit(rland.list[[i-1]]))*par2)/100))
+        if(n_select == nrow(rland.list[[i-1]]))vect1 <- c(vect1,i)
+        else vect1 <- c(vect1,0)
+        g1 <- na.omit(rland.list[[i-1]][sample(nrow(na.omit(rland.list[[i-1]])), 
+                                               n_select, replace=FALSE),])
+        g2 <- g1[sort.list(as.numeric(rownames(g1))),] 
+        rownames(g2) <- 1:nrow(g2)
+        rland.list[[i]] <- g2
+        if (nrow(g2) == 0)
+        {
+          warning ("Unable to generate all the landscapes.\nSome landscapes would have no habitat patches.") 
+          break
+        }
+      }
+      if (sum(vect1)!=0)
+      {
+        
+        vect1 <- vect1[vect1!=0]   
+        index1 <- min(vect1)-1
+        message("After time step ",index1," all landscapes had the same number of patches.","\n")
+      }
+    } 
     if(par1 == "dincr")
     {
       idist <- par2 
@@ -82,7 +93,7 @@ span.graph <-
         rl1 <- subset(rl0, rl0[, 3] > par3)
         if(nrow(rl1)==0)
         {
-          cat("After time step",b+1, "the landscape has no patches.", "\n")
+          message("After time step",b+1, "the landscape has no patches!", "\n")
           break		  
         }
         rland.list[[b]] <- rl1
@@ -91,6 +102,213 @@ span.graph <-
     if(par1 == "none")
     {
       rland.list <- rep(list(rl), span)
+    }
+    if(par1=="stoc")
+    { 
+      addpoints1 <- function (rl,nr,IDmax)
+      {
+        if(nrow(rl$nodes.characteristics)!=0){   
+          if (nr!=0)
+          {
+            mapsize3 <- rl$mapsize
+            dist_m3 <- rl$minimum.distance
+            areaM3 <- rl$mean.area
+            areaSD3 <- rl$SD.area
+            Npatch3 <- rl$number.patches
+            disp3 <- rl$dispersal
+            rl <- rl$nodes.characteristics
+            ID2 <- rl$ID
+            rl2 <- rl[,1:2]
+            wind <- owin(xrange=c(0,mapsize3), yrange=c(0,mapsize3))
+            suppressWarnings(pts_0 <- as.ppp(rl2, W = wind,fatal=TRUE))
+            if(npoints(pts_0)+nr >1)  pts_1 <- rSSI(r=dist_m3, n = npoints(pts_0)+nr, win = wind,giveup = 1000, x.init=pts_0)
+            if(npoints(pts_0)+nr==1)	pts_1 <- rSSI(r=dist_m3, n = npoints(pts_0)+nr, win = wind, giveup = 1000)		
+            df_pts0 <- as.data.frame(coords(pts_1))
+            df_pts1 <- as.data.frame(coords(pts_0))
+            df_pts2 <- df_pts0[!duplicated(rbind(df_pts1, df_pts0))[nrow(df_pts1) + 
+                                                                      1:nrow(df_pts0)],]
+            nrow_0 <- nrow(rl)
+            na_lines <- as.data.frame(matrix(NA,nrow=nr,ncol=ncol(rl)))
+            colnames(na_lines) <- colnames(rl)
+            if(nrow(na_lines)>1)rownames(na_lines) <- max(as.numeric(rownames(rl)))+1:nrow(na_lines)
+            if(nrow(na_lines)==1)rownames(na_lines)<-1
+            rl <- rbind(rl,na_lines)
+            rl[(nrow_0+1):nrow(rl),1:2] <- df_pts2
+            b1 <- (sqrt(areaSD3^2*12)+(areaM3*2))/2
+            a <- (areaM3*2) - b1
+            areas0 <- runif(nr,a,b1)
+            radius0 <- sqrt((areas0*10000)/pi)
+            rl[(nrow_0+1):nrow(rl),"areas"] <- areas0
+            rl[(nrow_0+1):nrow(rl),"radius"] <- radius0
+            if(nrow(rl)>1)new_ID <- (IDmax+1):(IDmax+nr)
+            if(nrow(rl)==1)new_ID <- IDmax+1
+            rl[,8] <- as.character (c(ID2,new_ID))
+            if(nrow(rl)>1){
+              grouping <- hclust(dist(rl[,1:2],method = "euclidean"),"single")
+              clusters <- as.data.frame(cutree(grouping, h=disp2))[,1]
+            }
+            if(nrow(rl)==1)clusters <- 1
+            rl[,"cluster"] <- clusters
+            col1 <- rainbow(max(rl[,5]))
+            col2 <- as.data.frame(col1)
+            col2[,2] <- seq(1:max(rl[,5]))
+            col3 <- merge_order(rl, col2, by.x = "cluster", 
+                                by.y = "V2",sort=FALSE,keep_order=TRUE)[,9]
+            rl[,"colour"] <- col3
+            if(nrow(rl)>1)col4 <- nndist (rl[,1:2])
+            if(nrow(rl)==1) col4 <- 0
+            rl[,"nneighbour"] <- col4
+            rland.out <- list(mapsize=mapsize3, minimum.distance=dist_m3,
+                              mean.area=areaM3, SD.area=areaSD3,
+                              number.patches=nrow(rl),dispersal=disp3,
+                              nodes.characteristics=rl)
+            class(rland.out) <- "landscape"
+            if(nrow(rl)>1)rland.out <- cluster.id(rland.out)
+          }
+          if (nr==0)
+          {
+            rland.out <- rl
+          }
+        }
+        else if(nrow(rl$nodes.characteristics)==0){
+          if(nr==0){
+          mapsize3 <- rl$mapsize
+          dist_m3 <- rl$minimum.distance
+          areaM3 <- rl$mean.area
+          areaSD3 <- rl$SD.area
+          disp3 <- rl$dispersal
+          
+          rland.out <-  list(mapsize=mapsize3, minimum.distance=dist_m3,
+                               mean.area=areaM3, SD.area=areaSD3,
+                               number.patches=nr,dispersal=disp3,
+                               nodes.characteristics=rl$nodes.characteristics)
+            
+          class(rland.out) <- "landscape"
+          }
+          if(nr!=0 && nr!=1){
+            mapsize3 <- rl$mapsize
+            dist_m3 <- rl$minimum.distance
+            areaM3 <- rl$mean.area
+            areaSD3 <- rl$SD.area
+            disp3 <- rl$dispersal
+            
+            rland.out <- rland.graph(mapsize=mapsize3, dist_m=dist_m3, areaM=areaM3, 
+                         areaSD=areaSD3, Npatch=nr,
+                         disp=disp3, plotG=FALSE)
+            
+            rland.out$nodes.characteristics$ID <- (IDmax+1):(IDmax+nrow(rland.out$nodes.characteristics))
+            
+          }
+          if(nr==1){
+            mapsize3 <- rl$mapsize
+            dist_m3 <- rl$minimum.distance
+            areaM3 <- rl$mean.area
+            areaSD3 <- rl$SD.area
+            disp3 <- rl$dispersal
+            rl0 <- rl$nodes.characteristics
+            
+            wind <- owin(xrange=c(0,mapsize3), yrange=c(0,mapsize3))
+            pts_1 <- rSSI(r=dist_m3, n = 1, win = wind, giveup = 1000)		
+            df_pts0 <- as.data.frame(coords(pts_1))
+            rl0[1,1] <- df_pts0[1,1]
+            rl0[1,2] <- df_pts0[1,2]
+            
+            b1 <- (sqrt(areaSD3^2*12)+(areaM3*2))/2
+            a <- (areaM3*2) - b1
+            areas0 <- runif(nr,a,b1)
+            rl0[1,3] <- areas0
+            
+            radius0 <- sqrt((areas0*10000)/pi)
+            rl0[1,4] <- radius0 
+            
+            rl0[1,5] <- 1
+            
+            colour0 <- rainbow(nr)
+            rl0[1,6] <- colour0
+            rl0[1,7] <- 0
+            rl0[1,8] <- IDmax+1
+            
+            rland.out <-  list(mapsize=mapsize3, minimum.distance=dist_m3,
+                               mean.area=areaM3, SD.area=areaSD3,
+                               number.patches=nr,dispersal=disp3,
+                               nodes.characteristics=rl0)
+            
+            class(rland.out) <- "landscape"
+          }
+        }
+        
+        if(nrow(rland.out$nodes.characteristics)!=0) rownames(rland.out$nodes.characteristics) <- 1:nrow(rland.out$nodes.characteristics)
+        
+    rland.out$mean.area <- rl$mean.area
+    rland.out$SD.area <- rl$SD.area
+		
+        return(rland.out)
+      }
+      
+      removepoints1 <- function (rl,nr)
+      {
+        if(nrow(rl$nodes.characteristics)==nr) {
+          
+          rl$nodes.characteristics <- rl$nodes.characteristics[-(1:nrow(rl$nodes.characteristics)),]
+          
+          return(rl)
+        }
+        if(nrow(rl$nodes.characteristics)==0) {
+          
+          rll_1 <- rl$nodes.characteristics
+        }  
+        else{
+          mapsize4 <- rl$mapsize
+          dist_m4 <- rl$minimum.distance
+          areaM4 <- rl$mean.area
+          areaSD4 <- rl$SD.area
+          Npatch4 <- rl$number.patches
+          disp4 <- rl$dispersal
+          rl_01 <- rl$nodes.characteristics
+          ID2 <- rl_01$ID
+          nr_select <- nrow(rl_01)-nr
+          rl_1 <- rl_01[sample(1:nrow(rl_01), nr_select,replace=FALSE),]
+          rl_2 <- rl_1[sort.list(as.numeric(rownames(rl_1))),]
+          rl_3 <- list(mapsize=mapsize4, minimum.distance=dist_m4,
+                       mean.area=areaM4, SD.area=areaSD4, number.patches=nrow(rl_2),
+                       dispersal=disp4,nodes.characteristics=rl_2)
+          class(rl_3) <- "landscape"
+          rl_4 <- cluster.id(rl_3)
+          rownames(rl_4$nodes.characteristics) <- 1:nrow(rl_4$nodes.characteristics)
+          rl_4$SD.area <- areaSD4
+          rl_4$mean.area <- areaM4
+          return(rl_4)
+        }
+      }
+      
+      for(i in 2:span){
+        tot <- nrow(rland.list[[i-1]])
+        rland.list3 <- rland.list[1:length(unlist(lapply(rland.list,nrow)))]
+        IDmax <- max(do.call(rbind, rland.list3)[,8])
+        create <- tot*(par2/100)
+        destroy <- tot*(par3/100)
+        p2 <- rpois(1, lambda=create)
+        p3 <- rpois(1, lambda=destroy)
+        
+        rl_m1 <- rland.list[[i-1]]
+        
+        rl_m1_0 <- list(mapsize=mapsize2, minimum.distance=dist_m2,
+                        mean.area=areaM2,SD.area=areaSD2, number.patches=nrow(rl_m1),
+                        dispersal=disp2,nodes.characteristics=rl_m1)
+        class(rl_m1_0) <- "landscape" 
+        if(p3>nrow(rl_m1_0$nodes.characteristics)) p3 <- nrow(rl_m1_0$nodes.characteristics)
+        rll_r <- removepoints1(rl_m1_0,nr=p3)
+        suppressWarnings(rll_a <- addpoints1(rll_r,nr=p2, IDmax))
+        if(nrow(rll_a$nodes.characteristics)!=nrow(rll_r$nodes.characteristics)+p2){
+          stop("During simulation one landscape has more patches than it can
+               hold!\nConsider making 'dist_m=0' or increasing 'mapsize' in the input landscape.")
+        }
+        rll_1 <- rll_a$nodes.characteristics
+        
+        if(nrow(rll_1)==1) rll_1$nneighbour <- NA
+        
+        rland.list[[i]] <- rll_1
+        }
     }
     if (par1=="ncsd")
     {
@@ -128,6 +346,8 @@ span.graph <-
           rl2 <- cluster.id(rl1)
         }
         rownames(rl2$nodes.characteristics) <- 1:nrow(rl2$nodes.characteristics)
+        rl2$mean.area <- areaM2
+        rl2$SD.area <- areaSD2
         return(rl2)
       }
       addpoints2 <- function (rl,nr, parameter)
@@ -158,8 +378,10 @@ span.graph <-
           rownames(na_lines) <- max(as.numeric(rownames(rl)))+1:nrow(na_lines)
           rl <- rbind(rl,na_lines)
           rl[(nrow_0+1):nrow(rl),1:2] <- df_pts2
-          areas0 <- abs(rnorm(nr, mean = areaM2, sd = areaSD2))
-          radius0 <- sqrt((areas0*10000)/pi)
+		  b1 <- (sqrt(areaSD2^2*12)+(areaM2*2))/2
+          a <- (areaM2*2) - b1
+          areas0 <- runif(nr,a,b1)
+		  radius0 <- sqrt((areas0*10000)/pi)
           rl[(nrow_0+1):nrow(rl),"areas"] <- areas0
           rl[(nrow_0+1):nrow(rl),"radius"] <- radius0
           new_ID <- (max(ID2)+1):(max(ID2)+nr)
@@ -187,26 +409,28 @@ span.graph <-
           rland.out <- rl
         }
         rownames(rland.out$nodes.characteristics) <- 1:nrow(rland.out$nodes.characteristics) 
+        rland.out$mean.area <- rl$mean.area
+        rland.out$SD.area <- rl$SD.area
         return(rland.out)
       }
       for(i in 2:span)
-        {
-          rl0 <- rland.list[[i-1]]
-          tot <- nrow(rl0)
-		  create <- tot*(par4/100)
-          destroy <- tot*(par5/100)
-		  p2 <- rpois(1, lambda=create)
-          p3 <- rpois(1, lambda=destroy)
-		  rland0_0 <- list(mapsize=mapsize2, minimum.distance=dist_m2, 
-          mean.area=mean(rl0$areas),SD.area=sd(rl0$areas), number.patches=nrow(rl0),
-          dispersal=disp2,nodes.characteristics=rl0)
-          class(rland0_0) <- "landscape"
-          rl0_d <- removepoints2(rland0_0, p2, parameter=par3)
-          suppressWarnings(rland0_2 <- addpoints2(rl0_d, p3, parameter=par2))
-          rland0_3 <- cluster.id(rland0_2)
-          out <- rland0_3$nodes.characteristics
-          rland.list[[i]] <- out
-        }
+      {
+        rl0 <- rland.list[[i-1]]
+        n_TOT <- nrow(rl0)
+        p2 <- n_TOT*(par5/100)
+        p3 <- n_TOT*(par4/100)
+        n_D <- rpois(1, lambda=p2)
+        n_C <- rpois(1, lambda=p3)
+        rland0_0 <- list(mapsize=mapsize2, minimum.distance=dist_m2, 
+                         mean.area=areaM2,SD.area=areaSD2, number.patches=nrow(rl0),
+                         dispersal=disp2,nodes.characteristics=rl0)
+        class(rland0_0) <- "landscape"
+        rl0_d <- removepoints2(rland0_0, n_D, parameter=par3)
+        suppressWarnings(rland0_2 <- addpoints2(rl0_d, n_C, parameter=par2))
+        rland0_3 <- cluster.id(rland0_2)
+        out <- rland0_3$nodes.characteristics
+        rland.list[[i]] <- out
+      }
     }
     if (par1=="aggr")
     {
@@ -215,17 +439,11 @@ span.graph <-
         vector1 <- sin(df1$x*pi/parameter+df1$y*pi/parameter)+1
         return(vector1)
       }
-	  vector_kept <- rep(0,span)
+      f6 <- function(a,...) round(a*(1-(par2/100)))
+      vector_kept <- rep(0,span)
       vector_kept[1] <- nrow(rl)
-	  	  for(i in 1:span){
-	  current <- vector_kept[i]
-	  destroy <- current*(par2/100)
-	  p3 <- rpois(1, lambda=destroy)
-	  vector_kept[i+1] <- current-p3
-	  }
-	  vector_kept <- vector_kept[ vector_kept != 0]
-	  if (length(vector_kept)<span) message(paste("Unable to create ",span, " landscapes!","\nThe remaining would have no patches.",sep=""))
-	  for(i in 2:length(vector_kept))
+      vector_kept <- Reduce(f6,vector_kept,accumulate=TRUE)
+      for(i in 2:span)
       {
         rl0 <- rland.list[[i-1]]
         n_K <- vector_kept[i]
@@ -246,9 +464,9 @@ span.graph <-
       }
       unlist(lapply(rland.list,nrow))
     }
-    if (par1 == "stoc")
+    if (par1 == "stoc2")
     {
-      addpoints <- function (rl,nr)
+      addpoints3 <- function (rl,nr)
       {
         if (nr!=0)
         {
@@ -275,8 +493,10 @@ span.graph <-
           rownames(na_lines) <- max(as.numeric(rownames(rl)))+1:nrow(na_lines)
           rl <- rbind(rl,na_lines)
           rl[(nrow_0+1):nrow(rl),1:2] <- df_pts2
-          areas0 <- abs(rnorm(nr, mean = areaM2, sd = areaSD2))
-          radius0 <- sqrt((areas0*10000)/pi)
+		  b1 <- (sqrt(areaSD2^2*12)+(areaM2*2))/2
+          a <- (areaM2*2) - b1
+          areas0 <- runif(nr,a,b1)
+		  radius0 <- sqrt((areas0*10000)/pi)
           rl[(nrow_0+1):nrow(rl),"areas"] <- areas0
           rl[(nrow_0+1):nrow(rl),"radius"] <- radius0
           new_ID <- (max(ID2)+1):(max(ID2)+nr)
@@ -306,7 +526,7 @@ span.graph <-
         rownames(rland.out$nodes.characteristics) <- 1:nrow(rland.out$nodes.characteristics) 
         return(rland.out)
       }
-      removepoints <- function (rl,nr)
+      removepoints3 <- function (rl,nr)
       {
         mapsize2 <- rl$mapsize
         dist_m2 <- rl$minimum.distance
@@ -327,25 +547,20 @@ span.graph <-
         rownames(rl_4$nodes.characteristics) <- 1:nrow(rl_4$nodes.characteristics)
         return(rl_4)
       }
-      
-      
-      for(i in 2:span){
-        tot <- nrow(rland.list[[i-1]])
-        create <- tot*(par2/100)
-        destroy <- tot*(par3/100)
-        p2 <- rpois(1, lambda=create)
-        p3 <- rpois(1, lambda=destroy)
-        rl_m1 <- rland.list[[i-1]]
+      for(m in 2:span)
+      {
+        tot <- nrow(rland.list[[m-1]])
+        p2 <- round((tot*par2)/100)
+        rl_m1 <- rland.list[[m-1]]
         rl_m1_0 <- list(mapsize=mapsize2, minimum.distance=dist_m2, 
                         mean.area=mean(rl_m1$areas),SD.area=sd(rl_m1$areas), number.patches=nrow(rl_m1),
                         dispersal=disp2,nodes.characteristics=rl_m1)
         class(rl_m1_0) <- "landscape"    
-        rll_r <- removepoints(rl_m1_0,nr=p3)
-        rll_a <- addpoints(rll_r,nr=p2)
+        rll_r <- removepoints3(rl_m1_0,nr=p2)
+        rll_a <- addpoints3(rll_r,nr=p2)
         rll_1 <- rll_a$nodes.characteristics
-        rland.list[[i]] <- rll_1
+        rland.list[[m]] <- rll_1
       }
-      
     }
     rland.list2 <- rland.list[1:length(unlist(lapply(rland.list,nrow)))]
     if (length(rland.list2) < span)
@@ -355,6 +570,7 @@ span.graph <-
     
     for(i in 1:length(rland.list2)){
       df01 <- rland.list2[[i]]
+      if(nrow(df01)!=0){
       xy <- df01[,1:2]
       d1 <- pairdist(xy)
       d1[d1 == 0] <- NA
@@ -365,11 +581,11 @@ span.graph <-
         if(is.finite(val1)) nneigh[j]<-min(r1, na.rm=TRUE)
         if(!is.finite(val1)) nneigh[j]<-0
       }
-      df01[,7] <- nneigh
+      }
+      if(nrow(df01)!=0)df01[,7] <- nneigh
       rland.list2[[i]] <- df01
     }
     
-    return(rland.list2)
-}  
-  
-  
+return(rland.list2)
+
+}

@@ -39,13 +39,13 @@ data(param1)
 #(output of span.graph):
 
 sim1 <- simulate_graph(	rl=rland, rlist=landscape_change, simulate.start=TRUE, 
-			method='percentage', parm=50, nsew='none', 
-			param_df=param1, kern='op1',  conn='op1', colnz='op1', 
-			ext='op1', beta1=NULL, b=1, c1=NULL, c2=NULL, z=NULL, R=NULL)
+			method="percentage", parm=50, nsew="none", succ = "none",
+			param_df=param1, kern="op1",  conn="op1", colnz="op1", 
+			ext="op1", beta1=NULL, b=1, c1=NULL, c2=NULL, z=NULL, R=NULL)
 
 #Then evaluate species occupancy through the changes suffered by the landscape:
 
-occ <- list.stats(sim_list=sim1, stat='occupation', plotG=TRUE)
+occ <- list.stats(sim_list=sim1, stat="occupation", plotG=TRUE)
 
 #Checking the percentage of occupation in the 40 first landscapes:
 

@@ -57,7 +57,7 @@ Depending on computing power and number of iterations (parameter iter) this func
 
 \dontrun{
 #Produce a model of range expansion:
-#Note: this function should be run with >100 iterations (parameter 'iter').
+#Note: this function should be run with >100 iterations (parameter "iter").
 
 data(rland)
 data(param1)

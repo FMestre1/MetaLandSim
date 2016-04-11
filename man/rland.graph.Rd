@@ -1,7 +1,7 @@
 \name{rland.graph}
 \alias{rland.graph}
 \title{
-Function to create a random landscape graph
+Creates random landscape graph
 }
 \description{
 One of the key functions of the package, which allows the creation of random landscapes (represented as graphs) with two categories: habitat patch and non-habitat matrix. The landscapes can be different depending on the parameters chosen.

@@ -45,11 +45,11 @@ The shapefile must be in project coordinates (units=meters and hectares).
 
 \dontrun{
 
-rl1 <- import.shape(filename = 'yourshapefile.shp'
-			,path = 'C:/yourpath...'
-			,species.col= 'column with species'
-			,ID.col='column with patch Id'
-			,area.col='Column with area'
+rl1 <- import.shape(filename = "yourshapefile.shp"
+			,path = "C:/yourpath..."
+			,species.col= "column with species"
+			,ID.col="column with patch Id"
+			,area.col="Column with area"
 			,dispersal=800#Mean dispersal ability of the species 
 			#(used to generate patch clusters, or components)
 			)

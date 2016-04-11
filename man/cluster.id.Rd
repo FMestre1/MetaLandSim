@@ -4,7 +4,7 @@
 Classify patches in clusters
 }
 \description{
-Function to reclassify clusters of a landscape according to a given mean dispersal distance.
+reclassify clusters of a landscape according to a given mean dispersal distance.
 }
 \usage{
 cluster.id(rl)

@@ -53,9 +53,9 @@ Frederico Mestre and Fernando Canovas
 
 data(rland)
 
-##Creating a 50\% occupation in an empty landscape (using the 'landscape' dataset):
+##Creating a 50\% occupation in an empty landscape (using the "landscape" dataset):
 
-sp1 <- species.graph(rl=rland, method='percentage', parm=50, nsew='none', plotG=TRUE)
+sp1 <- species.graph(rl=rland, method="percentage", parm=50, nsew="none", plotG=TRUE)
 }
 
 
