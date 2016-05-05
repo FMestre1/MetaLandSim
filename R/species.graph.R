@@ -16,7 +16,7 @@ species.graph <-
 	      }
     mapsize <- rl$mapsize
     sp1 <- SpatialPoints(d1[, 1:2])
-    dist_pair <- matrix.graph(rl,mat="euc_distance")
+    dist_pair <- matrix.graph(rl,mat="centr_distance")
     dp1 <- as.data.frame(dist_pair)
     age <- rl$nodes.characteristics$age
     d2 <- cbind(d1,dp1)

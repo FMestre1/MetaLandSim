@@ -15,7 +15,7 @@ function(rl,mat)
         rownames(result) <- df1$ID
         radiuses <- cbind(df1$ID,df1$radius)
         for(i in 1:nrow(result))
-          {
+         {
             result[,i] <- result[,i] - radiuses[i,2]
             result[i,] <- result[i,] - radiuses[i,2]
           }

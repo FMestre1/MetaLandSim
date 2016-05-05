@@ -9,8 +9,7 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
         execGRASS("g.region", raster = "map.mask")
         execGRASS("r.null", map="map.mask", setnull="0")
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o"))
-      } 
-	  else {
+      } else {
         execGRASS("r.in.gdal", input=presences.map, output="presences", flags=c("overwrite", "o", "e"))
         execGRASS("g.region", raster = "presences")
     }
@@ -37,7 +36,7 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
             execGRASS("r.to.vect", input=in.name, output=out.name, type=type, flags=c("overwrite","z"))
           }
       }
-    fit.sigmoid <- function(y, x, start.params = list(a = 1, b = 0.5, c = 50))
+    fit.sigmoid <- function(y, x, start.params = list(a = 1, b = 0.5, c = 0))
       {
         fitmodel <- nlsLM(y ~ a / (1 + exp(b * (x - c))), start = start.params)
         return(coef(fitmodel))
@@ -46,6 +45,7 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
       {
         return(params[1] / (1 + exp(params[2] * (x - params[3]))))
       }
+
     execGRASS("g.region", flags="p",intern=T) -> region.parameters
     extract.value(region.parameters, cardinal="north") -> north
     extract.value(region.parameters, cardinal="south") -> south
@@ -53,73 +53,82 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     extract.value(region.parameters, cardinal="west") -> west
     extract.value(region.parameters, cardinal="nsres") -> nsres
     extract.value(region.parameters, cardinal="ewres") -> ewres
+
     execGRASS("r.mapcalc", expression=paste("north_horizon=y() > ",
               north-nsres, sep=""), flags="overwrite")
     execGRASS("r.null", map="north_horizon", setnull="0")
     create.vector(in.name="north_horizon", out.name="north_horizon")
+    
     execGRASS("r.mapcalc", expression=paste("south_horizon=y() < ",
               south + nsres, sep=""), flags="overwrite")
     execGRASS("r.null", map="south_horizon", setnull="0")
     create.vector(in.name="south_horizon", out.name="south_horizon")
+
     execGRASS("r.mapcalc", expression=paste("west_horizon=x() < ",
               west+ewres, sep=""), flags="overwrite")
     execGRASS("r.null", map="west_horizon", setnull="0")
     create.vector(in.name="west_horizon", out.name="west_horizon")
+
     execGRASS("r.mapcalc", expression=paste("east_horizon=x() > ",
               east-ewres, sep=""), flags="overwrite")
     execGRASS("r.null", map="east_horizon", setnull="0")
     create.vector(in.name="east_horizon", out.name="east_horizon")
+
     execGRASS("r.mapcalc", expression="wd=1", flags="overwrite")
     create.vector(in.name="presences", out.name="presences", type="point")
+
+    execGRASS("r.cost", input="wd", output="tempdir", start_raster="presences", flags="overwrite")
+
     execGRASS("r.cost", input="wd", output="temptrend", start_raster="north_horizon", flags="overwrite")
-    execGRASS("r.cost", input="wd", output="tempdir", start_raster="presences", stop_points="north_horizon", flags="overwrite")
     execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
     execGRASS("r.mapcalc", expression=paste("Ndirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
               flags="overwrite")
+
     execGRASS("r.cost", input="wd", output="temptrend", start_raster="south_horizon", flags="overwrite")
-    execGRASS("r.cost", input="wd", output="tempdir", start_raster="presences", stop_points="south_horizon", flags="overwrite")
     execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
     execGRASS("r.mapcalc", expression=paste("Sdirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
               flags="overwrite")
+
     execGRASS("r.cost", input="wd", output="temptrend", start_raster="east_horizon", flags="overwrite")
-    execGRASS("r.cost", input="wd", output="tempdir", start_raster="presences", stop_points="east_horizon", flags="overwrite")
     execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
     execGRASS("r.mapcalc", expression=paste("Edirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
               flags="overwrite")
+
     execGRASS("r.cost", input="wd", output="temptrend", start_raster="west_horizon", flags="overwrite")
-    execGRASS("r.cost", input="wd", output="tempdir", start_raster="presences", stop_points="west_horizon", flags="overwrite")
     execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
     execGRASS("r.mapcalc", expression=paste("Wdirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
               flags="overwrite")
-    execGRASS("g.remove", type="raster", name="temptrend,tempdir,tempout",flags=c("f"))
+
+    execGRASS("g.remove", type="raster", name="temptrend,tempout",flags=c("f"))
     params.n <- fit.sigmoid(re.out$NORTH$PROPORTION, re.out$NORTH$DISTANCE/nsres)
     params.s <- fit.sigmoid(re.out$SOUTH$PROPORTION, re.out$SOUTH$DISTANCE/nsres)
     params.e <- fit.sigmoid(re.out$EAST$PROPORTION, re.out$EAST$DISTANCE/ewres)
     params.w <- fit.sigmoid(re.out$WEST$PROPORTION, re.out$WEST$DISTANCE/ewres)
+
     if(!is.null(mask.map))
       {
         execGRASS("r.mask", raster="map.mask")
       }
-    execGRASS("r.cost", input="wd", output="distances", start_raster="presences", flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression=paste("Nprobability = Ndirectionality * (", params.n[1]," / (1 + exp(", params.n[2]," * (distances - ", params.n[3],"))))", sep=""),
+
+    execGRASS("r.mapcalc", expression=paste("Nprobability = Ndirectionality * (", params.n[1]," / (1 + exp(", params.n[2]," * (tempdir - ", params.n[3],"))))", sep=""),
               flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression=paste("Sprobability = Sdirectionality * (", params.s[1]," / (1 + exp(", params.s[2]," * (distances - ", params.s[3],"))))", sep=""),
+    execGRASS("r.mapcalc", expression=paste("Sprobability = Sdirectionality * (", params.s[1]," / (1 + exp(", params.s[2]," * (tempdir - ", params.s[3],"))))", sep=""),
               flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression=paste("Eprobability = Edirectionality * (", params.e[1]," / (1 + exp(", params.e[2]," * (distances - ", params.e[3],"))))", sep=""),
+    execGRASS("r.mapcalc", expression=paste("Eprobability = Edirectionality * (", params.e[1]," / (1 + exp(", params.e[2]," * (tempdir - ", params.e[3],"))))", sep=""),
               flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression=paste("Wprobability = Wdirectionality * (", params.w[1]," / (1 + exp(", params.w[2]," * (distances - ", params.w[3],"))))", sep=""),
+    execGRASS("r.mapcalc", expression=paste("Wprobability = Wdirectionality * (", params.w[1]," / (1 + exp(", params.w[2]," * (tempdir - ", params.w[3],"))))", sep=""),
               flags=c("overwrite"))
     execGRASS("r.mapcalc", expression="range = (Nprobability + Sprobability + Eprobability + Wprobability) /4",
               flags=c("overwrite"))
@@ -165,4 +174,4 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     execGRASS("g.remove", type="vector", name=vect.list,flags=c("f"))
 	    
 	return(output)
-    }
+}

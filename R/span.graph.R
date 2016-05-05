@@ -5,15 +5,7 @@ span.graph <-
     {
       stop(paste(rl, " should be an object of class class 'landscape'.", sep=""), call. = FALSE)
     }
-    if(par1=="none" && !all(!is.numeric(par2), !is.numeric(par3), !is.numeric(par4), !is.numeric(par5)))message("If 'par1=none' there's no need to define values for the\n following parameters!")
-    if(par1=="dincr" && !all (is.numeric(par2),!is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=dincr' only 'par2' should have a numeric value \n(see manual)!")
-    if(par1=="hab" && !all (is.numeric(par2),!is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=hab' only 'par2' should have a numeric value \n(see manual)!")
-    if(par1=="darea" && !all (is.numeric(par2),is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=darea' only 'par2' and 'par3' should have a numeric value \n(see manual)!")
-    if(par1=="aggr" && !all (is.numeric(par2),is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=aggr' only 'par2' and 'par3' should have a numeric value \n(see manual)!")
-    if(par1=="stoc" && !all (is.numeric(par2),is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=stoc' only 'par2' and 'par3' should have a nuveric value \n(see manual)!")
-    if(par1=="stoc2" && !all (is.numeric(par2),!is.numeric(par3),!is.numeric(par4),!is.numeric(par5)))stop("If 'par1=stoc2' only 'par2' should have a numeric value \n(see manual)!")
-    if(par1=="ncsd" && !all (is.numeric(par2),is.numeric(par3),is.numeric(par4),is.numeric(par5)))stop("If 'par1=ncsd' all following parameters should have a numeric value \n(see manual)!")
-	rll_0 <- rl 
+    rll_0 <- rl 
     mapsize2 <- rl$mapsize
     dist_m2 <- rl$minimum.distance
     areaM2 <- rl$mean.area

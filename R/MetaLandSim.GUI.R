@@ -16,16 +16,16 @@ MetaLandSim.GUI <- function() {
     rangeM <- tkmenu(topMenu, tearoff = FALSE)
     viewM <- tkmenu(topMenu, tearoff = FALSE)
     aboutM <- tkmenu(topMenu, tearoff = FALSE)
-Newsession<- function(gisBase, override=TRUE) {
-  initGRASS(gisBase = gisBase, home=tempdir(), override=override)
-}
+    Newsession<- function(gisBase, override) {
+      initGRASS(gisBase = gisBase, home = tempdir(), 
+	  override = as.logical(override))
+    }
 tkadd(rangeM, "command", label = "Start GRASS session",
   command = function() guiv(Newsession, exec = "Execute",
-  argFilename = list(gisBase = NULL),
   argText = c(gisBase = "Path to GRASS binaries and libraries:",
   override = "override GRASS session (TRUE or FALSE):"),
   helpsFunc = "initGRASS"))
-    choose.df <- function(df.entry, dfnr.label) {
+	choose.df <- function(df.entry, dfnr.label) {
         tf <- tktoplevel()
         tkwm.title(tf, "Choose:")
         done <- tclVar(0)
@@ -455,10 +455,10 @@ tkadd(rangeM, "command", label = "Start GRASS session",
     }
     tkadd(simM, "command", label = "Generate species occupation", command = function() species.graph.gui())
     iterate.graph.gui <- function(iter, mapsize, dist_m, areaM, areaSD, Npatch, disp, 
-        span, par1, par2, par3, par4, par5, method, parm, nsew, param_df, 
+        span, par1, par2, par3, par4, par5, method, parm, nsew, succ, param_df, 
         kern, conn, colnz, ext, beta1, b, c1, c2, z, R, graph, outname) {
         result1 <- iterate.graph(iter, mapsize, dist_m, areaM, areaSD, Npatch, disp, 
-            span, par1, par2, par3, par4, par5, method, parm, nsew, param_df, 
+            span, par1, par2, par3, par4, par5, method, parm, nsew, succ, param_df, 
             kern, conn, colnz, ext, beta1, b, c1, c2, z, R, graph)
         exp.eval <- paste(outname, "<<- result1", sep = "")
         eval(parse(text = exp.eval))
@@ -534,6 +534,7 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         var14 <- tclVar(init = "percentage")
         var15 <- tclVar()
         var16 <- tclVar(init = "none")
+        var17 <- tclVar(init = "none")
         var18 <- tclVar()
         var19 <- tclVar(init = "op1")
         var20 <- tclVar(init = "op1")
@@ -561,6 +562,7 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         it.entry14 <- tkentry(IOFrame, textvariable = var14)
         it.entry15 <- tkentry(IOFrame2, textvariable = var15)
         it.entry16 <- tkentry(IOFrame2, textvariable = var16)
+        it.entry17 <- tkentry(IOFrame2, textvariable = var17)
         df.entry <- tkentry(IOFrame2, textvariable = var18)
         dfnr.label <- tklabel(IOFrame2, width = 5)
         choosevect.but <- tkbutton(IOFrame2, text = "Set", command = function() choose.df(df.entry, 
@@ -623,6 +625,9 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         but16 <- tkbutton(IOFrame2, text = "?", command = function() tkmessageBox(icon = "info", 
             message = "'N', 'S', 'E', 'W' or none - point of entry of the species in the landscape. By default set to 'none'. To be internally passed to species.graph.", 
             title = "nsew", type = "ok", parent = IOFrame2))
+        but17 <- tkbutton(IOFrame2, text = "?", command = function() tkmessageBox(icon = "info", 
+            message = "Sucessional preference of the species (Default:'none'). Options: 'early', 'mid' and 'late'.", 
+            title = "succ", type = "ok", parent = IOFrame2))
         but18 <- tkbutton(IOFrame2, text = "?", command = function() tkmessageBox(icon = "info", 
             message = "Parameter data frame delivered by parameter.estimate.", title = "param_df", 
             type = "ok", parent = IOFrame2))
@@ -688,6 +693,8 @@ tkadd(rangeM, "command", label = "Start GRASS session",
             it.entry15, but15, sticky = "w")
         tkgrid(tklabel(IOFrame2, text = "Point of entrance for the species. Default 'none'"), 
             it.entry16, but16, sticky = "w")
+        tkgrid(tklabel(IOFrame2, text = "Succesional preference of the species"), 
+            it.entry17, but17, sticky = "w")
         tkgrid(tklabel(IOFrame2, text = "Parameter data frame delivered by parameter.estimate: "), 
             df.entry, choosevect.but, dfnr.label, but18, sticky = "w")
         tkgrid(tklabel(IOFrame2, text = "Dispersal Kernel"), it.entry19, but19, sticky = "w")
@@ -743,6 +750,7 @@ tkadd(rangeM, "command", label = "Start GRASS session",
             vect14 <- tclvalue(var14)
             vect15 <- as.numeric(tclvalue(var15))
             vect16 <- tclvalue(var16)
+            vect17 <- tclvalue(var17)##########
             vect18 <- parse(text = tclvalue(var18))[[1]]
             vect19 <- tclvalue(var19)
             vect20 <- tclvalue(var20)
@@ -777,7 +785,7 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         if (tclvalue(done) == "2") 
             return()
     }
-    tkadd(simM, "command", label = "Persistence in dynamic landscapes", command = function() iterate.GUI())
+   tkadd(simM, "command", label = "Persistence in dynamic landscapes", command = function() iterate.GUI())
     manage.simulations.out <- function(data1, data2, outfile) {
         exp.eval <- paste(output, " <<- manage.simulations(par_df = ", data1, ", parameters_spom = ", 
             data2, ")", sep = "")
