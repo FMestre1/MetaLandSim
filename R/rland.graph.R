@@ -9,7 +9,7 @@ function(mapsize, dist_m, areaM, areaSD, Npatch, disp, plotG)
   "\nOtherwise patches with negative areas might be produced.\n",sep="")))
   }
     reg_pts <- rSSI(r=dist_m, n=Npatch, win = owin(c(0,mapsize),c(0, mapsize)),
-                    giveup = 1000, x.init=NULL)
+                    giveup = 100000, x.init=NULL)
     reg_pts1 <- as.data.frame(reg_pts)
     if(areaSD > 0){
       areas_Ha <- matrix(nrow=Npatch,ncol=1)

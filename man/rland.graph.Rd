@@ -18,6 +18,9 @@ rland.graph(mapsize, dist_m, areaM, areaSD, Npatch, disp, plotG)
   \item{disp}{Species mean dispersal ability, in meters.}
   \item{plotG}{TRUE/FALSE, to show graphic output.}
 }
+\details{
+The dispersal distance, as given by the parameter 'disp', is used for the computation of some of the connectivity metrics (function \code{\link{metrics.graph}}) and for the graphic representation of the landscapes (in both cases defining the groups of patches, or components). For the simulation of the metapopulational dynamics, the dispersal distance is given through the 'alpha' parameter (the inverse of the mean dispersal ability) in the parameter data frame created by \code{\link{create.parameter.df}}. This has an important consequence: no thresholding (considering the dispersal ability) is assumed when simulating the metapopulational dynamics.  
+}
 \value{
 Returns a list, with the following elements:
 \itemize{

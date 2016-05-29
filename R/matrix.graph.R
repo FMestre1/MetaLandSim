@@ -71,12 +71,6 @@ function(rl,mat)
         names(result) <- df1$ID
         rownames(result) <- df1$ID
         result <- as.matrix(result)
-        return (result)
       }
-    
-	
-	
-	
-	
-	return(result)
+ 	return(result)
   }

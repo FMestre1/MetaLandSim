@@ -1,7 +1,7 @@
 \name{min_distance}
 \alias{min_distance}
 \title{
-Calculate topological distance
+Computes topological distance
 }
 \description{
 Function to compute topological distance between patches. Topological distance is defined as the minimum number of links between any two patches.

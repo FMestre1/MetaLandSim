@@ -22,9 +22,6 @@ spom <-
                number.patches=sp$number.patches, dispersal=sp$dispersal,
                distance.to.neighbours=sp$distance.to.neighbours,
                nodes.characteristics=p3,turnover=nr_turn)
-    
-    
-      
     }
     
     if (nrow(sp$nodes.characteristics)>1){

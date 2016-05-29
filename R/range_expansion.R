@@ -121,10 +121,10 @@ return(output1)
 		message(paste("###### West sub-model concluded for iteration ", i,sep=""))
 		message(paste("################### Completed iteration ",i,"! ###################",sep=""))
     }
-    outputN[is.na(outputN)] <- 0
-    outputS[is.na(outputS)] <- 0
-    outputE[is.na(outputE)] <- 0
-    outputW[is.na(outputW)] <- 0
+	tstep_average_N <- rowMeans(outputN[,2:(iter+1)],na.rm=TRUE)
+	tstep_average_S <- rowMeans(outputS[,2:(iter+1)],na.rm=TRUE)
+	tstep_average_E <- rowMeans(outputE[,2:(iter+1)],na.rm=TRUE)
+	tstep_average_W <- rowMeans(outputW[,2:(iter+1)],na.rm=TRUE)
 	for (x in 2:(iter + 1)) {
         i_N <- which(outputN[, x] != 0)
         outputN[i_N, x] <- 1
@@ -139,21 +139,24 @@ return(output1)
     outputS <- cbind(outputS[, 1], rowSums(as.data.frame(outputS[, 2:(ncol(outputS))])))
     outputE <- cbind(outputE[, 1], rowSums(as.data.frame(outputE[, 2:(ncol(outputE))])))
     outputW <- cbind(outputW[, 1], rowSums(as.data.frame(outputW[, 2:(ncol(outputW))])))
-	outputN <- cbind(outputN[, 1:2], outputN[, 2]/iter)
-    outputS <- cbind(outputS[, 1:2], outputS[, 2]/iter)
-    outputE <- cbind(outputE[, 1:2], outputE[, 2]/iter)
-    outputW <- cbind(outputW[, 1:2], outputW[, 2]/iter)
-    outputN <- as.data.frame(outputN)
+    outputN <- cbind(outputN[, 1:2], outputN[, 2]/iter,tstep_average_N)
+    outputS <- cbind(outputS[, 1:2], outputS[, 2]/iter,tstep_average_S)
+    outputE <- cbind(outputE[, 1:2], outputE[, 2]/iter,tstep_average_E)
+    outputW <- cbind(outputW[, 1:2], outputW[, 2]/iter,tstep_average_W)
+	outputN[is.na(outputN)] <- 0
+    outputS[is.na(outputS)] <- 0
+    outputE[is.na(outputE)] <- 0
+    outputW[is.na(outputW)] <- 0	
+	outputN <- as.data.frame(outputN)
     outputS <- as.data.frame(outputS)
     outputE <- as.data.frame(outputE)
     outputW <- as.data.frame(outputW)
-	names(outputN) <- c("DISTANCE", "OCCUPATION", "PROPORTION")
-    names(outputS) <- c("DISTANCE", "OCCUPATION", "PROPORTION")
-    names(outputE) <- c("DISTANCE", "OCCUPATION", "PROPORTION")
-    names(outputW) <- c("DISTANCE", "OCCUPATION", "PROPORTION")
+    names(outputN) <- c("DISTANCE", "OCCUPATION", "PROPORTION", "TIME STEP")
+    names(outputS) <- c("DISTANCE", "OCCUPATION", "PROPORTION", "TIME STEP")
+    names(outputE) <- c("DISTANCE", "OCCUPATION", "PROPORTION", "TIME STEP")
+    names(outputW) <- c("DISTANCE", "OCCUPATION", "PROPORTION", "TIME STEP")
 	message("Preparing graphic output!")
-	
-    p1 <- gvisLineChart(outputN, xvar = "DISTANCE", yvar = "PROPORTION", options = list(title = "Dispersal to the North", 
+	p1 <- gvisLineChart(outputN, xvar = "DISTANCE", yvar = "PROPORTION", options = list(title = "Dispersal to the North", 
         width = 500, height = 300, curveType = "function", legend = "none", titleTextStyle = "{colour:'black', fontName:'Courier', fontSize:16}", 
         vAxis = "{title: 'proportion'}", hAxis = "{title: 'distance(meters)'}", series = "[{color: '#006400'}]", 
         backgroundColor = "#D1EEEE"))

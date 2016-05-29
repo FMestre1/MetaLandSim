@@ -35,6 +35,10 @@ Number of time steps to simulate (e.g. years).
 Number of iterations of the simulation procedure.
 }
 }
+\details{
+The expansion algorithm has been improved, since the paper Mestre et al. (2016) describing the package was published. Now, instead of the transition between adjacent landscape units being dictated by the occupation of a spurious node (representing the margin through which the expansion takes place) a somewhat more realistic approach is followed. If, during the metapopulational dynamics simulation, any patch located between the landscape unit (LU) margin and a parallel line placed at a distance equivalent to the mean dispersal ability of the species is occupied, than the algorithm assumes that the species will have the ability to go across to the next LU. In this new empty LU initial occupation is defined as: a new line is placed, with a spacing equivalent to the dispersal ability of the species. In the area defined by the margins of the LU and this line the species will occupy in the same proportion as in the preceding LU.\cr
+An example, with the expansion eastward (the process is repeated 4 times, one in each cardinal direction): One LU with 200 patches, occupation of 50\%, mapsize (length of the LU side) 1000 species mean dispersal ability of 200. Metapopulational dynamics are simulated until one patch is occupied in a area defined by the north, south, east margins of the LU and a vertical line placed at x=800 (1000-200). Then, if any of this patches is occupied, a new LU (a random realization of the same parameter set) is created and initial occupation is defined at an area defined between the west, north and south margins and a line placed at x=200. This occupation level has the same percentage as the previous landscape.
+}
 \value{
 This function returns a list, of class 'expansion', of four data frames with the proportion of occupations at several distances from the closest occupied landscape mosaic. These four data frames correspond to the proportion of occupation to the north, south, east and west.
 Each data frame has the following columns:
@@ -48,7 +52,7 @@ Each data frame has the following columns:
 Frederico Mestre and Fernando Canovas
 }
 \note{
-Depending on computing power and number of iterations (parameter iter) this function can take from a few hours to several days to run.
+Depending on computing power and number of iterations (parameter 'iter') this function can take from a few hours to several days to run.
 }
 \seealso{
 \code{\link{range_raster}} 

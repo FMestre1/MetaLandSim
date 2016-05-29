@@ -20,7 +20,7 @@ It is known however that the species ability to disperse depends not only on its
 Furthermore, the function 'range\_raster' allows the projection of the produced dispersal model into the geographical space.
 
 \section{Work-flow}
-\subsection{Parameterization}
+\subsection{Parametrization}
 This is crucial, and can be achieved using the function parameter.estimate. A vignette is available, detailing the process, which must be carefully implemented, as this is the process that allows the characterization of the study species and its relation with the landscape.
 
 \subsection{Simulation of range expansion}
@@ -50,11 +50,12 @@ The previous range expansion simulation produces a graphic output similar to the
  \includegraphics{rg1}
 \end{figure}
 
-This represents the probability of occupation (in the four cardinal directions) of landscape mosaics at a given distance from the closer current species occurrence. It is the dispersal model (DM) produced by MetaLandSim.
+This represents the probability of occupation (in the four cardinal directions) of the landscape at a given distance from the closer current species occurrence. It is the dispersal model (DM) produced by MetaLandSim. Also, as an output of this simulation, the time steps at which each distance is reached is also estimated.
 
 \subsection{Conversion of the output to a spatial model}
 The dispersal simulation generated for each time step in the previous section should be converted into a model of species occurrence based only in the dispersal. This is done using the function range.to.raster. The output will be a raster file with the dispersal-only occupancy model after a given time period.
 This dispersal model can be, subsequently, combined with the output of an ecological niche model. This will allow the projection of potential occupancy considering three important factors: the species ecological niche, the species dispersal ability and the landscape characteristics.  
+After MetaLandSim version 0.5.2, a new raster is produced representing the temporal factor. This raster depicts the average time step in which each distance is reached by the simulated range expansion. Furthermore, both these raster maps are saved in the working directory. 
 
 <<eval=FALSE>>=
 data(rg_exp)

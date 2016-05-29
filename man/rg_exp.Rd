@@ -15,6 +15,7 @@ Each data frame has the following columns:
   \item DISTANCE - Distance (mapsize x number of landscapes).
   \item OCCUPATION - How many times did the landscape at this distance got occupied by the species (from a total of 'iter' repetitions). 
   \item PROPORTION - Proportion of occupation for the landscape at this distance (OCCUPATION/iter).
+  \item TIME STEP - The average time step during which a given distance is reached.
   }
 }
 \examples{

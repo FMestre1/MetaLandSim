@@ -39,13 +39,17 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     fit.sigmoid <- function(y, x, start.params = list(a = 1, b = 0.5, c = 0))
       {
         fitmodel <- nlsLM(y ~ a / (1 + exp(b * (x - c))), start = start.params)
-        return(coef(fitmodel))
+        
+		return(coef(fitmodel))
       }
     predict.sigmoid <- function(params, x)
       {
         return(params[1] / (1 + exp(params[2] * (x - params[3]))))
       }
-
+    fit.linear <- function(y,x)
+      {
+		return(coef(lm(y ~ x)))
+      }
     execGRASS("g.region", flags="p",intern=T) -> region.parameters
     extract.value(region.parameters, cardinal="north") -> north
     extract.value(region.parameters, cardinal="south") -> south
@@ -111,13 +115,22 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     execGRASS("r.mapcalc", expression=paste("Wdirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
               flags="overwrite")
 
+	message("Fitting the dispersal model to the species occurences. Building probability raster.")
     execGRASS("g.remove", type="raster", name="temptrend,tempout",flags=c("f"))
     params.n <- fit.sigmoid(re.out$NORTH$PROPORTION, re.out$NORTH$DISTANCE/nsres)
     params.s <- fit.sigmoid(re.out$SOUTH$PROPORTION, re.out$SOUTH$DISTANCE/nsres)
     params.e <- fit.sigmoid(re.out$EAST$PROPORTION, re.out$EAST$DISTANCE/ewres)
     params.w <- fit.sigmoid(re.out$WEST$PROPORTION, re.out$WEST$DISTANCE/ewres)
-
-    if(!is.null(mask.map))
+	N1 <- re.out$NORTH[re.out$NORTH[,2]!=0,]
+	S1 <- re.out$SOUTH[re.out$SOUTH[,2]!=0,]
+	E1 <- re.out$EAST[re.out$EAST[,2]!=0,]
+	W1 <- re.out$WEST[re.out$WEST[,2]!=0,]
+	message("Fitting the dispersal model to the species occurences. Building time step raster.")
+	paramsTS.n <- fit.linear(y = N1[,ncol(N1)], x = N1$DISTANCE/nsres)
+    paramsTS.s <- fit.linear(y = S1[,ncol(S1)], x = S1$DISTANCE/nsres)
+    paramsTS.e <- fit.linear(y = E1[,ncol(E1)], x = E1$DISTANCE/ewres)
+    paramsTS.w <- fit.linear(y = W1[,ncol(W1)], x = W1$DISTANCE/ewres)
+	if(!is.null(mask.map))
       {
         execGRASS("r.mask", raster="map.mask")
       }
@@ -133,7 +146,15 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     execGRASS("r.mapcalc", expression="range = (Nprobability + Sprobability + Eprobability + Wprobability) /4",
               flags=c("overwrite"))
     output <- raster(readRAST("range"))
-    if(plot.directions == TRUE)
+	
+	execGRASS("r.mapcalc", expression=paste("N_TS = ",paramsTS.n[1]," + (",paramsTS.n[2]," * tempdir)", sep=""),flags=c("overwrite"))
+	execGRASS("r.mapcalc", expression=paste("S_TS = ",paramsTS.s[1]," + (",paramsTS.s[2]," * tempdir)", sep=""),flags=c("overwrite"))
+	execGRASS("r.mapcalc", expression=paste("E_TS = ",paramsTS.e[1]," + (",paramsTS.e[2]," * tempdir)", sep=""),flags=c("overwrite"))
+	execGRASS("r.mapcalc", expression=paste("W_TS = ",paramsTS.w[1]," + (",paramsTS.w[2]," * tempdir)", sep=""),flags=c("overwrite"))
+	execGRASS("r.mapcalc", expression="rangeTS = (N_TS + S_TS + E_TS + W_TS)/4",flags=c("overwrite"))
+	output_TS <- raster(readRAST("rangeTS"))
+	output_TS <- reclassify(output_TS, rcl= matrix(c(-1000,0,0),ncol=3,nrow=1))
+	if(plot.directions == TRUE)
       {
          dev.new()
         par(mfrow=c(1,2))
@@ -171,7 +192,11 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
         execGRASS("r.mask", flags="r")
       }
     execGRASS("g.remove", type="raster", name=rast.list,flags=c("f"))
-    execGRASS("g.remove", type="vector", name=vect.list,flags=c("f"))
-	    
-	return(output)
+    execGRASS("g.remove", type ="vector", name=vect.list,flags=c("f"))
+	out1 <- stack(output,output_TS)
+	names(out1) <- c("PROB","TSTEP")
+	message("Writing dispersal model rasters.")
+    writeRaster(output,filename="PROB", format="GTiff",overwrite=TRUE)
+    writeRaster(output_TS,filename="TSTEP", format="GTiff",overwrite=TRUE)
+   	return(out1)
 }
