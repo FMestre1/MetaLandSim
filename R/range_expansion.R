@@ -36,10 +36,10 @@ node.expansion <- function(occ_landscape, param, b, node, tsteps) {
 			
 			perc_occup <- (sum(occ_landscape_new$nodes.characteristics$species2[1:nrow_land])*100)/nrow_land
 			
-			if(node == "North") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$y > (mapsize-dispersal) ), ]$species2
-			if(node == "South") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$y < dispersal ), ]$species2
-			if(node == "East") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$x > (mapsize-dispersal) ), ]$species2
-			if(node == "West") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$x < dispersal ), ]$species2
+			if(node == "North") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$y > (mapsize-dispersal/2)), ]$species2
+			if(node == "South") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$y < dispersal/2), ]$species2
+			if(node == "East") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$x > (mapsize-dispersal/2)), ]$species2
+			if(node == "West") v0 <- occ_landscape_new$nodes.characteristics[ which(occ_landscape_new$nodes.characteristics$x < dispersal/2), ]$species2
 			
 			if(sum(v0)==0) ocupp <- "N"
 			if(sum(v0)!=0) ocupp <- "Y"
@@ -60,22 +60,22 @@ node.expansion <- function(occ_landscape, param, b, node, tsteps) {
 			message(paste("Transition between landscapes. New landscape created. ","- time step ", j,sep=""))
 			
 			if(node == "North") {
-			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$y < dispersal ), ]$ID)
+			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$y < dispersal/2), ]$ID)
 			entry <- "S"
 			}
 			
 			if(node == "South") {
-			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$y > (mapsize-dispersal)), ]$ID)
+			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$y > (mapsize-dispersal/2)), ]$ID)
 			entry <- "N"
 			}
 			
 			if(node == "East") {
-			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$x < dispersal ), ]$ID)
+			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$x < dispersal/2), ]$ID)
 			entry <- "W"
 			}
 			
 			if(node == "West") {
-			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$x  > (mapsize-dispersal)), ]$ID)
+			v2 <- length(occ_landscape$nodes.characteristics[ which(occ_landscape$nodes.characteristics$x  > (mapsize-dispersal/2)), ]$ID)
 			entry <- "E"
 			}
 			

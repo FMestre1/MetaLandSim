@@ -59,7 +59,7 @@ spom <-
     }
     if(colnz == "op1")
     {
-      C <- S^2/((S^2)+y)
+      C <- S^2/((S^2)+y^2)
     }
     if(colnz == "op2")
     {

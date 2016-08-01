@@ -1,8 +1,8 @@
-\name{param1}
-\alias{param1}
+\name{param2}
+\alias{param2}
 \docType{data}
 \title{
-Sample parameter data frame number 1
+Sample parameter data frame number 2
 }
 \description{
 Sample data frame, as produced by \code{\link{parameter.estimate}}. These parameters are to be passed to \code{\link{spom}}. These are made up parameters, not related to any species.
@@ -27,7 +27,7 @@ data(param1)
 param1
 
 #      par_output
-#alpha 0.00100000
+#alpha 0.00250000
 #x     0.50000000
 #y     2.00000000
 #e     0.04662827

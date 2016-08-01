@@ -39,17 +39,13 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     fit.sigmoid <- function(y, x, start.params = list(a = 1, b = 0.5, c = 0))
       {
         fitmodel <- nlsLM(y ~ a / (1 + exp(b * (x - c))), start = start.params)
-        
-		return(coef(fitmodel))
+        return(coef(fitmodel))
       }
     predict.sigmoid <- function(params, x)
       {
         return(params[1] / (1 + exp(params[2] * (x - params[3]))))
       }
-    fit.linear <- function(y,x)
-      {
-		return(coef(lm(y ~ x)))
-      }
+
     execGRASS("g.region", flags="p",intern=T) -> region.parameters
     extract.value(region.parameters, cardinal="north") -> north
     extract.value(region.parameters, cardinal="south") -> south
@@ -58,130 +54,126 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
     extract.value(region.parameters, cardinal="nsres") -> nsres
     extract.value(region.parameters, cardinal="ewres") -> ewres
 
-    execGRASS("r.mapcalc", expression=paste("north_horizon=y() > ",
-              north-nsres, sep=""), flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("north_horizon=y() > ", north-nsres, sep=""), flags="overwrite")
     execGRASS("r.null", map="north_horizon", setnull="0")
     create.vector(in.name="north_horizon", out.name="north_horizon")
     
-    execGRASS("r.mapcalc", expression=paste("south_horizon=y() < ",
-              south + nsres, sep=""), flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("south_horizon=y() < ", south + nsres, sep=""), flags="overwrite")
     execGRASS("r.null", map="south_horizon", setnull="0")
     create.vector(in.name="south_horizon", out.name="south_horizon")
 
-    execGRASS("r.mapcalc", expression=paste("west_horizon=x() < ",
-              west+ewres, sep=""), flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("west_horizon=x() < ", west+ewres, sep=""), flags="overwrite")
     execGRASS("r.null", map="west_horizon", setnull="0")
     create.vector(in.name="west_horizon", out.name="west_horizon")
 
-    execGRASS("r.mapcalc", expression=paste("east_horizon=x() > ",
-              east-ewres, sep=""), flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("east_horizon=x() > ", east-ewres, sep=""), flags="overwrite")
     execGRASS("r.null", map="east_horizon", setnull="0")
     create.vector(in.name="east_horizon", out.name="east_horizon")
 
-    execGRASS("r.mapcalc", expression="wd=1", flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("wdns=",nsres,"/1000",sep=""), flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("wdew=",ewres,"/1000",sep=""), flags="overwrite")
+
     create.vector(in.name="presences", out.name="presences", type="point")
 
-    execGRASS("r.cost", input="wd", output="tempdir", start_raster="presences", flags="overwrite")
+	execGRASS("r.grow.distance", input = "presences", distance = "tempdir", flags = c("overwrite","m"))
+	
+	execGRASS("r.mapcalc", expression = "tempdir2 = tempdir/1000", flags = "overwrite")
 
-    execGRASS("r.cost", input="wd", output="temptrend", start_raster="north_horizon", flags="overwrite")
-    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
+    execGRASS("r.cost", input="wdns", output="temptrend", start_raster="north_horizon", flags="overwrite")
+    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir2", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
-    execGRASS("r.mapcalc", expression=paste("Ndirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
-              flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("Ndirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),flags="overwrite")
 
-    execGRASS("r.cost", input="wd", output="temptrend", start_raster="south_horizon", flags="overwrite")
-    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
+    execGRASS("r.cost", input="wdns", output="temptrend", start_raster="south_horizon", flags="overwrite")
+    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir2", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
-    execGRASS("r.mapcalc", expression=paste("Sdirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
-              flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("Sdirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),flags="overwrite")
 
-    execGRASS("r.cost", input="wd", output="temptrend", start_raster="east_horizon", flags="overwrite")
-    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
+    execGRASS("r.cost", input="wdew", output="temptrend", start_raster="east_horizon", flags="overwrite")
+    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir2", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
-    execGRASS("r.mapcalc", expression=paste("Edirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
-              flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("Edirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),flags="overwrite")
 
-    execGRASS("r.cost", input="wd", output="temptrend", start_raster="west_horizon", flags="overwrite")
-    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir", flags="overwrite")
+    execGRASS("r.cost", input="wdew", output="temptrend", start_raster="west_horizon", flags="overwrite")
+    execGRASS("r.mapcalc", expression="tempout = temptrend + tempdir2", flags="overwrite")
     execGRASS("r.univar", map="tempout", intern=T) -> map.stats
     extract.value(map.stats,"minimum") -> minimum.map
     extract.value(map.stats,"maximum") -> maximum.map
-    execGRASS("r.mapcalc", expression=paste("Wdirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),
-              flags="overwrite")
+    execGRASS("r.mapcalc", expression=paste("Wdirectionality = 100 - ((tempout - ", minimum.map, ") * 100 / ", maximum.map-minimum.map, ")", sep=""),flags="overwrite")
 
-	message("Fitting the dispersal model to the species occurences. Building probability raster.")
     execGRASS("g.remove", type="raster", name="temptrend,tempout",flags=c("f"))
-    params.n <- fit.sigmoid(re.out$NORTH$PROPORTION, re.out$NORTH$DISTANCE/nsres)
-    params.s <- fit.sigmoid(re.out$SOUTH$PROPORTION, re.out$SOUTH$DISTANCE/nsres)
-    params.e <- fit.sigmoid(re.out$EAST$PROPORTION, re.out$EAST$DISTANCE/ewres)
-    params.w <- fit.sigmoid(re.out$WEST$PROPORTION, re.out$WEST$DISTANCE/ewres)
-	N1 <- re.out$NORTH[re.out$NORTH[,2]!=0,]
-	S1 <- re.out$SOUTH[re.out$SOUTH[,2]!=0,]
-	E1 <- re.out$EAST[re.out$EAST[,2]!=0,]
-	W1 <- re.out$WEST[re.out$WEST[,2]!=0,]
-	message("Fitting the dispersal model to the species occurences. Building time step raster.")
-	paramsTS.n <- fit.linear(y = N1[,ncol(N1)], x = N1$DISTANCE/nsres)
-    paramsTS.s <- fit.linear(y = S1[,ncol(S1)], x = S1$DISTANCE/nsres)
-    paramsTS.e <- fit.linear(y = E1[,ncol(E1)], x = E1$DISTANCE/ewres)
-    paramsTS.w <- fit.linear(y = W1[,ncol(W1)], x = W1$DISTANCE/ewres)
-	if(!is.null(mask.map))
+    params.n <- fit.sigmoid(re.out$NORTH$PROPORTION, re.out$NORTH$DISTANCE/1000)
+    params.s <- fit.sigmoid(re.out$SOUTH$PROPORTION, re.out$SOUTH$DISTANCE/1000)
+    params.e <- fit.sigmoid(re.out$EAST$PROPORTION, re.out$EAST$DISTANCE/1000)
+    params.w <- fit.sigmoid(re.out$WEST$PROPORTION, re.out$WEST$DISTANCE/1000)
+
+    if(!is.null(mask.map))
       {
         execGRASS("r.mask", raster="map.mask")
       }
 
-    execGRASS("r.mapcalc", expression=paste("Nprobability = Ndirectionality * (", params.n[1]," / (1 + exp(", params.n[2]," * (tempdir - ", params.n[3],"))))", sep=""),
+    execGRASS("r.mapcalc", expression=paste("Nprobability = Ndirectionality * (", params.n[1]," / (1 + exp(", params.n[2]," * (tempdir2 - ", params.n[3],"))))", sep=""),
               flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression=paste("Sprobability = Sdirectionality * (", params.s[1]," / (1 + exp(", params.s[2]," * (tempdir - ", params.s[3],"))))", sep=""),
+    execGRASS("r.mapcalc", expression=paste("Sprobability = Sdirectionality * (", params.s[1]," / (1 + exp(", params.s[2]," * (tempdir2 - ", params.s[3],"))))", sep=""),
               flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression=paste("Eprobability = Edirectionality * (", params.e[1]," / (1 + exp(", params.e[2]," * (tempdir - ", params.e[3],"))))", sep=""),
+    execGRASS("r.mapcalc", expression=paste("Eprobability = Edirectionality * (", params.e[1]," / (1 + exp(", params.e[2]," * (tempdir2 - ", params.e[3],"))))", sep=""),
               flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression=paste("Wprobability = Wdirectionality * (", params.w[1]," / (1 + exp(", params.w[2]," * (tempdir - ", params.w[3],"))))", sep=""),
+    execGRASS("r.mapcalc", expression=paste("Wprobability = Wdirectionality * (", params.w[1]," / (1 + exp(", params.w[2]," * (tempdir2 - ", params.w[3],"))))", sep=""),
               flags=c("overwrite"))
-    execGRASS("r.mapcalc", expression="range = (Nprobability + Sprobability + Eprobability + Wprobability) /4",
-              flags=c("overwrite"))
+    execGRASS("r.mapcalc", expression="range = (Nprobability + Sprobability + Eprobability + Wprobability)/4",flags=c("overwrite"))
+
     output <- raster(readRAST("range"))
 	
-	execGRASS("r.mapcalc", expression=paste("N_TS = ",paramsTS.n[1]," + (",paramsTS.n[2]," * tempdir)", sep=""),flags=c("overwrite"))
-	execGRASS("r.mapcalc", expression=paste("S_TS = ",paramsTS.s[1]," + (",paramsTS.s[2]," * tempdir)", sep=""),flags=c("overwrite"))
-	execGRASS("r.mapcalc", expression=paste("E_TS = ",paramsTS.e[1]," + (",paramsTS.e[2]," * tempdir)", sep=""),flags=c("overwrite"))
-	execGRASS("r.mapcalc", expression=paste("W_TS = ",paramsTS.w[1]," + (",paramsTS.w[2]," * tempdir)", sep=""),flags=c("overwrite"))
-	execGRASS("r.mapcalc", expression="rangeTS = (N_TS + S_TS + E_TS + W_TS)/4",flags=c("overwrite"))
-	output_TS <- raster(readRAST("rangeTS"))
-	output_TS <- reclassify(output_TS, rcl= matrix(c(-1000,0,0),ncol=3,nrow=1))
-	if(plot.directions == TRUE)
+    N1 <- re.out$NORTH[re.out$NORTH[, 2] != 0, ]
+    N1$DISTANCE <- N1$DISTANCE / nsres
+    S1 <- re.out$SOUTH[re.out$SOUTH[, 2] != 0, ]
+    S1$DISTANCE <- S1$DISTANCE / nsres
+    E1 <- re.out$EAST[re.out$EAST[, 2] != 0, ]
+    E1$DISTANCE <- E1$DISTANCE / ewres
+    W1 <- re.out$WEST[re.out$WEST[, 2] != 0, ]
+    W1$DISTANCE <- W1$DISTANCE / ewres
+	
+    Time_series <- data.frame(DISTANCE = c(N1[, 1], S1[, 1], E1[, 1], W1[, 1]))
+    Time_series$GENERATIONS <- c(N1[, 4], S1[, 4], E1[, 4], W1[, 4])
+    fittedTS <- glm(GENERATIONS ~ DISTANCE, data = Time_series)
+    message("Fitting the dispersal model to the species occurences. Building time step raster.")
+    execGRASS("r.mapcalc", expression = paste("Generations = ",coefficients(fittedTS)[1], " + (", coefficients(fittedTS)[2], " * tempdir2)",sep = ""), flags = c("overwrite"))
+	output_TS <- raster(readRAST("Generations"))	
+		
+    if(plot.directions == TRUE)
       {
          dev.new()
         par(mfrow=c(1,2))
         plot(re.out$NORTH$DISTANCE, re.out$NORTH$PROPORTION,
              main="Northern direction", xlab="Distance (m)", ylab="Probability")        
-        lines(re.out$NORTH$DISTANCE, predict.sigmoid(params.n, re.out$NORTH$DISTANCE/nsres))
+        lines(re.out$NORTH$DISTANCE, predict.sigmoid(params.n, re.out$NORTH$DISTANCE/1000))
         image(raster(readRAST("Nprobability")),main="Northern probability")
         contour(raster(readRAST("Nprobability")), add=T)
         dev.new()
         par(mfrow=c(1,2))
         plot(re.out$SOUTH$DISTANCE, re.out$SOUTH$PROPORTION,
              main="Southern direction", xlab="Distance (m)", ylab="Probability")        
-        lines(re.out$SOUTH$DISTANCE, predict.sigmoid(params.s, re.out$SOUTH$DISTANCE/nsres))
+        lines(re.out$SOUTH$DISTANCE, predict.sigmoid(params.s, re.out$SOUTH$DISTANCE/1000))
         image(raster(readRAST("Sprobability")),main="Southern probability")
         contour(raster(readRAST("Sprobability")), add=T)
         dev.new()
         par(mfrow=c(1,2))
         plot(re.out$EAST$DISTANCE, re.out$EAST$PROPORTION,
              main="Eastern direction", xlab="Distance (m)", ylab="Probability")        
-        lines(re.out$EAST$DISTANCE, predict.sigmoid(params.e, re.out$EAST$DISTANCE/ewres))
+        lines(re.out$EAST$DISTANCE, predict.sigmoid(params.e, re.out$EAST$DISTANCE/1000))
         image(raster(readRAST("Eprobability")),main="Eastern probability")
         contour(raster(readRAST("Eprobability")), add=T)
         dev.new()
         par(mfrow=c(1,2))
         plot(re.out$WEST$DISTANCE, re.out$WEST$PROPORTION,
              main="Western direction", xlab="Distance (m)", ylab="Probability")        
-        lines(re.out$WEST$DISTANCE, predict.sigmoid(params.w, re.out$WEST$DISTANCE/ewres))
+        lines(re.out$WEST$DISTANCE, predict.sigmoid(params.w, re.out$WEST$DISTANCE/1000))
         image(raster(readRAST("Wprobability")),main="Western probability")
         contour(raster(readRAST("Wprobability")), add=T)
       }
@@ -192,11 +184,13 @@ function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
         execGRASS("r.mask", flags="r")
       }
     execGRASS("g.remove", type="raster", name=rast.list,flags=c("f"))
-    execGRASS("g.remove", type ="vector", name=vect.list,flags=c("f"))
-	out1 <- stack(output,output_TS)
-	names(out1) <- c("PROB","TSTEP")
-	message("Writing dispersal model rasters.")
-    writeRaster(output,filename="PROB", format="GTiff",overwrite=TRUE)
-    writeRaster(output_TS,filename="TSTEP", format="GTiff",overwrite=TRUE)
-   	return(out1)
+    execGRASS("g.remove", type="vector", name=vect.list,flags=c("f"))
+    out1 <- stack(output, output_TS)
+    names(out1) <- c("PROB", "TSTEP")
+    message("Writing dispersal model rasters.")
+    writeRaster(output, filename = "PROB", format = "GTiff", 
+        overwrite = TRUE)
+    writeRaster(output_TS, filename = "TSTEP", format = "GTiff", 
+        overwrite = TRUE)
+    return(out1)
 }
