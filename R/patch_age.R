@@ -24,15 +24,19 @@ patch_age <- function(span)
     }}
   } 
   
-  mat1[is.na(mat1)] <- 0 
+  mat1[is.na(mat1)] <- 0
+  p_age <- sample(1:length(span), nrow(span[[1]]), replace=T)
+  
+  mat1[1:length(p_age),1] <- p_age  
   
   for(b in 1:nrow(mat1)){
     
     l2 <- as.numeric(mat1[b,])
-    #Cumulative sum
     l3 <- cumsum(l2)
     l3 <- l3*l2
-    
+    l3[1] <-l3[1]/l2[1]
+    l3[is.na(l3)] <- 0
+    l3[l3 > length(l3)] <- length(l3)
     mat1[b,] <- l3
   }
   
@@ -50,7 +54,7 @@ patch_age <- function(span)
     mat1[m,] <- l1	
     
   }
-  
+
   span1 <- list()
   
   for(d in 1:length(span)){

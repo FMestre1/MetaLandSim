@@ -121,10 +121,10 @@ return(output1)
 		message(paste("###### West sub-model concluded for iteration ", i,sep=""))
 		message(paste("################### Completed iteration ",i,"! ###################",sep=""))
     }
-	tstep_average_N <- rowMeans(outputN[,2:(iter+1)],na.rm=TRUE)
-	tstep_average_S <- rowMeans(outputS[,2:(iter+1)],na.rm=TRUE)
-	tstep_average_E <- rowMeans(outputE[,2:(iter+1)],na.rm=TRUE)
-	tstep_average_W <- rowMeans(outputW[,2:(iter+1)],na.rm=TRUE)
+	tstep_average_N <- rowMeans(outputN[,2:(iter+1)],na.rm=FALSE)
+	tstep_average_S <- rowMeans(outputS[,2:(iter+1)],na.rm=FALSE)
+	tstep_average_E <- rowMeans(outputE[,2:(iter+1)],na.rm=FALSE)
+	tstep_average_W <- rowMeans(outputW[,2:(iter+1)],na.rm=FALSE)
 	for (x in 2:(iter + 1)) {
         i_N <- which(outputN[, x] != 0)
         outputN[i_N, x] <- 1
