@@ -23,8 +23,8 @@ Reference paper: \href{http://www.sciencedirect.com/science/article/pii/S1364815
 \tabular{ll}{
 Package: \tab MetaLandSim\cr
 Type: \tab Package\cr
-Version: \tab 0.5.4\cr
-Date: \tab 2016-09-29\cr
+Version: \tab 0.5.5\cr
+Date: \tab 2017-01-19\cr
 License: GPL (>=2)\cr
 }
 }

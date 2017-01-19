@@ -100,6 +100,16 @@ spom <-
           E2[z] <- as.vector(F2[match1,])[2]
         }
         E <- E+E2-(E*E2)
+		####
+		F3 <- rescale(1/(1+exp(0.09*time_span2)))
+        F4 <- cbind(time_span,round(F3,4))
+        C2 <- vector()
+        for(z in 1:length(age_vector)) {
+          match1 <- age_vector[z]
+          C2[z] <- as.vector(F4[match1,])[2]
+        }
+        C <- C+C2-(C*C2)
+		####
       }
       
       if(succ == "mid"){
@@ -111,7 +121,17 @@ spom <-
           E2[z] <- as.vector(F2[match1,])[2]
         }
         E <- E+E2-(E*E2)
-      }
+		####
+		F3 <- ifelse(time_span<50,rescale(-exp(0.08*(-time_span))),rescale(-exp(0.08*(time_span))))
+        F4 <- cbind(time_span,round(F3,4))
+        C2 <- vector()
+        for(z in 1:length(age_vector)) {
+          match1 <- age_vector[z]
+          C2[z] <- as.vector(F4[match1,])[2]
+        }
+        C <- C+C2-(C*C2)
+		####
+	    }
       
       if(succ == "late"){
         F1 <- rescale(1/(1+exp(0.09*time_span2)))
@@ -122,7 +142,17 @@ spom <-
           E2[z] <- as.vector(F2[match1,])[2]
         }
         E <- E+E2-(E*E2)
-      }
+        ####
+		F3 <- rescale(1/(1+exp(-0.09*time_span2)))
+		F4 <- cbind(time_span,round(F3,4))
+        C2 <- vector()
+        for(z in 1:length(age_vector)) {
+          match1 <- age_vector[z]
+          C2[z] <- as.vector(F4[match1,])[2]
+        }
+        C <- C+C2-(C*C2)	  
+	    ####
+	  }
       
       if(succ == "none"){
       
@@ -179,6 +209,16 @@ spom <-
             E2[z] <- as.vector(F2[match1,])[2]
           }
           E <- E+E2-(E*E2)
+		  ####
+		  F3 <- rescale(1/(1+exp(0.09*time_span2)))
+          F4 <- cbind(time_span,round(F3,4))
+          C2 <- vector()
+          for(z in 1:length(age_vector)) {
+          match1 <- age_vector[z]
+          C2[z] <- as.vector(F4[match1,])[2]
+          }
+          C <- C+C2-(C*C2)
+		  ####
         }
         
         if(succ == "mid"){
@@ -190,6 +230,16 @@ spom <-
             E2[z] <- as.vector(F2[match1,])[2]
           }
           E <- E+E2-(E*E2)
+		  ####
+		  F3 <- ifelse(time_span<50,rescale(-exp(0.08*(-time_span))),rescale(-exp(0.08*(time_span))))
+          F4 <- cbind(time_span,round(F3,4))
+          C2 <- vector()
+          for(z in 1:length(age_vector)) {
+          match1 <- age_vector[z]
+          C2[z] <- as.vector(F4[match1,])[2]
+          }
+          C <- C+C2-(C*C2)
+		  ####
         }
         
         if(succ == "late"){
@@ -201,6 +251,16 @@ spom <-
             E2[z] <- as.vector(F2[match1,])[2]
           }
           E <- E+E2-(E*E2)
+		  ####
+		  F3 <- rescale(1/(1+exp(-0.09*time_span2)))
+		  F4 <- cbind(time_span,round(F3,4))
+          C2 <- vector()
+          for(z in 1:length(age_vector)) {
+          match1 <- age_vector[z]
+          C2[z] <- as.vector(F4[match1,])[2]
+          }
+          C <- C+C2-(C*C2)	  
+	      ####
         }
         
         if(succ == "none"){

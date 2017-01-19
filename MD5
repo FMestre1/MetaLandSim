@@ -1,4 +1,4 @@
-2564177a18d928259db848d54566f81c *DESCRIPTION
+d78dd3f38da5f0a79ca41a4b85b89f32 *DESCRIPTION
 c484b5f90c27bee0930456520b4c35cd *NAMESPACE
 1cfca2218bc5777d5686da872c155e4b *R/MetaLandSim.GUI.R
 e4ce6f8314d932b08118e622c333e7b4 *R/addpoints.R
@@ -32,7 +32,7 @@ d345530687afa2ca1688b4eb1b81d895 *R/remove.species.R
 7486a9e09a4770e90b4b4474fdc0bf1b *R/simulate_graph.R
 0e5c8f068e237cf947eaa9dfc54650e7 *R/span.graph.R
 e948ebab1008810c05056ebe303bdd63 *R/species.graph.R
-88d964c34f8517ee6e78a259df23ab48 *R/spom.R
+69697ae79253d6e2636b8c3ab787b236 *R/spom.R
 3e570cbd16acc1197be5822aa8894414 *R/summary_landscape.R
 1a84c01edc7ca3ea49a827626a359ccc *R/summary_metapopulation.R
 72d3535bef0bf19b472af8baf1bae9a9 *build/vignette.rds
@@ -47,7 +47,7 @@ eccbccfa671b062dd55ada5d4472d386 *data/param1.rda
 4ac5329d9f4afbf7846fda610123ba60 *data/rg_exp.rda
 973d3c7a7fde2c38e4356a73731ae055 *data/rland.rda
 19514a0303b9a682ffbf2cda7853e0f9 *inst/CITATION
-c1787e1142924bd36ec15238dd82cbe6 *inst/doc/MetaLandSim.pdf
+8111b01f56bd575cb5ba70002438f95c *inst/doc/MetaLandSim.pdf
 c4fb8d005623f64df8b8d679ff828976 *inst/doc/landscape_simulation.R
 4bc2d6e6e8d4a03c70066bcc947d077f *inst/doc/landscape_simulation.Rnw
 0e62d5362112493faf31712f6ee31872 *inst/doc/landscape_simulation.pdf
@@ -63,7 +63,7 @@ dc2020302365d9c3f7928aab5b5dd25d *inst/doc/parametrization.Rnw
 8242a0d67838ae98669fcd3e7fd57847 *inst/examples/presences.asc.aux.xml
 1e585489e5c494bc429e80d7e51c4197 *inst/logo/logo.gif
 4e9842e5d3b393ed786630af75a31e5b *inst/logo/logo2.gif
-56e2f38867dbd1fd47a14e9c19d8684d *man/MetaLandSim-package.Rd
+bf46d911fb6483cf2c07aedf8dc70d46 *man/MetaLandSim-package.Rd
 1d97032d299d09928448f06c1d2cb1a9 *man/MetaLandSim.GUI.Rd
 8c5739190d6edf202b7e1266c3e6beed *man/addpoints.Rd
 8be4649f23b803ecae23d4ea70d77555 *man/cabrera.Rd
