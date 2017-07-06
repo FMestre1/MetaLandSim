@@ -17,14 +17,15 @@ MLS operates at two scales, providing researchers with the possibility of:
  }
 The landscape unit, an object of class \code{\link{landscape}}, is the basic simulation unit at both these scales. At the landscape scale, the persistence of the metapopulation in a dynamic landscape is evaluated through the simulation of landscape dynamics using the function \code{\link{iterate.graph}} or \code{\link{manage_landscape_sim}}.
 At the range scale the metapopulation is allowed to expand to other, empty, landscape units using \code{\link{range_expansion}}, producing an object of class \code{\link{expansion}}. The function \code{\link{range_raster}} allows the conversion of the dispersal model obtained with the previous function into a raster. Finally, also at the range scale, the user can analyse the outcome of several alternative landscapes in range expansion speed and maximum dispersal distance, using the function \code{\link{manage_expansion_sim}}.\cr\cr
+We thank Dr. Santiago Saura (Universidad Politecnica de Madrid) for the very useful inputs and for the R script which greatly improved the connectivity metrics capabilities of MetaLandSim.\cr \cr
 Reference paper: \href{http://www.sciencedirect.com/science/article/pii/S1364815216300718}{Mestre, F.; Canovas, F.; Pita, R.; Mira, A.; Beja. P. (2016). An R package for simulating metapopulation dynamics and range expansion under environmental change. Environmental Moldelling and Software, 81: 40-44}.
 }
 \details{
 \tabular{ll}{
 Package: \tab MetaLandSim\cr
 Type: \tab Package\cr
-Version: \tab 0.5.5\cr
-Date: \tab 2017-01-19\cr
+Version: \tab 0.5.6\cr
+Date: \tab 2017-07-05\cr
 License: GPL (>=2)\cr
 }
 }

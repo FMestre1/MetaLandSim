@@ -59,15 +59,15 @@ spom <-
     }
     if(colnz == "op1")
     {
-      C <- S^2/((S^2)+y^2)
+      C1 <- S^2/((S^2)+y^2)
     }
     if(colnz == "op2")
     {
-      C <- 1 - exp(-y*S)
+      C1 <- 1 - exp(-y*S)
     }
     if(colnz == "op3")
     {
-      C <- S^z/(S^z+(1/c2))
+      C1 <- S^z/(S^z+(1/c2))
     }
     if(ext == "op1")
     {
@@ -108,7 +108,7 @@ spom <-
           match1 <- age_vector[z]
           C2[z] <- as.vector(F4[match1,])[2]
         }
-        C <- C+C2-(C*C2)
+        C1 <- C1+C2-(C1*C2)
 		####
       }
       
@@ -129,7 +129,7 @@ spom <-
           match1 <- age_vector[z]
           C2[z] <- as.vector(F4[match1,])[2]
         }
-        C <- C+C2-(C*C2)
+        C1 <- C1+C2-(C1*C2)
 		####
 	    }
       
@@ -150,7 +150,7 @@ spom <-
           match1 <- age_vector[z]
           C2[z] <- as.vector(F4[match1,])[2]
         }
-        C <- C+C2-(C*C2)	  
+        C1 <- C1+C2-(C1*C2)	  
 	    ####
 	  }
       
@@ -159,7 +159,7 @@ spom <-
       }
     }
     
-    cond <- ifelse(p, (1-C)*E, C)
+    cond <- ifelse(p, (1-C1)*E, C1)
     species2 <- ifelse(runif(length(p)) < cond, !p, p)
     turn <- ifelse (dfsp$species!=species2, 1, 0)
     nr_turn <- sum(turn)
@@ -217,7 +217,7 @@ spom <-
           match1 <- age_vector[z]
           C2[z] <- as.vector(F4[match1,])[2]
           }
-          C <- C+C2-(C*C2)
+          C1 <- C1+C2-(C1*C2)
 		  ####
         }
         
@@ -238,7 +238,7 @@ spom <-
           match1 <- age_vector[z]
           C2[z] <- as.vector(F4[match1,])[2]
           }
-          C <- C+C2-(C*C2)
+          C1 <- C1+C2-(C1*C2)
 		  ####
         }
         
@@ -259,7 +259,7 @@ spom <-
           match1 <- age_vector[z]
           C2[z] <- as.vector(F4[match1,])[2]
           }
-          C <- C+C2-(C*C2)	  
+          C1 <- C1+C2-(C1*C2)	  
 	      ####
         }
         

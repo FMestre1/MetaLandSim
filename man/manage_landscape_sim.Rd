@@ -39,7 +39,7 @@ Arguments data frame to be used by iterate.graph (each row of this data frame is
  \item Z - Argument z for the spom function.
  \item R2 - Argument R for the spom function.
  \item DISPERSAL - Species mean dispersal ability (in meters).
-
+ \item SUCCESSION - Species successional preference (early, mid or late).
  }
 }
   \item{parameters_spom}{

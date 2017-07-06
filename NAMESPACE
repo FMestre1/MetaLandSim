@@ -42,9 +42,9 @@ export(addpoints,
 #####################################       
        
 import("tcltk")
+import("igraph")
 
 importFrom("spatstat", as.ppp, nndist, npoints, owin, rSSI, pairdist, coords)
-importFrom("Biobase",openPDF)
 importFrom("raster", raster, contour, as.matrix, image,reclassify,writeRaster, stack)
 importFrom("e1071", allShortestPaths, extractPath)
 importFrom("graphics", symbols, segments, par, lines, plot)
@@ -53,13 +53,13 @@ importFrom("maptools", readShapePoly)
 importFrom("minpack.lm", nls.lm, nls.lm.control, nlsLM, wfct)
 importFrom("rgeos", gCentroid)
 importFrom("sp", select.spatial, SpatialPoints)
-importFrom("stats", rpois,coefficients)
+importFrom("stats", rpois,coefficients, C)
 importFrom("rgrass7", execGRASS, readRAST, initGRASS)
 importFrom("stats", cutree, hclust, dist, sd, binomial, coef, glm, na.omit, rnorm, runif,lm)
 importFrom("fgui", guiGetValue, guiv, guiSet, setListElements)
 importFrom("grDevices", rainbow, dev.new, dev2bitmap)
 importFrom("utils", combn, write.table, packageVersion)
-
+importFrom("zipfR", Igamma)
 
 ################################
 ##          Classes           ##
