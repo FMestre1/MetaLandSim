@@ -1,17 +1,24 @@
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage{Sweave}
+
 \usepackage{float}
 
 \title{Range Expansion Simulation}
-\author{F. Mestre, F. Canovas, R. Pita, A. Mira, P. Beja}
+\author{Mestre, F.; Canovas, F.; Pita, R.; Mira, A.; Beja, P.}
 \date{\today}
 
 %\VignetteIndexEntry{Range Expansion Simulation}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+@
+
 \maketitle
 
 \section{Introduction}
@@ -26,21 +33,24 @@ This is crucial, and can be achieved using the function parameter.estimate. A vi
 \subsection{Simulation of range expansion}
 This is done using the function range.expansion, which will simulate the range expansion into new, empty, landscape mosaics a given (user defined) number of times (defined by parameter 'iter'). This simulation will be carried out for a given time period (defined by the parameter 'tsteps'). The output of this function is a list of four data frames with the result of the occupation of sequences of landscapes in the four cardinal directions.
 
-<<>>=
+<<eval=FALSE>>=
 library(MetaLandSim)
 
 #Load starting landscape (the simulation will assume that 
-#all subsequent landscapes are built with the same parameter combination).
+#all subsequent landscapes are built with the same parameter 
+#combination).
 
 data(rland)
 
-#Create range expansion model. Here run only with two repetitions (iter=2). 
-#Ideally it should be run with more repetitions to provide more robust results.
+#Create range expansion model. Here run only with two repetitions 
+#(iter=2). 
+#Ideally it should be run with more repetitions to provide more 
+#robust results.
 
 data(param1)
 
-rg_exp1 <- range_expansion(rl=rland, percI=50,  param=param1,b=1, tsteps=100, 
-iter=2)
+rg_exp1 <- range_expansion(rl=rland, percI=50,  param=param1,b=1, 
+tsteps=100, iter=2)
 @
 
 The previous range expansion simulation produces a graphic output similar to the following (which opens in a html page):

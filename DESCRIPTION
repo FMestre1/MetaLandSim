@@ -1,14 +1,15 @@
 Package: MetaLandSim
 Type: Package
 Title: Landscape and Range Expansion Simulation
-Version: 0.5.6
-Date: 2017-07-05
+Version: 1.0
+Date: 2017-11-10
 Depends: R (>= 2.10), tcltk, igraph
 Imports: e1071, fgui, grDevices, graphics, googleVis, maptools, rgeos,
-        rgrass7, raster, spatstat, stats, sp, minpack.lm, zipfR
+        rgrass7, raster, spatstat, stats, sp, minpack.lm, zipfR, coda,
+        knitr
 Suggests: rasterVis
-Author: Frederico Mestre, Fernando Canovas, Ricardo Pita, Antonio Mira, Pedro
-    Beja.
+Author: Frederico Mestre, Fernando Canovas, Benjamin Risk, Ricardo Pita, 
+	Antonio Mira, Pedro Beja.
 Maintainer: Frederico Mestre <mestre.frederico@gmail.com>
 Description: Tools to generate random landscape graphs, evaluate species
     occurrence in dynamic landscapes, simulate future landscape occupation and
@@ -16,6 +17,6 @@ Description: Tools to generate random landscape graphs, evaluate species
     result of climate change).
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2017-07-06 10:26:32 UTC; FMest
+Packaged: 2017-12-20 14:50:47 UTC; FMest
 Repository: CRAN
-Date/Publication: 2017-07-06 10:40:30 UTC
+Date/Publication: 2017-12-21 16:52:52 UTC

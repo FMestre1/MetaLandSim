@@ -1,17 +1,24 @@
 \documentclass{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage{Sweave}
+
 \usepackage{float}
 
 \title{Landscape Occupation Simulation in Dynamic Landscapes}
-\author{F. Mestre, F. Canovas, R. Pita, A. Mira, P. Beja}
+\author{Mestre, F.; Canovas, F.; Pita, R.; Mira, A.; Beja, P.}
 \date{\today}
 
 %\VignetteIndexEntry{Landscape Occupation Simulation in Dynamic Landscapes}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+
+<<include=FALSE>>=
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+@
+
 \maketitle
 
 \section{Introduction}
@@ -20,7 +27,7 @@ This vignette explains the process of landscape and metapopulation simulation, u
 
 \section{Landscape Simulation}
 Landscape simulation and dynamics are carried out respectively by the functions rland.graph and span.graph. Both these functions allow a different set of random landscapes (represented as graphs) to be created and to suffer dynamic changes, such as patch loss and habitat loss. In MetaLandSim, a landscape is represented as:
-<<fig=TRUE>>=
+<<>>=
 library(MetaLandSim)
 
 rl <- rland.graph(mapsize = 1000, dist_m = 60, 
@@ -30,7 +37,7 @@ rl <- rland.graph(mapsize = 1000, dist_m = 60,
 
 \section{Occupation Simulation}
 The transition from an occupied landscape in time step t to time step t+1 can be achieved using the spom function, as described by Hanski (1999). This function runs within simulate.graph which sequentially simulates the occupation in a landscape throughout several time steps. The occupation and transition between time steps is carried out, respectively, by the functions 'species.graph' and 'spom', as follows:
-<<fig=TRUE>>=
+<<>>=
 library(MetaLandSim)
 
 #The occupation of a landscape is simulated by:

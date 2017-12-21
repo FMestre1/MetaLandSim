@@ -2,15 +2,22 @@
 ##               Export            ##
 #####################################
 
-export(addpoints,
+export(accept.calculate,
+       addpoints,
+       calcmode,
        cluster.graph,
        cluster.id,
        components.graph,
+       coda.create,
+	   combine.chains,
        convert.graph,
        create.parameter.df,
        edge.graph,
        extract.graph,
        import.shape,
+       ifm.naive.MCMC,
+       ifm.missing.MCMC,
+       ifm.robust.MCMC,
        iterate.graph,
        MetaLandSim.GUI,
        list.stats,
@@ -47,7 +54,7 @@ import("igraph")
 importFrom("spatstat", as.ppp, nndist, npoints, owin, rSSI, pairdist, coords)
 importFrom("raster", raster, contour, as.matrix, image,reclassify,writeRaster, stack)
 importFrom("e1071", allShortestPaths, extractPath)
-importFrom("graphics", symbols, segments, par, lines, plot)
+importFrom("graphics", symbols, segments, par, lines, plot, points, hist)
 importFrom("googleVis", gvisLineChart, gvisMerge)
 importFrom("maptools", readShapePoly)
 importFrom("minpack.lm", nls.lm, nls.lm.control, nlsLM, wfct)
@@ -55,11 +62,12 @@ importFrom("rgeos", gCentroid)
 importFrom("sp", select.spatial, SpatialPoints)
 importFrom("stats", rpois,coefficients, C)
 importFrom("rgrass7", execGRASS, readRAST, initGRASS)
-importFrom("stats", cutree, hclust, dist, sd, binomial, coef, glm, na.omit, rnorm, runif,lm)
+importFrom("stats", cutree, hclust, dist, sd, binomial, coef, glm, na.omit, rnorm, runif,lm, density, rbinom, dbinom)
 importFrom("fgui", guiGetValue, guiv, guiSet, setListElements)
 importFrom("grDevices", rainbow, dev.new, dev2bitmap)
 importFrom("utils", combn, write.table, packageVersion)
 importFrom("zipfR", Igamma)
+importFrom("coda",read.coda, gelman.diag, cumuplot)
 
 ################################
 ##          Classes           ##

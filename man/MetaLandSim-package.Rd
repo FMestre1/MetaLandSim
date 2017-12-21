@@ -16,7 +16,8 @@ MLS operates at two scales, providing researchers with the possibility of:
  \item Range scale - Computes dispersal model and range expansion scenario simulation.
  }
 The landscape unit, an object of class \code{\link{landscape}}, is the basic simulation unit at both these scales. At the landscape scale, the persistence of the metapopulation in a dynamic landscape is evaluated through the simulation of landscape dynamics using the function \code{\link{iterate.graph}} or \code{\link{manage_landscape_sim}}.
-At the range scale the metapopulation is allowed to expand to other, empty, landscape units using \code{\link{range_expansion}}, producing an object of class \code{\link{expansion}}. The function \code{\link{range_raster}} allows the conversion of the dispersal model obtained with the previous function into a raster. Finally, also at the range scale, the user can analyse the outcome of several alternative landscapes in range expansion speed and maximum dispersal distance, using the function \code{\link{manage_expansion_sim}}.\cr\cr
+At the range scale the metapopulation is allowed to expand to other, empty, landscape units using \code{\link{range_expansion}}, producing an object of class \code{\link{expansion}}. The function \code{\link{range_raster}} allows the conversion of the dispersal model obtained with the previous function into a raster. Finally, also at the range scale, the user can analyse the outcome of several alternative landscapes in range expansion speed and maximum dispersal distance, using the function \code{\link{manage_expansion_sim}}.\cr
+Version 1.0 presents new IFM parameter estimation capabilities, based upon Bayesian statistics, using the functions first developed for the paper Risk et al.(2011).\cr\cr
 We thank Dr. Santiago Saura (Universidad Politecnica de Madrid) for the very useful inputs and for the R script which greatly improved the connectivity metrics capabilities of MetaLandSim.\cr \cr
 Reference paper: \href{http://www.sciencedirect.com/science/article/pii/S1364815216300718}{Mestre, F.; Canovas, F.; Pita, R.; Mira, A.; Beja. P. (2016). An R package for simulating metapopulation dynamics and range expansion under environmental change. Environmental Moldelling and Software, 81: 40-44}.
 }
@@ -24,13 +25,13 @@ Reference paper: \href{http://www.sciencedirect.com/science/article/pii/S1364815
 \tabular{ll}{
 Package: \tab MetaLandSim\cr
 Type: \tab Package\cr
-Version: \tab 0.5.6\cr
-Date: \tab 2017-07-05\cr
+Version: \tab 1.0\cr
+Date: \tab 2017-11-10\cr
 License: GPL (>=2)\cr
 }
 }
 \author{
-Frederico Mestre, Fernando Canovas, Ricardo Pita, Antonio Mira and Pedro Beja.
+Frederico Mestre, Fernando Canovas, Benjamin Risk, Ricardo Pita, Antonio Mira and Pedro Beja.
 
 Maintainer: Frederico Mestre <mestre.frederico@gmail.com>
 
@@ -46,11 +47,17 @@ Galpern, P., Manseau, M. and Fall, A. (2011). Patch-based graphs of landscape co
 
 Ims, R.A. (2005). The role of experiments in landscape ecology. In: Wiens, J.A., and Moss, M.R. (eds.). Issues and Perspectives in Landscape Ecology. Cambridge University Press. pp. 70-78.
 
+Mestre, F., Pita, R., Pauperio, J., Martins, F. M., Alves, P. C., Mira, A., & Beja, P. (2015). Combining distribution modelling and non-invasive genetics to improve range shift forecasting. Ecological Modelling, 297, 171-179.
+
+Mestre, F., Risk, B. B., Mira, A., Beja, P., & Pita, R. (2017). A metapopulation approach to predict species range shifts under different climate change and landscape connectivity scenarios. Ecological Modelling, 359, 406-414.
+
 Minor, E. S. and Urban, D. L. (2008). A Graph Theory Framework for Evaluating Landscape Connectivity and Conservation Planning. Conservation Biology, 22(2), 297-307.
 
 Peck, S. L. (2004). Simulation as experiment: a philosophical reassessment for biological modelling. Trends in Ecology & Evolution, 19(10), 530-534.
 
 Ricotta, C., Stanisci, A., Avena, G. C., and Blasi, C. (2000). Quantifying the network connectivity of landscape mosaics: a graph-theoretical approach. Community Ecology, 1(1), 89-94.
+
+Risk, B. B., De Valpine, P., Beissinger, S. R. (2011). A robust design formulation of the incidence function model of metapopulation dynamics applied to two species of rails. Ecology, 92(2), 462-474.
 
 Urban, D. and Keitt, T. (2001). Landscape connectivity: a graph-theoretic perspective. Ecology, 82(5), 1205-1218.
 

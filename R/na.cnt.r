@@ -1,0 +1,1 @@
+na.cnt<-function(data.temp) sum(!is.na(data.temp))

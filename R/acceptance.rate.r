@@ -1,0 +1,1 @@
+acceptance.rate<-function(mcmc.chain) sum(mcmc.chain[2:length(mcmc.chain)]!=mcmc.chain[1:(length(mcmc.chain)-1)])/length(mcmc.chain)

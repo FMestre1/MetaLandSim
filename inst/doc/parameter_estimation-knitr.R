@@ -1,8 +1,17 @@
-### R code from vignette source 'parametrization.Rnw'
+### R code from vignette source 'parameter_estimation-knitr.Rnw'
 ### Encoding: ISO8859-1
 
 ###################################################
-### code chunk number 1: parametrization.Rnw:49-60
+### code chunk number 1: parameter_estimation-knitr.Rnw:14-18
+###################################################
+library(knitr)
+opts_chunk$set(
+concordance=TRUE
+)
+
+
+###################################################
+### code chunk number 2: parameter_estimation-knitr.Rnw:65-77
 ###################################################
 library(MetaLandSim)
 data(occ.landscape)
@@ -13,12 +22,13 @@ param1 <- parameter.estimate (occ.landscape, method='Rsnap_1')
 param1
 
 #Using data with more than one snapshot of the occupancy status
-param2 <- parameter.estimate (occ.landscape2, method='Rsnap_x', nsnap=10)
+param2 <- parameter.estimate (occ.landscape2, method='Rsnap_x', 
+nsnap=10)
 param2
 
 
 ###################################################
-### code chunk number 2: parametrization.Rnw:68-94 (eval = FALSE)
+### code chunk number 3: parameter_estimation-knitr.Rnw:85-112 (eval = FALSE)
 ###################################################
 ## library(MetaLandSim)
 ## data(occ.landscape2)
@@ -32,7 +42,8 @@ param2
 ## #Consider particularly the three step procedure for estimation, 
 ## #using nonlinear regression (Hanski, 1994) to produce priors 
 ## #for the Monte Carlo simulation). In the command line (first put 
-## #the application and the files in a folder with no spaces in the name. 
+## #the application and the files in a folder with no spaces 
+## #in the name. 
 ## #e.g.: 'C:/moilanen/'):
 ## 
 ## #mce.exe inputMCsim.dat inputMCsim
@@ -49,7 +60,7 @@ param2
 
 
 ###################################################
-### code chunk number 3: parametrization.Rnw:103-143 (eval = FALSE)
+### code chunk number 4: parameter_estimation-knitr.Rnw:121-161 (eval = FALSE)
 ###################################################
 ## library(MetaLandSim)
 ## data(occ.landscape2)
