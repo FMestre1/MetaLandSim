@@ -2,16 +2,7 @@
 ### Encoding: ISO8859-1
 
 ###################################################
-### code chunk number 1: range_expansion-knitr.Rnw:15-19
-###################################################
-library(knitr)
-opts_chunk$set(
-concordance=TRUE
-)
-
-
-###################################################
-### code chunk number 2: range_expansion-knitr.Rnw:36-53 (eval = FALSE)
+### code chunk number 1: range_expansion-knitr.Rnw:29-46 (eval = FALSE)
 ###################################################
 ## library(MetaLandSim)
 ## 
@@ -33,7 +24,7 @@ concordance=TRUE
 
 
 ###################################################
-### code chunk number 3: range_expansion-knitr.Rnw:70-89 (eval = FALSE)
+### code chunk number 2: range_expansion-knitr.Rnw:63-82 (eval = FALSE)
 ###################################################
 ## data(rg_exp)
 ## presences <- paste(system.file(package="MetaLandSim"),

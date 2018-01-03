@@ -2,16 +2,7 @@
 ### Encoding: ISO8859-1
 
 ###################################################
-### code chunk number 1: landscape_simulation-knitr.Rnw:15-19
-###################################################
-library(knitr)
-opts_chunk$set(
-concordance=TRUE
-)
-
-
-###################################################
-### code chunk number 2: landscape_simulation-knitr.Rnw:30-35
+### code chunk number 1: landscape_simulation-knitr.Rnw:23-28
 ###################################################
 library(MetaLandSim)
 
@@ -21,7 +12,7 @@ rl <- rland.graph(mapsize = 1000, dist_m = 60,
 
 
 ###################################################
-### code chunk number 3: landscape_simulation-knitr.Rnw:40-47
+### code chunk number 2: landscape_simulation-knitr.Rnw:33-40
 ###################################################
 library(MetaLandSim)
 
@@ -33,7 +24,7 @@ names(sp_t0)
 
 
 ###################################################
-### code chunk number 4: landscape_simulation-knitr.Rnw:53-72
+### code chunk number 3: landscape_simulation-knitr.Rnw:46-65
 ###################################################
 data(param1)
 
@@ -57,7 +48,7 @@ names(sp_t1)
 
 
 ###################################################
-### code chunk number 5: landscape_simulation-knitr.Rnw:81-116
+### code chunk number 4: landscape_simulation-knitr.Rnw:74-109
 ###################################################
 
 #Loading species parameters

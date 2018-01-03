@@ -12,13 +12,6 @@
 
 \begin{document}
 
-<<include=FALSE>>=
-library(knitr)
-opts_chunk$set(
-concordance=TRUE
-)
-@
-
 \maketitle
 
 \section{Introduction}

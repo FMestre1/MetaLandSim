@@ -2,16 +2,7 @@
 ### Encoding: ISO8859-1
 
 ###################################################
-### code chunk number 1: parameter_estimation-knitr.Rnw:14-18
-###################################################
-library(knitr)
-opts_chunk$set(
-concordance=TRUE
-)
-
-
-###################################################
-### code chunk number 2: parameter_estimation-knitr.Rnw:65-77
+### code chunk number 1: parameter_estimation-knitr.Rnw:58-70
 ###################################################
 library(MetaLandSim)
 data(occ.landscape)
@@ -28,7 +19,7 @@ param2
 
 
 ###################################################
-### code chunk number 3: parameter_estimation-knitr.Rnw:85-112 (eval = FALSE)
+### code chunk number 2: parameter_estimation-knitr.Rnw:78-105 (eval = FALSE)
 ###################################################
 ## library(MetaLandSim)
 ## data(occ.landscape2)
@@ -60,7 +51,7 @@ param2
 
 
 ###################################################
-### code chunk number 4: parameter_estimation-knitr.Rnw:121-161 (eval = FALSE)
+### code chunk number 3: parameter_estimation-knitr.Rnw:114-154 (eval = FALSE)
 ###################################################
 ## library(MetaLandSim)
 ## data(occ.landscape2)
