@@ -76,7 +76,7 @@ spom <-
     }
     if(ext == "op2")
     {
-      E <- 1-((-e)/(A^x))
+      E <- 1-exp((-e)/(A^x))
     }
     if(ext == "op3")
     {
@@ -184,7 +184,7 @@ spom <-
       }
       if(ext == "op2")
       {
-        E <- 1-((-e)/(A^x))
+        E <- 1-exp((-e)/(A^x))
       }
       if(ext == "op3")
       {

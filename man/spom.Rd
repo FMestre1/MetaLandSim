@@ -140,7 +140,7 @@ Option 1 (Hanski, 1994, 1999)
 \deqn{E_i=min(1,\frac{e}{A_i^x})}{Ei=min(1,e/Ai^x)}
 
 Option 2 (Hanski and Ovaskainen, 2000 and Ovaskainen and Hanski, 2002)
-\deqn{E_i=1-(\frac{-e}{A_i^x})}{Ei=1-(-e/Ai^x)}
+\deqn{E_i=1-exp(\frac{-e}{A_i^x})}{Ei=1-exp(-e/Ai^x)}
 
 Option 3 (Ovaskainen, 2002)
 \deqn{E_i=min[1,\frac{e}{A_i^x}.(1-C_i)^R]}{Ei=min(1,((e/Ai^x).(1-Ci)^R))}
