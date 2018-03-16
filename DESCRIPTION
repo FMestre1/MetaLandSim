@@ -1,8 +1,8 @@
 Package: MetaLandSim
 Type: Package
 Title: Landscape and Range Expansion Simulation
-Version: 1.0.2
-Date: 2018-03-12
+Version: 1.0.3
+Date: 2018-03-16
 Depends: R (>= 2.10), tcltk, igraph
 Imports: e1071, fgui, grDevices, graphics, googleVis, maptools, rgeos,
         rgrass7, raster, spatstat, stats, sp, minpack.lm, zipfR, coda,
@@ -17,6 +17,6 @@ Description: Tools to generate random landscape graphs, evaluate species
     result of climate change).
 License: GPL (>= 2)
 NeedsCompilation: no
-Packaged: 2018-03-12 16:50:25 UTC; FMest
+Packaged: 2018-03-16 01:17:15 UTC; FMest
 Repository: CRAN
-Date/Publication: 2018-03-12 20:00:04 UTC
+Date/Publication: 2018-03-16 09:27:03 UTC
