@@ -80,7 +80,7 @@ spom <-
     }
     if(ext == "op3")
     {
-      E <- (e/A^x)*(1-C)^R
+      E <- (e/A^x)*(1-C1)^R
       E <- ifelse(E>1, 1, E)
     }
     
@@ -188,7 +188,7 @@ spom <-
       }
       if(ext == "op3")
       {
-        E <- (e/A^x)*(1-C)^R
+        E <- (e/A^x)*(1-C1)^R
         E <- ifelse(E>1, 1, E)
       }
       
