@@ -16,6 +16,11 @@ function(rl)
     names(comb1)[names(comb1)=="V1"] <- "rownames"
     names(comb1)[names(comb1)=="V2"] <- "ID"
     d <- distxy3 < disp
+    d1<-upper.tri(d, diag = FALSE)
+    d2<-d*d1
+    if(sum(d2)==0){
+    stop("There are no edges in this landscape!")
+    }
     ind <- which(d, arr.ind = TRUE, useNames = FALSE)
     rownames(ind) <- c(1:nrow(ind))
     ind <- as.data.frame(ind)
