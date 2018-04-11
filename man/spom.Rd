@@ -100,10 +100,10 @@ where \emph{dij is the distance between patches i and j.}
 
 
 Option 1 (Moilanen, 2004)
-\deqn{S_i=\sum pj.D(d_{ij},\alpha).A_j^b}{Si=sum(pj.D(dij,alpha).Al^j)}
+\deqn{S_i=\sum pj.D(d_{ij},\alpha).A_j^b}{Si=sum(pj.D(dij,alpha).Aj^b)}
 
 Option 2 (Moilanen and Nieminen, 2002)
-\deqn{S_i=A_i^c \sum p_j.D(d_{ij},\alpha).A_j^b}{Si=Ai^c sum(pj.D(dij,alpha).Al^j)}
+\deqn{S_i=A_i^c \sum p_j.D(d_{ij},\alpha).A_j^b}{Si=Ai^c sum(pj.D(dij,alpha).Aj^b)}
 
 where \emph{Ai and Aj are the areas of patches i(focal patch) and j(other patches), respectively; dij is the distance between patches i and j and pj is the occupation status (0/1) of patch j}\cr
 
