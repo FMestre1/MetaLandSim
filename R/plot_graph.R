@@ -41,7 +41,7 @@ function (rl, species, links)
         cores <- vector(length=nrow(dframe))
         for(i in 1:(nrow(dframe)))
           {
-            cores[i] <- ifelse(dframe$species[i] == 0,"grey","green")
+            cores[i] <- ifelse(dframe$species[i] == 0,"red","green")
           }
         plot(dframe[,1], dframe[,2], xlim=c(min(dframe[,1]),min(dframe[,1])+mapsize), ylim=c(min(dframe[,2]),min(dframe[,2])+mapsize),
              pch=20, xlab="X", ylab="Y", col=cores)

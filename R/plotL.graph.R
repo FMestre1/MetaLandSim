@@ -1,9 +1,9 @@
 plotL.graph <-
 function(rl, rlist,nr,species,links,...)
   {
-	if (class(rl)!="landscape") 
+  if (class(rl)!="landscape" & class(rl)!="metapopulation") 
   {
-  stop(paste(rl, " should be an object of class class 'landscape'.", sep=""), call. = FALSE)
+    stop(paste(rl, " should be either, an object of class class 'landscape' or 'metapopulation'.", sep=""), call. = FALSE)
   }
     element <- extract.graph(rl,rlist,nr)
     element1 <- cluster.id(element)
