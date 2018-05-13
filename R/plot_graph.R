@@ -44,9 +44,9 @@ function (rl, species, links)
             cores[i] <- ifelse(dframe$species[i] == 0,"red","green")
           }
         #plot(dframe[,1], dframe[,2], xlim=c(min(dframe[,1]),min(dframe[,1])+mapsize), ylim=c(min(dframe[,2]),min(dframe[,2])+mapsize),
-        #     pch=20, xlab="X", ylab="Y", col=cores)#deleted
+        #     pch=20, xlab="X", ylab="Y", col=cores)
         circ <- symbols(x=dframe[, 1], y=dframe[, 2], circles = dframe[, 4],
-                        bg=cores, fg=cores, inches = FALSE)      }
+                        bg=cores, fg=cores, xlab="X", ylab="Y", inches = FALSE)      }
     if(nrow(rl$nodes.characteristics) > 1)
       { 
         if(links==TRUE)
