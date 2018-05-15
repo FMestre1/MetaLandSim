@@ -1,5 +1,5 @@
 plot_graph <-
-function (rl, species, links)
+function (rl, species=FALSE, links=FALSE)
   {
 	if (class(rl)!="landscape" & class(rl)!="metapopulation") 
   {
