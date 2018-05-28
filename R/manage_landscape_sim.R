@@ -1,5 +1,5 @@
 manage_landscape_sim <-
-  function(par_df,parameters_spom,full.output == FALSE)
+  function(par_df,parameters_spom,full.output = FALSE)
   {
     
     output <- data.frame(matrix(nrow=nrow(par_df),ncol=5))
