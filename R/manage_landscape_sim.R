@@ -1,5 +1,5 @@
 manage_landscape_sim <-
-  function(par_df,parameters_spom)
+  function(par_df,parameters_spom,full.output == FALSE)
   {
     
     output <- data.frame(matrix(nrow=nrow(par_df),ncol=5))
@@ -46,6 +46,12 @@ manage_landscape_sim <-
       output[i,5] <- mean(it$mean_area[,"mean"])
       
       cat("Completed simulation",i," of ",lines_df,"\n")
+      
+      if(full.output == TRUE){
+        dir.create(file.path(getwd(), 'output'), showWarnings = FALSE)
+        save(it1, file = paste('output/','simulation_',i,'.RData', sep=''))
+        message("Saved simulation",i," in the output folder.","\n")
+      }
     }
     
     output2 <- cbind(par_df,output)

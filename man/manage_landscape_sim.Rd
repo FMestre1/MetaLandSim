@@ -7,7 +7,7 @@ Batch landscape simulation
 Runs a series of simulations, using \code{\link{iterate.graph}}, allows changing the simulations parameters in several sequential simulations.
 }
 \usage{
-manage_landscape_sim(par_df, parameters_spom)
+manage_landscape_sim(par_df, parameters_spom,full.output == FALSE)
 }
 \arguments{
   \item{par_df}{
@@ -44,6 +44,9 @@ Arguments data frame to be used by iterate.graph (each row of this data frame is
 }
   \item{parameters_spom}{
 Parameters data frame, as given by \code{\link{parameter.estimate}}.
+}
+  \item{full.output}{
+Creates a folder named 'output' to which it saves the full results of the simulations made with the parameters in each row of 'par_df'. It will generate as many objects as the number of rows in this data frame.    
 }
 }
 \details{
@@ -90,21 +93,21 @@ C1 <- rep("NULL",820)
 C2 <- rep("NULL",820) 
 Z <- rep("NULL",820) 
 R2 <- rep("NULL",820) 
-DISPERSAL2 <- rep(800,820)#mean dispersal ability of the species 
+DISPERSAL2 <- rep(800,820)#mean dispersal ability of the species
+SUCC <- rep("early",820)
 
 
 #Build parameter data frame (keep the order of the parameters):
 simulation <- data.frame(MDST2,NPATCH2,AREA_M2,AREA_SD2,
 MAPSIZE2,SPAN2,ITER2,PAR1_SPAN2,PAR2_SPAN2,PAR3_SPAN2,PAR4_SPAN2,PAR5_SPAN2,
-NSEW_SPECIES2,PARM_SPECIES2,METHOD_SPECIES2,KERN,CONN,COLNZ,EXT,BETA1,B,C1,C2,Z,R2,
-DISPERSAL2)
+NSEW_SPECIES2,PARM_SPECIES2,METHOD_SPECIES2,KERN,CONN,COLNZ,EXT,BETA1,B,C1,C2,Z,R2,DISPERSAL2,SUCC)
 
 
 #Delete vectors used for data frame creation:
 rm('PAR1_SPAN2','PAR2_SPAN2','PAR3_SPAN2','PAR4_SPAN2','PAR5_SPAN2',
 'NSEW_SPECIES2','PARM_SPECIES2','METHOD_SPECIES2','MAPSIZE2','SPAN2','ITER2',
 'NPATCH2','AREA_M2','AREA_SD2','MDST2','KERN','CONN','COLNZ','EXT',
-'BETA1','B','C1','C2','Z','R2','DISPERSAL2')
+'BETA1','B','C1','C2','Z','R2','DISPERSAL2','SUCC')
 
 
 \dontrun{
