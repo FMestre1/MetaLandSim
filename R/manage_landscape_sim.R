@@ -49,7 +49,7 @@ manage_landscape_sim <-
       
       if(full.output == TRUE){
         dir.create(file.path(getwd(), 'output'), showWarnings = FALSE)
-        save(it1, file = paste('output/','simulation_',i,'.RData', sep=''))
+        save(it, file = paste('output/','simulation_',i,'.RData', sep=''))
         message("Saved simulation",i," in the output folder.","\n")
       }
     }
