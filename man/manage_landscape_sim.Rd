@@ -7,7 +7,7 @@ Batch landscape simulation
 Runs a series of simulations, using \code{\link{iterate.graph}}, allows changing the simulations parameters in several sequential simulations.
 }
 \usage{
-manage_landscape_sim(par_df, parameters_spom,full.output == FALSE)
+manage_landscape_sim(par_df, parameters_spom, full.output)
 }
 \arguments{
   \item{par_df}{
