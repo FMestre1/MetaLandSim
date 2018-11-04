@@ -9,7 +9,7 @@ function(rl,mat)
     disp <- rl$dispersal
     if(mat == "euc_distance")
       {
-        result <- pairdist(df1)
+        result <- pairdist(df1[,1:2])
         result <- as.data.frame(result)
         names(result) <- df1$ID
         rownames(result) <- df1$ID
@@ -24,7 +24,7 @@ function(rl,mat)
       }
     if(mat == "centr_distance")
       {
-        result <- pairdist(df1)
+        result <- pairdist(df1[,1:2])
         result <- as.data.frame(result)
         names(result) <- df1$ID
         rownames(result) <- df1$ID
@@ -32,7 +32,7 @@ function(rl,mat)
       }
 	if(mat == "adjacency")
       {
-        df2 <- pairdist(df1) 
+        df2 <- pairdist(df1[,1:2]) 
         df3 <- df2<disp
         df4 <- df3+0
         diag(df4) <- NA
