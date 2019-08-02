@@ -1,7 +1,9 @@
 range_raster <-
 function(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
   {
-    if(class(re.out) != "expansion") stop(paste(re.out, " should be an object of class class 'expansion'", sep=""), call.=FALSE)
+  if (packageVersion("rgrass7") >= "0.2.1") use_sp()
+  
+  if(class(re.out) != "expansion") stop(paste(re.out, " should be an object of class class 'expansion'", sep=""), call.=FALSE)
     
 	if(!is.null(mask.map))
       {

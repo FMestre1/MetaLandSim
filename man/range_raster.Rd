@@ -4,7 +4,7 @@
 Probability of occupancy, dispersal model 
 }
 \description{
-This function intends to create a raster map, estimating probability of occupancy, at a given time step, based on species dispersal and landscape configuration. \code{range_raster} uses the output from \code{\link{range_expansion}} and a raster map with the species current occupancy.
+This function creates the raster map with the expansion simulation, estimating probability of occupancy, at a given time step, based on species dispersal and landscape configuration. \code{range_raster} uses the output from \code{\link{range_expansion}} and a raster map with the species current occupancy.
 }
 \usage{
 range_raster(presences.map, re.out, mask.map=NULL, plot.directions=TRUE)
@@ -53,25 +53,39 @@ This function depends on \href{https://CRAN.R-project.org/package=rgrass7}{rgras
 
 \dontrun{
 
-data(rg_exp)
+#Installing the rgrass7 development version from GitHub (v. 0.2-1)
+#(for now only in GitHub)
+library(devtools)
+install_github("rsbivand/rgrass7")
 
+#Loading required packages
+library(MetaLandSim)
+library(rgrass7)
+
+#Loading the range expansion simulation output and required rasters
+data(rg_exp)
 presences <- system.file("examples/presences.asc", package="MetaLandSim")
 mask <- system.file("examples/landmask.asc", package="MetaLandSim")
 
-require(rgrass7)
+#if (packageVersion("rgrass7") >= "0.2.1") use_sp()
 
-#Initializing a GRASS session in a temporal directory:
+#Initializing a GRASS session in a temporal directory
+#(The user should insert the correct path to the executable GRASS file)
+
 #### Under Linux systems:
 initGRASS("/usr/bin/grass", home=tempdir())
+
 #### Under Windows systems:
-initGRASS("C:/GRASS", home=tempdir())
+initGRASS("C:/Program Files/GRASS GIS 7.6", home=tempdir())
 
-range_raster(presences.map=presences, re.out=rg_exp, mask.map=mask) -> range.map
+range.map <- range_raster(presences.map=presences, re.out=rg_exp, mask.map=mask)
 
+#Ploting the results with the raster package 
 plot(range.map)
 
+#Ploting the results with the rasterVis package 
 require(rasterVis)
-
 levelplot(range.map, contour=TRUE)
+
 }
 }
