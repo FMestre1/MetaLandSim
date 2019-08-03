@@ -67,7 +67,7 @@ data(rg_exp)
 presences <- system.file("examples/presences.asc", package="MetaLandSim")
 mask <- system.file("examples/landmask.asc", package="MetaLandSim")
 
-#if (packageVersion("rgrass7") >= "0.2.1") use_sp()
+if (packageVersion("rgrass7") >= "0.2.1") use_sp()
 
 #Initializing a GRASS session in a temporal directory
 #(The user should insert the correct path to the executable GRASS file)

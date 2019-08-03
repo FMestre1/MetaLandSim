@@ -9,7 +9,7 @@ export(accept.calculate,
        cluster.id,
        components.graph,
        coda.create,
-	     combine.chains,
+       combine.chains,
        convert.graph,
        create.parameter.df,
        edge.graph,
@@ -61,7 +61,7 @@ importFrom("minpack.lm", nls.lm, nls.lm.control, nlsLM, wfct)
 importFrom("rgeos", gCentroid)
 importFrom("sp", select.spatial, SpatialPoints)
 importFrom("stats", rpois,coefficients, C)
-importFrom("rgrass7", execGRASS, readRAST, initGRASS)
+importFrom("rgrass7", execGRASS, readRAST, initGRASS, use_sp)
 importFrom("stats", cutree, hclust, dist, sd, binomial, coef, glm, na.omit, rnorm, runif,lm, density, rbinom, dbinom)
 importFrom("fgui", guiGetValue, guiv, guiSet, setListElements)
 importFrom("grDevices", rainbow, dev.new, dev2bitmap)
