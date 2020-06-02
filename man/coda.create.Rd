@@ -36,6 +36,9 @@ Writes text files to the current working directory or to the path specified with
 Benjamin Risk
 }
 \examples{
+
+\dontrun{
+
 # quick run; actual estimation requires more iterations:
 
 data(simulatedifm)
@@ -55,7 +58,4 @@ inm1 <- ifm.naive.MCMC(niter=myniter,init=init1,z.data =
 coda.create(inm1,"sim_inm1",par.list=list("e.chain","x.chain","alpha.chain",
 "b.chain","y.chain"),niter=myniter,nthin=nthin)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+}

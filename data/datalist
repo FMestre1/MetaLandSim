@@ -7,3 +7,4 @@ param1
 param2
 rg_exp
 rland
+simulatedifm: sim.area sim.det.20 sim.distance z.sim z.sim.20 z.sim.20.fa

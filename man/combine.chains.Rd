@@ -50,7 +50,3 @@ inm2 <- ifm.naive.MCMC(niter=500,init=init1,z.data =
 
 sim.inm=combine.chains(inm1,inm2,nburnin=0,nthin=1)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
