@@ -1,11 +1,11 @@
 Package: MetaLandSim
 Type: Package
 Title: Landscape and Range Expansion Simulation
-Version: 1.0.7
-Date: 2020-06-01
+Version: 1.0.8
+Date: 2020-08-28
 Depends: R (>= 2.10), tcltk, igraph
 Imports: e1071, fgui, grDevices, graphics, googleVis, maptools, rgeos,
-        rgrass7, raster, spatstat, stats, sp, minpack.lm, zipfR, coda,
+        rgrass7, raster, spatstat.core, stats, sp, minpack.lm, zipfR, coda,
         knitr
 Suggests: rasterVis
 Author: Frederico Mestre, Fernando Canovas, Benjamin Risk, Ricardo Pita, 
