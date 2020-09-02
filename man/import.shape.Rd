@@ -4,10 +4,10 @@
 Import a shapefile
 }
 \description{
-Imports a shapefile, converting it to an object of class 'metapopulation'.
+Imports a shapefile, converting it to an object of class 'metapopulation' or 'landscape'.
 }
 \usage{
-import.shape(filename, path, species.col, ID.col, area.col, dispersal)
+import.shape(filename, path, species.col, ID.col, area.col, dispersal, class.landscape=FALSE)
 }
 \arguments{
   \item{filename}{
@@ -30,7 +30,7 @@ Species mean dispersal ability, in meters.
 }
 }
 \value{
-Delivers an object of class 'metapopulation'.
+Delivers an object of class 'metapopulation' or 'landscape'.
 }
 \author{
 Frederico Mestre and Fernando Canovas 

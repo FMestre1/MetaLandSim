@@ -1,5 +1,5 @@
 import.shape <-
-function(filename, path=NULL, species.col, ID.col, area.col, dispersal)
+function(filename, path=NULL, species.col, ID.col, area.col, dispersal, class.landscape=FALSE)
   {
     pathfile <- paste(path, filename,sep="")
     sf <- readShapePoly(pathfile)
@@ -12,5 +12,6 @@ function(filename, path=NULL, species.col, ID.col, area.col, dispersal)
     if(is.character(species.col)) df3 <- cbind(ID, ctr, area, species)
     else df3 <- cbind(ID,ctr,area)
     mapsize <- max(c(max(ctr$x)-min(ctr$x),max(ctr$y)-min(ctr$y)))
-    return(convert.graph(dframe=df3,mapsize,dispersal))
+    if (class.landscape==FALSE) return(convert.graph(dframe=df3,mapsize,dispersal))
+    if (class.landscape==TRUE) return(remove.species(convert.graph(dframe=df3,mapsize,dispersal)))
   }

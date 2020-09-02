@@ -51,7 +51,7 @@ export(accept.calculate,
 import("tcltk")
 import("igraph")
 
-importFrom("spatstat.core", as.ppp, nndist, npoints, owin, rSSI, pairdist, coords)
+importFrom("spatstat", as.ppp, nndist, npoints, owin, rSSI, pairdist, coords)
 importFrom("raster", raster, contour, as.matrix, image,reclassify,writeRaster, stack)
 importFrom("e1071", allShortestPaths, extractPath)
 importFrom("graphics", symbols, segments, par, lines, plot, points, hist)
