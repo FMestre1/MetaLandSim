@@ -7,7 +7,8 @@ Import a shapefile
 Imports a shapefile, converting it to an object of class 'metapopulation' or 'landscape'.
 }
 \usage{
-import.shape(filename, path, species.col, ID.col, area.col, dispersal, class.landscape=FALSE)
+import.shape(filename, path, species.col, ID.col, area.col, dispersal, 
+class.landscape=FALSE)
 }
 \arguments{
   \item{filename}{
@@ -27,6 +28,9 @@ Character vector with the name of the column (in the shapefile) with the patch a
 }
   \item{dispersal}{
 Species mean dispersal ability, in meters.
+}
+  \item{class.landscape}{
+Should the output belong to the class 'metapopulation' or 'landscape'.
 }
 }
 \value{
