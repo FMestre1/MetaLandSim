@@ -51,7 +51,6 @@ export(accept.calculate,
 import("tcltk")
 import("igraph")
 
-importFrom("spatstat", as.ppp, nndist, npoints, owin, rSSI, pairdist, coords)
 importFrom("raster", raster, contour, as.matrix, image,reclassify,writeRaster, stack)
 importFrom("e1071", allShortestPaths, extractPath)
 importFrom("graphics", symbols, segments, par, lines, plot, points, hist)
@@ -76,3 +75,10 @@ importFrom("coda",read.coda, gelman.diag, cumuplot)
 #              "landscape",
 #              "expansion")           
 
+importFrom(spatstat.geom,  as.ppp)
+importFrom(spatstat.geom,  nndist)
+importFrom(spatstat.geom,  npoints)
+importFrom(spatstat.geom,  owin)
+importFrom(spatstat.core,  rSSI)
+importFrom(spatstat.geom,  pairdist)
+importFrom(spatstat.geom,  coords)
