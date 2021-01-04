@@ -67,6 +67,14 @@ importFrom("grDevices", rainbow, dev.new, dev2bitmap)
 importFrom("utils", combn, write.table, packageVersion)
 importFrom("zipfR", Igamma)
 importFrom("coda",read.coda, gelman.diag, cumuplot)
+#
+importFrom(spatstat.geom,  as.ppp)
+importFrom(spatstat.geom,  nndist)
+importFrom(spatstat.geom,  npoints)
+importFrom(spatstat.geom,  owin)
+importFrom(spatstat.core,  rSSI)
+importFrom(spatstat.geom,  pairdist)
+importFrom(spatstat.geom,  coords)
 
 ################################
 ##          Classes           ##
@@ -75,10 +83,4 @@ importFrom("coda",read.coda, gelman.diag, cumuplot)
 #              "landscape",
 #              "expansion")           
 
-importFrom(spatstat.geom,  as.ppp)
-importFrom(spatstat.geom,  nndist)
-importFrom(spatstat.geom,  npoints)
-importFrom(spatstat.geom,  owin)
-importFrom(spatstat.core,  rSSI)
-importFrom(spatstat.geom,  pairdist)
-importFrom(spatstat.geom,  coords)
+
