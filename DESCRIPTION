@@ -14,8 +14,9 @@ Maintainer: Frederico Mestre <mestre.frederico@gmail.com>
 Description: Tools to generate random landscape graphs, evaluate species
     occurrence in dynamic landscapes, simulate future landscape occupation and
     evaluate range expansion when new empty patches are available (e.g. as a
-    result of climate change).
-    Mestre, F., Canovas, F., Pita, R., Mira, A., Beja, P. (2016) <doi:10.1016/j.envsoft.2016.03.007>
-    Mestre, F., Risk, B., Mira, A., Beja, P., Pita, R. (2017) <doi:10.1016/j.ecolmodel.2017.06.013>
-    Mestre, F., Pita, R., Mira, A., Beja, P. (2020) <doi:10.1186/s12898-019-0273-5>
+    result of climate change). References: Mestre, F., Canovas, F., Pita, R., 
+    Mira, A., Beja, P. (2016) <doi:10.1016/j.envsoft.2016.03.007>; Mestre, F., 
+    Risk, B., Mira, A., Beja, P., Pita, R. (2017) 
+    <doi:10.1016/j.ecolmodel.2017.06.013>; Mestre, F., Pita, R., Mira, A., Beja,
+    P. (2020) <doi:10.1186/s12898-019-0273-5>.
 License: GPL (>= 2)
