@@ -19,7 +19,10 @@ The landscape unit, an object of class \code{\link{landscape}}, is the basic sim
 At the range scale the metapopulation is allowed to expand to other, empty, landscape units using \code{\link{range_expansion}}, producing an object of class \code{\link{expansion}}. The function \code{\link{range_raster}} allows the conversion of the dispersal model obtained with the previous function into a raster. Finally, also at the range scale, the user can analyse the outcome of several alternative landscapes in range expansion speed and maximum dispersal distance, using the function \code{\link{manage_expansion_sim}}.\cr
 Since version 1.0 new IFM parameter estimation capabilities are available, which based upon Bayesian statistics, using the functions first developed for the paper Risk et al.(2011).\cr\cr
 We thank Dr. Santiago Saura (Universidad Politecnica de Madrid) for the very useful inputs and for the R script which greatly improved the connectivity metrics capabilities of MetaLandSim.\cr \cr
-Reference paper: \href{http://www.sciencedirect.com/science/article/pii/S1364815216300718}{Mestre, F.; Canovas, F.; Pita, R.; Mira, A.; Beja. P. (2016). An R package for simulating metapopulation dynamics and range expansion under environmental change. Environmental Moldelling and Software, 81: 40-44}.
+Reference papers: 
+\href{https://doi.org/10.1016/j.envsoft.2016.03.007}{Mestre, F., Canovas, F., Pita, R., Mira, A., Beja. P. (2016). An R package for simulating metapopulation dynamics and range expansion under environmental change. Environmental Moldelling and Software, 81: 40-44}.
+\href{https://doi.org/10.1016/j.ecolmodel.2017.06.013}{Mestre, F., Risk, B., Mira, A., Beja, P., Pita, R. (2017). A metapopulation approach to predict species range shifts under different climate change and landscape connectivity scenarios. Ecological Modelling. 359: 406-414}.
+\href{https://doi.org/10.1186/s12898-019-0273-5}{Mestre, F., Pita, R., Mira, A., Beja, P. (2020). Species traits, patch turnover and successional dynamics: When does intermediate disturbance favour metapopulation occupancy?. BMC Ecology.}.
 }
 \details{
 \tabular{ll}{

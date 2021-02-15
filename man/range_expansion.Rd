@@ -52,6 +52,9 @@ Each data frame has the following columns:
 \author{
 Frederico Mestre and Fernando Canovas
 }
+\references{
+Mestre, F., Risk, B., Mira, A., Beja, P., Pita, R. (2016) <doi:10.1016/j.ecolmodel.2017.06.013>
+}
 \note{
 Depending on computing power and number of iterations (parameter 'iter') this function can take from a few hours to several days to run.
 }
