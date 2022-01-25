@@ -46,8 +46,8 @@ export(accept.calculate,
 
 #####################################
 ##              Imports            ##
-#####################################       
-       
+#####################################
+
 import("tcltk")
 import("igraph")
 
@@ -72,7 +72,7 @@ importFrom(spatstat.geom,  as.ppp)
 importFrom(spatstat.geom,  nndist)
 importFrom(spatstat.geom,  npoints)
 importFrom(spatstat.geom,  owin)
-importFrom(spatstat.core,  rSSI)
+importFrom(spatstat.random,  rSSI)
 importFrom(spatstat.geom,  pairdist)
 importFrom(spatstat.geom,  coords)
 
@@ -81,6 +81,6 @@ importFrom(spatstat.geom,  coords)
 ################################
 #exportClasses("metapopulation",
 #              "landscape",
-#              "expansion")           
+#              "expansion")
 
 
