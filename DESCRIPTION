@@ -1,7 +1,7 @@
 Package: MetaLandSim
 Type: Package
 Title: Landscape and Range Expansion Simulation
-Version: 1.0.8
+Version: 1.0.9
 Date: 2021-02-15
 Depends: R (>= 2.10), tcltk, igraph
 Imports: e1071, fgui, grDevices, graphics, googleVis, maptools, rgeos,
