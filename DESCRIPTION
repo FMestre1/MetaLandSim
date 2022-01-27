@@ -5,7 +5,7 @@ Version: 1.0.8
 Date: 2021-02-15
 Depends: R (>= 2.10), tcltk, igraph
 Imports: e1071, fgui, grDevices, graphics, googleVis, maptools, rgeos,
-        rgrass7, raster, spatstat.geom, spatstat.core, stats, sp, minpack.lm, zipfR, coda,
+        rgrass7, raster, spatstat.geom, spatstat.random, stats, sp, minpack.lm, zipfR, coda,
         knitr
 Suggests: rasterVis
 Author: Frederico Mestre, Fernando Canovas, Benjamin Risk, Ricardo Pita, 
