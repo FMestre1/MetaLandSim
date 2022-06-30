@@ -5,7 +5,8 @@ manage_expansion_sim <- function(mapsize, dist_m, areaM, areaSD, Npatch,percI, p
 range_expansion1 <-
 function(rl, percI, param, b, tsteps, iter)
   {
-    if (class(rl) != "landscape")
+    if(!inherits(rl, "landscape"))
+    #if (class(rl) != "landscape")
     {
         stop(paste(rl, " should be an object of class class 'landscape'.", sep = ""), 
             call. = FALSE)

@@ -1,7 +1,8 @@
 plotL.graph <-
 function(rl, rlist,nr,species,links,...)
   {
-  if (class(rl)!="landscape" & class(rl)!="metapopulation") 
+  if(!inherits(rl, "landscape") & !inherits(rl, "metapopulation"))
+  #if (class(rl)!="landscape" & class(rl)!="metapopulation") 
   {
     stop(paste(rl, " should be either, an object of class class 'landscape' or 'metapopulation'.", sep=""), call. = FALSE)
   }

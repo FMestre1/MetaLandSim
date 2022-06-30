@@ -1,7 +1,8 @@
 remove.species <-
 function(sp)
   {
-    if (class(sp)!="metapopulation") 
+  if(!inherits(sp, "metapopulation"))
+    #if (class(sp)!="metapopulation") 
       {
         stop(paste(sp, " should be an object of class class 'metapopulation'.", sep=""), call. = FALSE)
       }

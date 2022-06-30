@@ -1,8 +1,8 @@
 plot_expansion <-
 function(exp)
   {
-  
-     if (class(exp) != "expansion")
+      if(!inherits(exp, "expansion"))
+     #if (class(exp) != "expansion")
     {
         stop(paste(exp, " should be an object of class class 'expansion'.", sep = ""), 
             call. = FALSE)

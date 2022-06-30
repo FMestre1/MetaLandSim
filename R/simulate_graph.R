@@ -3,8 +3,10 @@ simulate_graph <-
             nsew="none", succ="none", param_df,kern, conn, 
             colnz, ext,beta1,b, c1, c2, z, R)
   {
-    if(class(rl)=="landscape" && simulate.start==FALSE) stop("When the object 'rl' is a landscape (class 'landscape')\n the parameter 'simulate.start' must be set to TRUE!")
-    if(class(rl)=="metapopulation" && simulate.start==TRUE) stop("When the object 'rl' is an occupied landscape (class 'metapopulation')\n the parameter 'simulate.start' must be set to FALSE!")
+    if(inherits(rl, "landscape") && simulate.start==FALSE) stop("When the object 'rl' is a landscape (class 'landscape')\n the parameter 'simulate.start' must be set to TRUE!")
+    if(inherits(rl, "metapopulation") && simulate.start==TRUE) stop("When the object 'rl' is an occupied landscape (class 'metapopulation')\n the parameter 'simulate.start' must be set to FALSE!")
+    #if(class(rl)=="landscape" && simulate.start==FALSE) stop("When the object 'rl' is a landscape (class 'landscape')\n the parameter 'simulate.start' must be set to TRUE!")
+    #if(class(rl)=="metapopulation" && simulate.start==TRUE) stop("When the object 'rl' is an occupied landscape (class 'metapopulation')\n the parameter 'simulate.start' must be set to FALSE!")
     
 	span <- length(rlist)
     max_age <- span

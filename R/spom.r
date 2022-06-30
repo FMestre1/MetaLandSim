@@ -1,8 +1,8 @@
 spom <-
   function(sp,kern,conn,colnz,ext,param_df,beta1=NULL,b=1,c1=NULL,c2=NULL,z=NULL,R=NULL,succ="none",max_age=1)
   {
-    
-    if (class(sp)!="metapopulation") 
+    if(!inherits(sp, "metapopulation"))
+    #if (class(sp)!="metapopulation") 
     {
       stop(paste(sp, " should be an object of class class 'metapopulation'.", sep=""), call. = FALSE)
     }

@@ -1,7 +1,8 @@
 span.graph <-
   function (rl, span=100, par1="none", par2=NULL, par3=NULL, par4=NULL, par5=NULL)
   {
-    if (class(rl)!="landscape")
+    if(!inherits(rl, "landscape"))
+    #if(class(rl)!="landscape")
     {
       stop(paste(rl, " should be an object of class class 'landscape'.", sep=""), call. = FALSE)
     }

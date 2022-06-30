@@ -1,8 +1,8 @@
 summary_landscape <-
 function(object)
   {
-  
-  if (class(object)!="landscape") 
+  if(!inherits(object, "landscape"))
+  #if (class(object)!="landscape") 
   {
   stop(paste(object, " should be an object of class class 'landscape'.", sep=""), call. = FALSE)
   }

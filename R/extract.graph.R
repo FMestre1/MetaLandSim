@@ -1,11 +1,13 @@
 extract.graph <-
 function (rl,rlist,nr)
   {
-  if (class(rl)!="landscape" & class(rl)!="metapopulation") 
+  if(!inherits(rl, "landscape") & !inherits(rl, "metapopulation"))
+  #if (class(rl)!="landscape" & class(rl)!="metapopulation") 
   {
     stop(paste(rl, " should be either, an object of class class 'landscape' or 'metapopulation'.", sep=""), call. = FALSE)
   }
-  if(class(rl)=="landscape"){
+  if(inherits(rl, "landscape")){
+  #if(class(rl)=="landscape"){
         mapsize <- rl$mapsize
     dist_m <- rl$minimum.distance
     disp <- rl$dispersal
@@ -19,7 +21,8 @@ function (rl,rlist,nr)
     if(nrow(rl1)==1)rl3 <- rl2
     return(rl3)
 	}
-	if(class(rl)=="metapopulation"){
+  if(inherits(rl, "metapopulation")){
+  #if(class(rl)=="metapopulation"){
 	  mapsize <- rl$mapsize
 	  dist_m <- rl$minimum.distance
 	  disp <- rl$dispersal
@@ -38,7 +41,7 @@ function (rl,rlist,nr)
 	                      nodes.characteristics=rl1)
 	  class(species.out) <- "metapopulation"
 	  
-	  #if(nrow(rl1)>1)rl3 <- cluster.id(rl2)#deve ser 'landscape'?!
+	  #if(nrow(rl1)>1)rl3 <- cluster.id(rl2)
 	  #if(nrow(rl1)==1)rl3 <- rl2
 	  return(species.out)
 	}

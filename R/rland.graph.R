@@ -34,7 +34,7 @@ function(mapsize, dist_m, areaM, areaSD, Npatch, disp, plotG)
     col3 <- merge(rg2, col2, by.x = "clusters", by.y = "V2")
     col4 <- data.frame(col3$x, col3$y, col3$areas_Ha, col3$radius, col3$clusters, col3$col1)
     col5 <- nndist (col4[,1:2])
-	col4 <- cbind(col4,col5)
+	  col4 <- cbind(col4,col5)
     ids <- 1:nrow(col4)
     col4 <- cbind (col4,ids)
     names(col4)[names(col4)=="col3.x"] <- "x"

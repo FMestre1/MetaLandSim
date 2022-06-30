@@ -1,7 +1,8 @@
 range_expansion <-
 function(rl, percI, param, b=1, tsteps, iter)
   {
-    if (class(rl) != "landscape")
+  if(!inherits(rl, "landscape"))  
+  #if (class(rl) != "landscape")
     {
         stop(paste(rl, " should be an object of class class 'landscape'.", sep = ""), 
             call. = FALSE)

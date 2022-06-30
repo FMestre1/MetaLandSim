@@ -1,22 +1,23 @@
 plot_graph <-
 function (rl, species=FALSE, links=FALSE)
   {
-	if (class(rl)!="landscape" & class(rl)!="metapopulation") 
+  if(!inherits(rl, "landscape") & !inherits(rl, "metapopulation"))
+  #if (class(rl)!="landscape" & class(rl)!="metapopulation") 
   {
   stop(paste(rl, " should be either, an object of class class 'landscape' or 'metapopulation'.", sep=""), call. = FALSE)
   }
-    
-	if(class(rl)=="metapopulation" & species==FALSE)
+  if(inherits(rl, "metapopulation") & species==FALSE)  
+	#if(class(rl)=="metapopulation" & species==FALSE)
   {
 	stop("With an object of class 'metapopulation' the 'species' parameter has to be TRUE.\n")
   }
-	
-	if(class(rl)=="metapopulation" & links==TRUE)
+  if(inherits(rl, "metapopulation") & links==TRUE)  
+  #if(class(rl)=="metapopulation" & links==TRUE)
   {
 	stop("With an object of class 'metapopulation' the 'links' parameter has to be FALSE.\n")
   }
-	
-	if(class(rl)=="landscape" & species==TRUE)
+  if(inherits(rl, "landscape") & species==TRUE)  
+  #if(class(rl)=="landscape" & species==TRUE)
   {
 	stop("With an object of class 'landscape' the 'species' parameter has to be FALSE.\n")
   }

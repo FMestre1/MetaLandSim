@@ -188,7 +188,8 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         obj <- ls(globalenv())
         flb <- function(x1) {
             xobj <- get(x1, envir = globalenv())
-            if (class(xobj) == "metapopulation") {
+            if(inherits(xobj, "metapopulation")) {
+            #if (class(xobj) == "metapopulation") {
                 tkinsert(tlb, "end", x1)
                 cbind(xobj$number.patches)
             }
@@ -335,7 +336,8 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         obj <- ls(globalenv())
         flb <- function(x1) {
             xobj <- get(x1, envir = globalenv())
-            if (class(xobj) == "landscape") {
+            if(inherits(xobj, "landscape")) {
+            #if (class(xobj) == "landscape") {
                 tkinsert(tlb, "end", x1)
                 cbind(xobj$number.patches)
             }
@@ -1045,7 +1047,8 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         obj <- ls(globalenv())
         flb <- function(x1) {
             xobj <- get(x1, envir = globalenv())
-            if (class(xobj) == "metapopulation" | class(xobj) == "landscape") {
+            if(inherits(xobj, "metapopulation") | inherits(xobj, "landscape")) {
+            #if (class(xobj) == "metapopulation" | class(xobj) == "landscape") {
                 tkinsert(tlb, "end", x1)
                 cbind(length(xobj))
             }
@@ -1101,7 +1104,8 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         "build" <- function() {
             data1 <- parse(text = tclvalue(multivar))[[1]]
             test.class <- get(tclvalue(multivar), envir = globalenv())
-            if (class(test.class) == "metapopulation") {
+            if(inherits(test.class, "metapopulation")) {
+            #if (class(test.class) == "metapopulation") {
                 data2 <- TRUE
             }
             else data2 <- FALSE
@@ -1270,7 +1274,8 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         obj <- ls(globalenv())
         flb <- function(x1) {
             xobj <- get(x1, envir = globalenv())
-            if (class(xobj) == "expansion") {
+            if(inherits(xobj, "expansion")) {
+            #if (class(xobj) == "expansion") {
                 tkinsert(tlb, "end", x1)
                 cbind(length(xobj))
             }
@@ -1361,7 +1366,8 @@ tkadd(rangeM, "command", label = "Start GRASS session",
         obj <- ls(globalenv())
         flb <- function(x1) {
             xobj <- get(x1, envir = globalenv())
-            if (class(xobj) == "RasterLayer") {
+            if(inherits(xobj, "RasterLayer")) {
+            #if (class(xobj) == "RasterLayer") {
                 tkinsert(tlb, "end", x1)
                 cbind(length(xobj))
             }

@@ -1,7 +1,8 @@
 species.graph <-
   function(rl, method="percentage", parm, nsew="none", plotG=TRUE)
   {
-    if (class(rl)!="landscape") 
+    if(!inherits(rl, "landscape"))
+    #if (class(rl)!="landscape")
     {
       stop(paste(rl, " should be an object of class class 'landscape'.", sep=""), call. = FALSE)
     }

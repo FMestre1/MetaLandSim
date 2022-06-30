@@ -1,7 +1,8 @@
 cluster.id <-
 function (rl)
   {
-  if (class(rl)!="landscape" & class(rl)!="metapopulation") 
+  if(!inherits(rl, "landscape") & !inherits(rl, "metapopulation"))
+  #if (class(rl)!="landscape" & class(rl)!="metapopulation") 
   {
     stop(paste(rl, " should be either, an object of class class 'landscape' or 'metapopulation'.", sep=""), call. = FALSE)
   }
@@ -13,14 +14,16 @@ function (rl)
     disp2 <- rl$dispersal
     rl2 <- rl$nodes.characteristics
     ID2 <- rl2$ID
-    if (class(rl)=="metapopulation")occ <- rl2$species
+    if(inherits(rl, "metapopulation")) occ <- rl2$species
+    #if (class(rl)=="metapopulation") occ <- rl2$species
     rl3 <- rl2[,c(1,2,3,4,8)]
     if(nrow(rl3) >= 2)
       {
         grouping <- hclust(dist(rl3[,1:2], method="euclidean"), "single")
         clusters <- cutree(grouping, h=disp2)
       } else clusters <- 1
-    if(class(rl)=="landscape"){
+    if(inherits(rl, "landscape")) {
+    #if(class(rl)=="landscape"){
     new_2 <- cbind(rl3, clusters)
     col1 <- rainbow(max(new_2[,6]))
     col2 <- as.data.frame(col1)      
@@ -47,7 +50,8 @@ function (rl)
     class(rland.out) <- "landscape" 
     return(rland.out)
     }
-    if(class(rl)=="metapopulation"){
+    if(inherits(rl, "metapopulation")){
+    #if(class(rl)=="metapopulation"){
       
       new_2 <- cbind(rl3, clusters)
       col1 <- rainbow(max(new_2[,6]))

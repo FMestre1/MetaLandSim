@@ -1,8 +1,8 @@
 summary_metapopulation <-
 function(object)
   {
-  
-  if (class(object)!="metapopulation") 
+  if(!inherits(object, "metapopulation"))
+  #if (class(object)!="metapopulation") 
   {
   stop(paste(object, " should be an object of class class 'metapopulation'.", sep=""), call. = FALSE)
   }
