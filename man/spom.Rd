@@ -187,9 +187,6 @@ Shaw, M.W., (1995). Simulation of population expansion and spatial pattern when 
 \author{
 Frederico Mestre and Fernando Canovas
 }
-\note{
-Future versions of the package should include the virtual migration model (Hanski et al. 2000), which allows the estimation of migration related parameters (relevant to the option 2 of connectivity).
-}
 \seealso{
 \code{\link{species.graph}}, \code{\link{simulate_graph}}, \code{\link{iterate.graph}}
 }
