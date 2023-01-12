@@ -8,9 +8,9 @@ Landscape And Range Expansion Simulation
 \description{
 The package MetaLandSim is a simulation environment, allowing the generation of random landscapes, represented as graphs, the simulation of landscape dynamics, metapopulation dynamics and range expansion.\cr
 The package was developed as part of the Ph.D. thesis of Frederico Mestre (SFRH/BD/73768/2010), funded by European Social Funds and the Portuguese Foundation for Science and Technology, and included in the project NETPERSIST (PTDC/AAG-MAA/3227/2012), funded by European Regional Development Fund (ERDF) through COMPETE programme and Portuguese national funds through the Portuguese Foundation for Science and Technology.\cr
-MetaLandSim is intended to provide a virtual environment, enabling the experimentation and simulation of processes at two scales: landscape and range. The simulation approach, taken by MetaLandSim, presents several advantages, like allowing the test of several alternatives and the knowledge of the full system (Peck, 2004; Zurell et al. 2009). The role of simulation in landscape ecology is fundamental due to the spatial and temporal scale of the studied phenomena, which frequently hinders experimentation (Ims, 2005).\cr
+It is intended to provide a virtual environment, enabling the experimentation and simulation of processes at two scales: landscape and range. The simulation approach, taken by MetaLandSim, presents several advantages, like allowing the test of several alternatives and the knowledge of the full system (Peck, 2004; Zurell et al. 2009). The role of simulation in landscape ecology is fundamental due to the spatial and temporal scale of the studied phenomena, which frequently hinders experimentation (Ims, 2005).\cr
 Here, graph and metapopulation theories are combined, which is a broadly accepted strategy to provide a modelling framework for metapopulation dynamics (Cantwell & Forman, 1993; Bunn et al. 2000; Ricotta et al. 2000; Minor & Urban, 2008; Galpern et al. 2011). Also, several graph-based connectivity metrics can be computed from the landscape graphs. This set of metrics have been proven useful elsewhere (Urban & Keitt, 2001; Calabrese & Fagan, 2004). The graph representation of landscape has one major advantage: it effectively summarizes spatial relationships between elements and facilitates a multi-scale analysis integrating patch and landscape level analysis (Calabrese & Fagan, 2004).\cr
-MLS operates at two scales, providing researchers with the possibility of:
+MetaLandSim operates at two scales, providing researchers with the possibility of:
 \itemize{
  \item Landscape scale - Simulation of metapopulation occupation on a dynamic  landscape, computation of connectivity metrics.
  \item Range scale - Computes dispersal model and range expansion scenario simulation.
@@ -19,13 +19,23 @@ The landscape unit, an object of class \code{\link{landscape}}, is the basic sim
 At the range scale the metapopulation is allowed to expand to other, empty, landscape units using \code{\link{range_expansion}}, producing an object of class \code{\link{expansion}}. The function \code{\link{range_raster}} allows the conversion of the dispersal model obtained with the previous function into a raster. Finally, also at the range scale, the user can analyse the outcome of several alternative landscapes in range expansion speed and maximum dispersal distance, using the function \code{\link{manage_expansion_sim}}.\cr
 Since version 1.0 new IFM parameter estimation capabilities are available, which based upon Bayesian statistics, using the functions first developed for the paper Risk et al.(2011).\cr\cr
 We thank Dr. Santiago Saura (Universidad Politecnica de Madrid) for the very useful inputs and for the R script which greatly improved the connectivity metrics capabilities of MetaLandSim.\cr \cr
+After version 2.0.0 MetaLandSim had a few major changes: 1) There is no Graphic User Interface, the 
+user will have to resort solely to the usual R user interface; 2) It does not use GRASS, resorting uniquely to R packages to conduct the simulations (mainly terra); 3) It depends on much less packages 
+(after removing rgrass7, maptools, rgeos, raster, tcltk and fgui); 4) There were some major changes to
+the functions \code{\link{range_raster}} and \code{\link{range_expansion}}. In what concerns
+\code{\link{range_expansion}} the output, rather than considering distinct dispersal probabilities
+in all four cardinal directions (as in previous versions), considers the same probability of dispersal
+from a current presence in all directions. This has implications in the \code{\link{range_raster}}
+function, that converts the dispersal probability to a raster. However, this does not change the results
+in any meaningfull way given that these kinds of simulations require many iterations in which
+the distinctions between the dispersal to all four directions was diluted.
 }
 \details{
 \tabular{ll}{
 Package: \tab MetaLandSim\cr
 Type: \tab Package\cr
-Version: \tab 1.0.5\cr
-Date: \tab 2018-11-04\cr
+Version: \tab 2.0.0\cr
+Date: \tab 2022-01-12\cr
 License: GPL (>=2)\cr
 }
 }

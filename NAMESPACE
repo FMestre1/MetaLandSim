@@ -19,7 +19,6 @@ export(accept.calculate,
        ifm.missing.MCMC,
        ifm.robust.MCMC,
        iterate.graph,
-       MetaLandSim.GUI,
        list.stats,
        manage_landscape_sim,
        manage_expansion_sim,
@@ -48,39 +47,26 @@ export(accept.calculate,
 ##              Imports            ##
 #####################################
 
-import("tcltk")
 import("igraph")
+import("knitr")
 
-importFrom("raster", raster, contour, as.matrix, image,reclassify,writeRaster, stack)
+importFrom("terra", rast, mosaic, contour, as.matrix, image, writeRaster, vect, centroids, crds)
 importFrom("e1071", allShortestPaths, extractPath)
 importFrom("graphics", symbols, segments, par, lines, plot, points, hist)
 importFrom("googleVis", gvisLineChart, gvisMerge)
-importFrom("maptools", readShapePoly)
 importFrom("minpack.lm", nls.lm, nls.lm.control, nlsLM, wfct)
-importFrom("rgeos", gCentroid)
 importFrom("sp", select.spatial, SpatialPoints)
 importFrom("stats", rpois,coefficients, C)
-importFrom("rgrass7", execGRASS, readRAST, initGRASS, use_sp)
 importFrom("stats", cutree, hclust, dist, sd, binomial, coef, glm, na.omit, rnorm, runif,lm, density, rbinom, dbinom)
-importFrom("fgui", guiGetValue, guiv, guiSet, setListElements)
 importFrom("grDevices", rainbow, dev.new, dev2bitmap)
 importFrom("utils", combn, write.table, packageVersion)
 importFrom("zipfR", Igamma)
 importFrom("coda",read.coda, gelman.diag, cumuplot)
-#
-importFrom(spatstat.geom,  as.ppp)
-importFrom(spatstat.geom,  nndist)
-importFrom(spatstat.geom,  npoints)
-importFrom(spatstat.geom,  owin)
-importFrom(spatstat.random,  rSSI)
-importFrom(spatstat.geom,  pairdist)
-importFrom(spatstat.geom,  coords)
 
-################################
-##          Classes           ##
-################################
-#exportClasses("metapopulation",
-#              "landscape",
-#              "expansion")
-
-
+importFrom(spatstat.geom, as.ppp)
+importFrom(spatstat.geom, nndist)
+importFrom(spatstat.geom, npoints)
+importFrom(spatstat.geom, owin)
+importFrom(spatstat.random, rSSI)
+importFrom(spatstat.geom, pairdist)
+importFrom(spatstat.geom, coords)

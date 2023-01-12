@@ -1,32 +1,29 @@
 \name{plot_expansion}
 \alias{plot_expansion}
 \title{
-Graphical display of the expansion
+Graphical display of the expansion simulations
 }
 \description{
-Plots the expansion object.
+Plots the expansion simulations resulting from \code{\link{range_expansion}}.
 }
 \usage{
-plot_expansion(exp)
+plot_expansion(expansion_object)
 }
 \arguments{
-  \item{exp}{
-Object of class 'expansion'.
+  \item{expansion_object}{
+Output of the function range_expansion.
 }
 }
 \value{
-Graphical display of the 'expansion' class.
+Graphical display of the range_expansion simulation results.
 }
 \author{
 Frederico Mestre and Fernando Canovas
-}
-\seealso{
-\code{\link{expansion}}
 }
 \examples{
 
 data(rg_exp)
 
-plot_expansion(exp=rg_exp)
+plot_expansion(exp = rg_exp)
 
 }
