@@ -4,7 +4,7 @@
 
 This package is described in detail in the following publication:
 
-> Mestre, F., Cánovas, F., Pita, R., Mira, A., & Beja, P. (2016). MetaLandSim: An R package for simulating metapopulation dynamics and range expansion under landscape scenarios. *Environmental Modelling & Software*, 75, 402–406. <https://doi.org/10.1016/j.envsoft.2016.03.007>
+> Mestre, F., Cánovas, F., Pita, R., Mira, A., & Beja, P. (2016). An R package for simulating metapopulation dynamics and range expansion under landscape scenarios. *Environmental Modelling & Software*, 75, 402–406. <https://doi.org/10.1016/j.envsoft.2016.03.007>
 
 MetaLandSim is an R package designed to simulate metapopulation dynamics and range expansion within dynamic landscapes. It provides a virtual environment that enables experimentation and simulation of ecological processes at two scales: landscape and range. By integrating concepts from metapopulation and graph theories, MetaLandSim facilitates the modeling of species persistence and dispersal across heterogeneous and changing habitats.
 
