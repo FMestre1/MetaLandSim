@@ -1,0 +1,153 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{float}
+
+\title{Range Expansion Simulation}
+\author{Mestre, F.; Canovas, F.; Pita, R.; Mira, A.; Beja, P.}
+\date{\today}
+
+%\VignetteIndexEntry{Range Expansion Simulation}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Modelling approaches for estimating species ability to track environmental change over large scales may rely on different assumptions regarding the role of dispersal (Barbet-Massin  et al. 2012; Engler et al. 2012; Bateman et al. 2013; Zhou and Kot, 2013): i) The species cannot disperse, thus considering null dispersal ability (which would, in most cases, underestimate the potential future area); ii) Infinite dispersal ability, which means that the species will be able to cope with the shifts of its ecological niche by fully occupying all newly available areas (in most cases, maybe with the exception of highly mobile species, this is an unrealistic assumption which will produce optimistic results); iii) A mean dispersal distance per decade (p.ex.) is defined, considering the ability of the species to disperse (this approach can be a bit arbitrary, if not carefully considered); iv) a dispersal kernel is developed based on a set of species traits (this is a more realistic approach which represents a good compromise between the full dispersal and no-dispersal approaches).
+It is known however that the species ability to disperse depends not only on its own traits but also on the landscape configuration and composition (Nathan et al. 2012).  This package allows a simplified approach to derive a dispersal model from the simulation of range expansion in landscapes with different characteristics, using the function 'range\_expansion'. Similar approaches require parameters about the demographic rates of the species, or other data that, in most cases, are difficult to obtain. This approach might be considered simpler, once it requires data that can be obtained from capture-recapture, telemetry or bibliography (such as dispersal ability) and the information on basic landscape structure, which can be obtained using GIS.
+Furthermore, the function 'range\_raster' allows the projection of the produced dispersal model into the geographical space.
+
+\section{Work-flow}
+\subsection{Parametrization}
+This is crucial, and can be achieved using the function parameter.estimate. A vignette is available, detailing the process, which must be carefully implemented, as this is the process that allows the characterization of the study species and its relation with the landscape.
+
+\subsection{Simulation of range expansion}
+This is done using the function range\_expansion, which will simulate the range expansion into new, empty, landscape mosaics a given (user defined) number of times (defined by parameter 'iter'). This simulation will be carried out for a given time period (defined by the parameter 'tsteps').
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(MetaLandSim)}
+
+\hlcom{#Load starting landscape (the simulation will assume that }
+\hlcom{#all subsequent landscapes are built with the same parameter }
+\hlcom{#combination).}
+
+\hlkwd{data}\hldef{(rland)}
+
+\hlcom{#Create range expansion model. Here run only with two repetitions }
+\hlcom{#(iter=2). }
+\hlcom{#Ideally it should be run with more repetitions to provide more }
+\hlcom{#robust results.}
+
+\hlkwd{data}\hldef{(param1)}
+
+\hldef{rg_exp1} \hlkwb{<-} \hlkwd{range_expansion}\hldef{(}\hlkwc{rl}\hldef{=rland,} \hlkwc{percI}\hldef{=}\hlnum{50}\hldef{,}  \hlkwc{param}\hldef{=param1,}\hlkwc{b}\hldef{=}\hlnum{1}\hldef{,}
+\hlkwc{tsteps}\hldef{=}\hlnum{100}\hldef{,} \hlkwc{iter}\hldef{=}\hlnum{2}\hldef{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+The output represents the probability of occupation of the landscape at a given distance from the closer current species occurrence. This is the dispersal model (DM) produced by MetaLandSim.
+
+\subsection{Conversion of the output to a spatial model}
+The dispersal simulation generated for each time step in the previous section should be converted into a model of species occurrence based only in the dispersal. This is done using the function range\_raster. The output will be a raster file with the dispersal-only occupancy model after a given time period. 
+After MetaLandSim version 2.0.0, the dispersal to every direction (north, south, east and west)was droped. In this version the probability is derived radially from the closest species presence. Considering that these prcedures would be iterated a great number of times, differences in the dispersal probability in any direction would be irrelevant. 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{data}\hldef{(rg_exp)}
+\hldef{presences} \hlkwb{<-} \hlkwd{paste}\hldef{(}\hlkwd{system.file}\hldef{(}\hlkwc{package}\hldef{=}\hlsng{"MetaLandSim"}\hldef{),}
+ \hlsng{"/examples/presences.asc"}\hldef{,} \hlkwc{sep}\hldef{=}\hlsng{""}\hldef{)}
+\hldef{landmask} \hlkwb{<-} \hlkwd{paste}\hldef{(}\hlkwd{system.file}\hldef{(}\hlkwc{package}\hldef{=}\hlsng{"MetaLandSim"}\hldef{),}
+\hlsng{"/examples/landmask.asc"}\hldef{,} \hlkwc{sep}\hldef{=}\hlsng{""}\hldef{)}
+
+\hlcom{#Create raster, using the sample dataset }
+\hlcom{#rg_exp (generated with 100 repetitions)}
+
+\hlcom{#we can load the pre-defined dataset:}
+\hlkwd{data}\hldef{(}\hlsng{"rg_exp"}\hldef{)}
+
+\hlkwd{range_raster}\hldef{(}\hlkwc{presences.map} \hldef{= presences,} \hlkwc{re.out}\hldef{=rg_exp,}
+\hlkwc{mask.map}\hldef{=landmask,} \hlkwc{plot.directions}\hldef{=}\hlnum{FALSE}\hldef{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+By combining the expansion model with the current species occurrences provides a future occurrence model based only on dispersal ability and landscape configuration, such as:
+
+\begin{figure}[H]
+ \centering
+ \includegraphics{rg2}
+\end{figure}
+
+\section{Note}
+The output of these functions is dependent upon species dispersal ability and current distribution. The mask should be chosen carefully, considering biological realism.
+
+\section{References}
+
+\begin{enumerate}
+\item Barbet-Massin, M., Thuiller, W., and Jiguet, F. (2012). The fate of European breeding birds under climate, land-use and dispersal scenarios. Global Change Biology, 18(3), 881-890.
+
+\item Bateman, B. L., Murphy, H. T., Reside, A. E., Mokany, K., and VanDerWal, J. (2013). Appropriateness of full-, partial-and no-dispersal scenarios in climate change impact modelling. Diversity and Distributions, 19(10), 1224-1234.
+
+\item Engler, R., Hordijk, W., and Guisan, A. (2012). The MIGCLIM R package - seamless integration of dispersal constraints into projections of species distribution models. Ecography, 35(10), 872-878.
+
+\item Nathan R, Klein E, Robledo-Arnuncio JJ and Revilla E (2012). Dispersal Kernels: review. In Colbert J, Baguette M, Benton TG and Bullock JM (Eds.). Dispersal Ecology and Evolution. Oxford University Press. Oxford. pp: 187-210.
+
+\item Zhou, Y., and Kot, M. (2013). Life on the Move: Modeling the effects of Climate-Driven Range Shifts with Integrodifference Equations. In: Lewis MA, Maini PK and Petrvoski S. (Eds.). Dispersal, Individual Movement and Spatial Ecology. A Mathematical Perspective. Lecture Notes in Mathematics 2071. Springer-Verlag. Berlin. pp: 263-292. 
+\end{enumerate}
+\end{document}

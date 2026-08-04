@@ -1,4 +1,6 @@
 url: https://fmestre1.github.io/MetaLandSim/
+#template:
+#  bootstrap: 5
 template:
   bootstrap: 5
-
+  bootswatch: darkly
